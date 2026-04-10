@@ -1,4 +1,4 @@
-package edu.at.kolex.fragment;
+package edu.at.kolex.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

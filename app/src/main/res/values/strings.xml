@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KOLEX</string>
+    <string name="login">Login</string>
+    <string name="login_description">Enter your email address and password to log in</string>
+    <string name="login_forgot_password">Forgot password?</string>
+    <string name="login_registration_offer">Don\'t have an account yet?</string>
+    <string name="login_registration_ref">Register</string>
+    <string name="login_or">OR</string>
 </resources>

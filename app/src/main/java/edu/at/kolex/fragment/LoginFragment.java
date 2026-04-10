@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import edu.at.kolex.R;
 import edu.at.kolex.activities.MainActivity;
 import edu.at.kolex.databinding.FragmentLoginBinding;
+import edu.at.kolex.viewmodel.LoginViewModel;
 
 
 public class LoginFragment extends Fragment {
@@ -41,7 +42,6 @@ public class LoginFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         viewModel.getLoginResult().observe(getViewLifecycleOwner(), result -> {
-            binding.progressBar.setVisibility(View.GONE);
 
             if (result.isSuccess()) {
                 startActivity(new Intent(requireContext(), MainActivity.class));
@@ -65,7 +65,6 @@ public class LoginFragment extends Fragment {
                 return;
             }
 
-            binding.progressBar.setVisibility(View.VISIBLE);
             viewModel.login(email, password);
         });
     }
