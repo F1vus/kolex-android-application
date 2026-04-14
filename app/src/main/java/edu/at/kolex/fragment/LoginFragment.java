@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import edu.at.kolex.R;
 import edu.at.kolex.activities.MainActivity;
@@ -24,13 +26,10 @@ public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
     private LoginViewModel viewModel;
 
-    public LoginFragment() {
-        super(R.layout.fragment_login);
-    }
+    public LoginFragment() {}
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -66,6 +65,12 @@ public class LoginFragment extends Fragment {
             }
 
             viewModel.login(email, password);
+        });
+
+        binding.tvRegister.setOnClickListener(v -> {
+            NavController navController =
+                    NavHostFragment.findNavController(LoginFragment.this);
+            navController.navigate(R.id.action_loginFragment_to_registerFragment);
         });
     }
 

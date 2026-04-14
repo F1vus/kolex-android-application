@@ -7,4 +7,8 @@
     <string name="login_registration_offer">Nie masz jeszcze konta?</string>
     <string name="login_registration_ref">Zarejestruj się</string>
     <string name="login_or">LUB</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="register_description">Załóż konto, aby kontynuować!</string>
+    <string name="registration_login_offer">Masz już konto?</string>
+    <string name="registration_login_ref">Załoguj się</string>
 </resources>

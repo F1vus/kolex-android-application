@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EDF1F3"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#EDF1F3">
+    tools:context=".fragment.LoginFragment">
 
     <!-- BACKGROUND -->
     <ImageView
@@ -16,16 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="100sp"-->
-<!--        android:alpha="0.6"-->
-<!--        android:scaleType="centerCrop"-->
-<!--        android:src="@drawable/blur"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <ImageView
         android:layout_width="match_parent"
@@ -77,6 +69,7 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_edittext"
             android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:padding="8dp" />
@@ -88,6 +81,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/rounded_edittext"
             android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             android:hint="Hasło"
             android:inputType="textPassword"
             android:padding="8dp" />
