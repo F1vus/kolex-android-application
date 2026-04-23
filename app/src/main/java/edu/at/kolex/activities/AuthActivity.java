@@ -1,6 +1,8 @@
 package edu.at.kolex.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import edu.at.kolex.R;
+import edu.at.kolex.utils.TokenManager;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -22,5 +25,10 @@ public class AuthActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        if (TokenManager.isLoggedIn(this)) {
+            Log.d("AuthActivity", "User is logged in, forward to MainActivity");
+            startActivity(new Intent(this, MainActivity.class));
+            this.finish();
+        }
     }
 }

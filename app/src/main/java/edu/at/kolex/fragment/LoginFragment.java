@@ -18,27 +18,25 @@ import androidx.navigation.fragment.NavHostFragment;
 import edu.at.kolex.R;
 import edu.at.kolex.activities.MainActivity;
 import edu.at.kolex.databinding.FragmentLoginBinding;
+import edu.at.kolex.utils.ValidationUtils;
 import edu.at.kolex.viewmodel.LoginViewModel;
-
 
 public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private LoginViewModel viewModel;
 
-    public LoginFragment() {}
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentLoginBinding.inflate(inflater, container, false);
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         viewModel.getLoginResult().observe(getViewLifecycleOwner(), result -> {
 
@@ -54,13 +52,13 @@ public class LoginFragment extends Fragment {
             String email = binding.etEmail.getText().toString().trim();
             String password = binding.etPassword.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email)) {
-                binding.etEmail.setError("Podaj email");
+            if (!ValidationUtils.isValidEmail(email)) {
+                binding.etEmail.setError("Incorrect email address");
                 return;
             }
 
             if (TextUtils.isEmpty(password)) {
-                binding.etPassword.setError("Podaj hasło");
+                binding.etPassword.setError("Enter your password");
                 return;
             }
 

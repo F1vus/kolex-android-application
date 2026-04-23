@@ -1,4 +1,4 @@
-package edu.at.kolex.model;
+package edu.at.kolex.model.auth.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

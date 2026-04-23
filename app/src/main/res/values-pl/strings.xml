@@ -11,4 +11,7 @@
     <string name="register_description">Załóż konto, aby kontynuować!</string>
     <string name="registration_login_offer">Masz już konto?</string>
     <string name="registration_login_ref">Załoguj się</string>
+    <string name="enter_password">Hasło</string>
+    <string name="enter_password_confirm">Potwierdź hasło</string>
+    <string name="enter_email">Email</string>
 </resources>

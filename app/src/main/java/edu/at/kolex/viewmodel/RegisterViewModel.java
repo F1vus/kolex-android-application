@@ -1,5 +1,6 @@
 package edu.at.kolex.viewmodel;
 
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -9,37 +10,37 @@ import androidx.lifecycle.MutableLiveData;
 
 import edu.at.kolex.model.auth.AuthResponse;
 import edu.at.kolex.model.auth.AuthResult;
-import edu.at.kolex.model.auth.login.LoginRequest;
+import edu.at.kolex.model.auth.register.RegisterRequest;
 import edu.at.kolex.repository.AuthRepository;
 import edu.at.kolex.utils.TokenManager;
 
-public class LoginViewModel extends AndroidViewModel {
+public class RegisterViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<AuthResult> loginResult;
+    private final MutableLiveData<AuthResult> registerResult;
     private final AuthRepository authRepository;
 
-    public LoginViewModel(@NonNull Application application) {
+    public RegisterViewModel(@NonNull Application application) {
         super(application);
         this.authRepository = AuthRepository.getInstance();
-        loginResult =  new MutableLiveData<>();
+        this.registerResult = new MutableLiveData<>();
     }
 
-    public LiveData<AuthResult> getLoginResult() {
-        return loginResult;
-    }
-
-    public void login(String email, String password) {
-        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
+    public void register(String email, String password, String passwordConfirm) {
+        authRepository.register(new RegisterRequest(email, password, passwordConfirm), new AuthRepository.AuthCallback() {
             @Override
             public void onSuccess(AuthResponse response) {
                 TokenManager.saveToken(getApplication(), response.getToken());
-                loginResult.postValue(new AuthResult(true, "OK", response));
+                registerResult.postValue(new AuthResult(true, "OK", response));
             }
 
             @Override
             public void onError(String message) {
-                loginResult.postValue(new AuthResult(false, message, null));
+                registerResult.postValue(new AuthResult(false, message, null));
             }
         });
+    }
+
+    public LiveData<AuthResult> getRegisterResult() {
+        return registerResult;
     }
 }

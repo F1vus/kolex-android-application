@@ -30,8 +30,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="367dp"
-        android:layout_height="519dp"
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,23 +69,47 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/rounded_edittext"
             android:backgroundTint="@color/white"
-            android:textColor="@color/black"
-            android:hint="Email"
+            android:hint="@string/enter_email"
+            android:textColorHint="@color/black"
             android:inputType="textEmailAddress"
-            android:padding="8dp" />
+            android:padding="14dp"
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/etPassword"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPasswordLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_edittext"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black"
-            android:hint="Hasło"
-            android:inputType="textPassword"
-            android:padding="8dp" />
+            android:hint="@string/enter_password"
+            android:textColorHint="@color/black"
+            app:passwordToggleEnabled="true"
+            android:layout_marginTop="8dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPasswordConfirmLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_password_confirm"
+            android:textColorHint="@color/black"
+            app:passwordToggleEnabled="true"
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPasswordConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:background="@drawable/rounded_edittext"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
@@ -135,12 +159,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:srcCompat="@drawable/google"
             android:text="Continue with Google"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
+            app:cornerRadius="12dp"
 
-            app:cornerRadius="12dp" />
+            app:srcCompat="@drawable/google" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegisterFacebook"
