@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KOLEX</string>
+    <string name="login">Załoguj się</string>
+    <string name="login_description">Wpisz swój adres e-mail i hasło, aby się zalogować</string>
+    <string name="login_forgot_password">Nie pamiętasz hasła?</string>
+    <string name="login_registration_offer">Nie masz jeszcze konta?</string>
+    <string name="login_registration_ref">Zarejestruj się</string>
+    <string name="login_or">LUB</string>
+    <string name="register">Zarejestruj się</string>
+    <string name="register_description">Załóż konto, aby kontynuować!</string>
+    <string name="registration_login_offer">Masz już konto?</string>
+    <string name="registration_login_ref">Załoguj się</string>
+    <string name="enter_password">Hasło</string>
+    <string name="enter_password_confirm">Potwierdź hasło</string>
+    <string name="enter_email">Email</string>
+</resources>
