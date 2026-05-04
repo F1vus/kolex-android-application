@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?><com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvTrainNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IC 1620"
+            android:textStyle="bold"
+            android:textColor="#749E35"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="08:30"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvTrainNumber"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="40dp"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="8dp"
+            android:background="#6C7278"
+            app:layout_constraintBottom_toBottomOf="@id/tvDepTime"
+            app:layout_constraintStart_toEndOf="@id/tvDepTime"
+            app:layout_constraintTop_toTopOf="@id/tvDepTime" />
+
+        <TextView
+            android:id="@+id/tvArrTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="11:45"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/tvDepTime"
+            app:layout_constraintStart_toEndOf="@id/line"
+            app:layout_constraintTop_toTopOf="@id/tvDepTime" />
+
+        <TextView
+            android:id="@+id/tvDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3h 15m"
+            android:textColor="#6C7278"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/tvDepTime"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45.00 PLN"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#BFD200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

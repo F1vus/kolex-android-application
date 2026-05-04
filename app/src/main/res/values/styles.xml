@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppButton">
         <item name="android:layout_width">match_parent</item>
@@ -8,5 +8,42 @@
         <item name="android:textColor">@color/black</item>
 
     </style>
+
+    <style name="BottomNavIndicator" parent="">
+        <item name="android:color">@color/green</item>
+<!--        <item name="android:sha">@style/BottomNavIndicatorShape</item>-->
+    </style>
+
+    <style name="BottomNavIndicatorShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    // Source - https://stackoverflow.com/q/53405483
+    // Posted by AndroidDev, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-04-23, License - CC BY-SA 4.0
+
+    <style name="MyTextInputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="android:textColorHint">@color/whiteGray</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:colorControlActivated">@android:color/black</item>
+        <item name="android:colorControlNormal">@android:color/black</item>
+        <item name="android:colorControlHighlight">@android:color/black</item>
+        <item name="android:backgroundTint">@android:color/black</item>
+        <item name="android:colorAccent">@android:color/black</item>
+    </style>
+
+    <style name="MyTextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:colorBackground">@android:color/black</item>
+        <item name="android:colorControlActivated">@android:color/black</item>
+        <item name="android:colorControlNormal">@android:color/black</item>
+        <item name="android:colorControlHighlight">@android:color/black</item>
+        <item name="android:backgroundTint">@android:color/black</item>
+        <item name="android:colorAccent">@android:color/black</item>
+    </style>
+
 
 </resources>

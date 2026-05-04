@@ -1,0 +1,28 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="edu.at.kolex.fragment.TicketSearchFragment"
+        android:label="Search Trains">
+
+        <action
+            android:id="@+id/action_searchFragment_to_routesFragment"
+            app:destination="@id/routesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/routesFragment"
+        android:name="edu.at.kolex.fragment.RoutesFragment"
+        android:label="Available Routes">
+
+        <argument
+            android:name="departure"
+            app:argType="string" />
+        <argument
+            android:name="arrival"
+            app:argType="string" />
+    </fragment>
+</navigation>
