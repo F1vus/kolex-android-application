@@ -1,12 +1,20 @@
-<resources >
-    <!-- Base application theme. -->
-    <style name="Base.Theme.KOLEX" parent="Theme.Material3.DayNight">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <style name="Base.Theme.KOLEX" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryDark">@color/green</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@color/green</item>
+        <item name="android:navigationBarColor">@color/green</item>
     </style>
 
     <style name="Theme.KOLEX" parent="Base.Theme.KOLEX" />
+
+    <style name="Theme.KOLEX.SearchTicket" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <item name="android:statusBarColor">@color/green</item>
+        <item name="android:navigationBarColor">@color/green</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
 </resources>

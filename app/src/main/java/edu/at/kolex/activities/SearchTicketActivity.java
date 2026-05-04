@@ -3,13 +3,9 @@ package edu.at.kolex.activities;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import edu.at.kolex.R;
@@ -20,37 +16,25 @@ public class SearchTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_search_ticket);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.search_ticket_container), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        // calling the action bar
-        ActionBar actionBar = getSupportActionBar();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // Customize the back button
-        actionBar.setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
+            getSupportActionBar().setTitle("Szukaj biletu");
+        }
 
-        // showing the back button in action bar
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        Fragment route = new RoutesFragment();
-
-        setCurrentFragment(route);
-
+        setCurrentFragment(new RoutesFragment());
     }
 
-    // this event will enable the back
-    // function to the button on press
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -3,6 +3,7 @@ package edu.at.kolex.activities;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -11,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
+import java.util.Optional;
 
 import edu.at.kolex.R;
 import edu.at.kolex.fragment.ProfileFragment;
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ActionBar actionBar = getSupportActionBar();
+        Optional.ofNullable(actionBar).ifPresent(ActionBar::hide);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 

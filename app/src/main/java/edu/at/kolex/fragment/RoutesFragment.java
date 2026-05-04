@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,9 +34,6 @@ public class RoutesFragment extends Fragment {
 
         departure = getArguments() != null ? getArguments().getString("departure") : "N/A";
         arrival = getArguments() != null ? getArguments().getString("arrival") : "N/A";
-
-        TextView title = view.findViewById(R.id.tvRouteTitle);
-        title.setText(departure + " → " + arrival);
 
         RecyclerView rvRoutes = view.findViewById(R.id.rvRoutes);
         rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
