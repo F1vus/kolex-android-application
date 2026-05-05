@@ -27,7 +27,18 @@ public class SearchTicketActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Szukaj biletu");
         }
 
-        setCurrentFragment(new RoutesFragment());
+        String departure = getIntent().getStringExtra("departure");
+        String arrival = getIntent().getStringExtra("arrival");
+
+        RoutesFragment fragment = new RoutesFragment();
+
+        Bundle args = new Bundle();
+        args.putString("departure", departure);
+        args.putString("arrival", arrival);
+
+        fragment.setArguments(args);
+
+        setCurrentFragment(fragment);
     }
 
     @Override

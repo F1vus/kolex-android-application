@@ -21,7 +21,7 @@ public class LoginViewModel extends AndroidViewModel {
     public LoginViewModel(@NonNull Application application) {
         super(application);
         this.authRepository = AuthRepository.getInstance();
-        loginResult =  new MutableLiveData<>();
+        this.loginResult = new MutableLiveData<>();
     }
 
     public LiveData<AuthResult> getLoginResult() {
@@ -29,6 +29,18 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(String email, String password) {
+
+        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
+            loginResult.postValue(new AuthResult(false, "Empty credentials", null));
+            return;
+        }
+
+        TokenManager.saveToken(getApplication(), "temp_token");
+
+        AuthResponse response = new AuthResponse("1", "2", "34", "4");
+        loginResult.postValue(new AuthResult(true, "OK", response));
+
+        /*
         authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
             @Override
             public void onSuccess(AuthResponse response) {
@@ -41,5 +53,6 @@ public class LoginViewModel extends AndroidViewModel {
                 loginResult.postValue(new AuthResult(false, message, null));
             }
         });
+        */
     }
 }

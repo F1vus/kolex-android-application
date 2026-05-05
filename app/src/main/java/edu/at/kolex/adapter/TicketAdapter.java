@@ -40,7 +40,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     @Override
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         Ticket ticket = tickets.get(position);
-        
+
         // Format departure date (LocalDateTime -> formatted strings)
         LocalDateTime departure = ticket.getDepartureDate();
         if (departure != null) {
@@ -55,17 +55,17 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
             holder.tvDepartureDate.setText("");
             holder.tvDepartureTime.setText("");
         }
-        
+
         // Station information
         holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : "Stop " + ticket.getStartStopNumber());
         holder.tvEndStation.setText(ticket.getEndStation() != null ? ticket.getEndStation() : "Stop " + ticket.getEndStopNumber());
-        
-    // Price
-    holder.tvSeatId.setText(ticket.getTicketPrice() != null ? String.format("%s PLN", ticket.getTicketPrice()) : "- PLN");
-        
-    // Ticket ID (reference) - guard against null id
-    holder.tvTicketId.setText("Ticket #" + (ticket.getTicketId() != null ? ticket.getTicketId() : ""));
-        
+
+        // Price
+        holder.tvSeatId.setText(ticket.getTicketPrice() != null ? String.format("%s PLN", ticket.getTicketPrice()) : "- PLN");
+        // Ticket ID (reference) - guard against null id
+
+        holder.tvTicketId.setText("Ticket #" + (ticket.getTicketId() != null ? ticket.getTicketId() : ""));
+
         // Train number if available
         if (ticket.getTrainNumber() != null) {
             holder.tvTrainNumber.setText(ticket.getTrainNumber());
@@ -73,7 +73,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         } else {
             holder.tvTrainNumber.setVisibility(View.GONE);
         }
-        
+
         holder.itemView.setOnClickListener(v -> listener.onTicketClick(ticket));
     }
 

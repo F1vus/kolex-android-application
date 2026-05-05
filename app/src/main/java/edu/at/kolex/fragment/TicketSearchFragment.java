@@ -28,16 +28,18 @@ public class TicketSearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.btnSearch.setOnClickListener(v -> {
+
             String departure = binding.etDeparture.getText().toString().trim();
             String arrival = binding.etArrival.getText().toString().trim();
 
             if (validate(departure, arrival)) {
-                // 1. Create the bundle with your parameters
-                Bundle bundle = new Bundle();
-                bundle.putString("departure", departure);
-                bundle.putString("arrival", arrival);
 
-                startActivity(new Intent(this.getActivity(), SearchTicketActivity.class));
+                Intent intent = new Intent(requireContext(), SearchTicketActivity.class);
+
+                intent.putExtra("departure", departure);
+                intent.putExtra("arrival", arrival);
+
+                startActivity(intent);
             }
         });
     }
@@ -51,7 +53,10 @@ public class TicketSearchFragment extends Fragment {
         } else {
             binding.etDepartureLayout.setError(null);
         }
-
+        Intent intent = new Intent(requireContext(), SearchTicketActivity.class);
+        intent.putExtra("departure", dep);
+        intent.putExtra("arrival", arr);
+        startActivity(intent);
         if (arr.isEmpty()) {
             binding.etArrivalLayout.setError("Enter arrival station");
             isValid = false;

@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class Route {
-    private final String trainNumber;
-    private final String departureTime;
-    private final String arrivalTime;
-    private final String duration;
-    private final String price;
+    private  String trainNumber;
+    private  String departureTime;
+    private  String arrivalTime;
+    private  String duration;
+    private  String price;
 }

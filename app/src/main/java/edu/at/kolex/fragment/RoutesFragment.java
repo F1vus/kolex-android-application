@@ -1,5 +1,6 @@
 package edu.at.kolex.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.at.kolex.R;
+import edu.at.kolex.activities.MainActivity;
 import edu.at.kolex.adapter.RouteAdapter;
 import edu.at.kolex.model.Route;
+import edu.at.kolex.activities.TicketDetailsActivity;
 
 public class RoutesFragment extends Fragment {
 
@@ -36,12 +39,18 @@ public class RoutesFragment extends Fragment {
         arrival = getArguments() != null ? getArguments().getString("arrival") : "N/A";
 
         RecyclerView rvRoutes = view.findViewById(R.id.rvRoutes);
-        rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRoutes.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        // Setup Adapter with Mock Data
         RouteAdapter adapter = new RouteAdapter(getMockRoutes(), route -> {
             Toast.makeText(getContext(), "Selected: " + route.getTrainNumber(), Toast.LENGTH_SHORT).show();
-            // TODO: Navigation to RouteDetailsFragment
+            Intent intent = new Intent(getContext(), TicketDetailsActivity.class);
+
+            intent.putExtra("trainNumber", route.getTrainNumber());
+            intent.putExtra("arrivalTime", route.getArrivalTime());
+            intent.putExtra("price", route.getPrice());
+            intent.putExtra("duration", route.getDuration());
+
+            startActivity(intent);
         });
         rvRoutes.setAdapter(adapter);
     }
