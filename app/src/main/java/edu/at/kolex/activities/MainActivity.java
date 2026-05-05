@@ -1,5 +1,6 @@
 package edu.at.kolex.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setBackgroundColor(getResources().getColor(R.color.green));
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
@@ -59,22 +61,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
-//        BottomNavigationView bottomNav =
-//                findViewById(R.id.bottomNavigationView);
-//
-//        NavHostFragment navHostFragment =
-//                (NavHostFragment) getSupportFragmentManager()
-//                        .findFragmentById(R.id.nav_host_fragment);
-//
-//        NavController navController =
-//                navHostFragment.getNavController();
-//
-//        NavigationUI.setupWithNavController(
-//                bottomNav,
-//                navController
-//        );
-//    }
 
     private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
