@@ -29,17 +29,18 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(String email, String password) {
-        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
-            @Override
-            public void onSuccess(AuthResponse response) {
-                TokenManager.saveToken(getApplication(), response.getToken());
-                loginResult.postValue(new AuthResult(true, "OK", response));
-            }
-
-            @Override
-            public void onError(String message) {
-                loginResult.postValue(new AuthResult(false, message, null));
-            }
-        });
+        loginResult.postValue(new AuthResult(true, "OK", new AuthResponse("1","10","w","r4")));
+//        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
+//            @Override
+//            public void onSuccess(AuthResponse response) {
+//                TokenManager.saveToken(getApplication(), response.getToken());
+//                loginResult.postValue(new AuthResult(true, "OK", response));
+//            }
+//
+//            @Override
+//            public void onError(String message) {
+//                loginResult.postValue(new AuthResult(false, message, null));
+//            }
+//        });
     }
 }

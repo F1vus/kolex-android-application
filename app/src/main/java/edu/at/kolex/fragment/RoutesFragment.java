@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,10 +18,9 @@ import java.util.List;
 import edu.at.kolex.R;
 import edu.at.kolex.adapter.RouteAdapter;
 import edu.at.kolex.model.Route;
+import edu.at.kolex.model.Ticket;
 
 public class RoutesFragment extends Fragment {
-
-    private String departure, arrival;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,29 +29,31 @@ public class RoutesFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-        departure = getArguments() != null ? getArguments().getString("departure") : "N/A";
-        arrival = getArguments() != null ? getArguments().getString("arrival") : "N/A";
+        RecyclerView rv = view.findViewById(R.id.rvRoutes);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        RecyclerView rvRoutes = view.findViewById(R.id.rvRoutes);
-        rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
+        RouteAdapter adapter = new RouteAdapter(getRoutes(), route -> {
 
-        // Setup Adapter with Mock Data
-        RouteAdapter adapter = new RouteAdapter(getMockRoutes(), route -> {
-            Toast.makeText(getContext(), "Selected: " + route.getTrainNumber(), Toast.LENGTH_SHORT).show();
-            // TODO: Navigation to RouteDetailsFragment
+            Ticket ticket = new Ticket(
+                    route.getTrainNumber(),
+                    route.getPrice()
+            );
+
+            Bundle b = new Bundle();
+            b.putSerializable("ticket", ticket);
+
+            Navigation.findNavController(view)
+                    .navigate(R.id.action_routesFragment_to_ticketDetailsFragment, b);
         });
-        rvRoutes.setAdapter(adapter);
+
+        rv.setAdapter(adapter);
     }
 
-    private List<Route> getMockRoutes() {
+    private List<Route> getRoutes() {
         List<Route> list = new ArrayList<>();
-        list.add(new Route("IC 1620", "08:15", "10:30", "2h 15m", "49.00 PLN"));
-        list.add(new Route("TLK 3512", "11:00", "14:20", "3h 20m", "35.50 PLN"));
-        list.add(new Route("EIP 1004", "13:45", "15:30", "1h 45m", "120.00 PLN"));
-        list.add(new Route("IC 4500", "16:20", "19:05", "2h 45m", "52.00 PLN"));
-        list.add(new Route("TLK 2100", "20:00", "23:40", "3h 40m", "29.99 PLN"));
+        list.add(new Route("IC 100", "08:00", "10:00", "2h", "50 PLN"));
+        list.add(new Route("TLK 200", "09:00", "12:00", "3h", "40 PLN"));
         return list;
     }
 }

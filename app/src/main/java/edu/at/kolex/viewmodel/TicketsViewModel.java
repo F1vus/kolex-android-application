@@ -1,5 +1,7 @@
 package edu.at.kolex.viewmodel;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -138,9 +140,9 @@ public class TicketsViewModel extends ViewModel {
     private void loadMockProfileTickets(Long profileId) {
         isLoadingLiveData.setValue(true);
         // Simulate network delay
-        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
             try {
-                List<Ticket> mockTickets = TicketMockData.getMockTicketsByProfile(profileId);
+                List<Ticket> mockTickets = TicketMockData.getMockTickets();
                 ticketsLiveData.setValue(mockTickets);
                 errorLiveData.setValue(null);
             } catch (Exception e) {

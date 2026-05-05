@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_main"
@@ -21,8 +22,29 @@
         <argument
             android:name="departure"
             app:argType="string" />
+
         <argument
             android:name="arrival"
             app:argType="string" />
+
+        <action
+            android:id="@+id/action_routesFragment_to_ticketDetailsFragment"
+            app:destination="@id/ticketDetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/ticketDetailsFragment"
+        android:name="edu.at.kolex.fragment.TicketDetailsFragment"
+        android:label="Ticket Details">
+
+        <action
+            android:id="@+id/action_ticketDetailsFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="edu.at.kolex.fragment.PaymentFragment"
+        android:label="Payment" />
+
 </navigation>

@@ -1,39 +1,61 @@
 package edu.at.kolex.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@AllArgsConstructor
 public class Ticket implements Serializable {
+
     private Long ticketId;
     private LocalDateTime departureDate;
-    private String ticketPrice;
+    private String price;
     private Long travelId;
-    private Long profileId;
-    private Integer startStopNumber;
-    private Integer endStopNumber;
-    private LocalDateTime ticketCreatedAt;
-    
-    // Additional fields for display purposes
+    private Integer startStop;
+    private Integer endStop;
+    private LocalDateTime createdAt;
+    private String trainNumber;
     private String startStation;
     private String endStation;
-    private String trainNumber;
+    private Long profileId;
 
-    // Constructor for basic ticket info
-    public Ticket(Long ticketId, LocalDateTime departureDate, String ticketPrice, 
-                  Long travelId, Integer startStopNumber, Integer endStopNumber,
-                  LocalDateTime ticketCreatedAt) {
+    public Ticket(String price,
+                  String trainNumber) {
+
         this.ticketId = ticketId;
         this.departureDate = departureDate;
-        this.ticketPrice = ticketPrice;
+        this.price = price;
         this.travelId = travelId;
-        this.startStopNumber = startStopNumber;
-        this.endStopNumber = endStopNumber;
-        this.ticketCreatedAt = ticketCreatedAt;
+        this.startStop = startStop;
+        this.endStop = endStop;
+        this.createdAt = createdAt;
+        this.trainNumber = trainNumber;
+        this.startStation = startStation;
+        this.endStation = endStation;
+    }
+
+    public Long getTicketId() { return ticketId; }
+    public LocalDateTime getDepartureDate() { return departureDate; }
+    public String getPrice() { return price; }
+    public Long getTravelId() { return travelId; }
+    public Integer getStartStop() { return startStop; }
+    public Integer getEndStop() { return endStop; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getTrainNumber() { return trainNumber; }
+    public String getStartStation() { return startStation; }
+    public String getEndStation() { return endStation; }
+
+    public void setProfileId(Long profileId) {
+        this.profileId = profileId;
+    }
+
+    public void setStartStation(String startStation) {
+        this.startStation = startStation;
+    }
+
+    public void setEndStation(String endStation) {
+        this.endStation = endStation;
+    }
+
+    public void setTrainNumber(String trainNumber) {
+        this.trainNumber = trainNumber;
     }
 }
