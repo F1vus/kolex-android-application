@@ -1,12 +1,12 @@
 package edu.at.kolex.model.auth;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Getter
 public class AuthResult {
-    private final boolean success;
-    private final String message;
-    private final AuthResponse response;
+    private boolean success;
+    private String message;
+    private AuthResponse response;
 }

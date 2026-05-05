@@ -23,8 +23,6 @@ public class SearchTicketActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
-            getSupportActionBar().setTitle("Szukaj biletu");
         }
 
         setCurrentFragment(new RoutesFragment());
