@@ -163,8 +163,7 @@
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
             app:cornerRadius="12dp"
-
-            app:srcCompat="@drawable/google" />
+            android:drawableLeft="@drawable/google" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegisterFacebook"
@@ -174,7 +173,8 @@
             android:text="Continue with Facebook"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
-            app:cornerRadius="12dp" />
+            app:cornerRadius="12dp"
+            android:drawableLeft="@drawable/facebook" />
 
     </LinearLayout>
 
