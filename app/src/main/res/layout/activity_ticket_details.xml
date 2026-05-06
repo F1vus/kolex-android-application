@@ -10,8 +10,11 @@
         android:id="@+id/tvTrain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Train"
-        android:textSize="20sp"/>
+        android:text="IC 1620"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="12dp"/>
 
     <TextView
         android:id="@+id/tvFrom"
@@ -26,15 +29,73 @@
         android:text="To"/>
 
     <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price"/>
-
-    <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Date"/>
+        android:text="Date: 12.06.2026"
+        android:textSize="14sp"
+        android:textColor="#888"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- NOWE INFO -->
+
+    <TextView
+        android:id="@+id/tvWagon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wagon: 5"
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/tvSeat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Miejsce: 12A"
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/tvClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Klasa: 2"
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/tvLuggage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bagaż: 1x do 20kg"
+        android:textSize="16sp"
+        android:textColor="#333"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- CENA -->
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="49.00 PLN"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#8BC34A"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- PRZYCISK -->
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dalej"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#8BC34A"
+        android:padding="12dp"/>
 
 </LinearLayout>

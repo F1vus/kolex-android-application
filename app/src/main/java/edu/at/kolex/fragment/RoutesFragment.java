@@ -1,6 +1,5 @@
 package edu.at.kolex.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,51 +16,77 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.at.kolex.R;
-import edu.at.kolex.activities.MainActivity;
 import edu.at.kolex.adapter.RouteAdapter;
 import edu.at.kolex.model.Route;
-import edu.at.kolex.activities.TicketDetailsActivity;
 
 public class RoutesFragment extends Fragment {
 
     private String departure, arrival;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         return inflater.inflate(R.layout.fragment_routes, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(
+            @NonNull View view,
+            @Nullable Bundle savedInstanceState
+    ) {
         super.onViewCreated(view, savedInstanceState);
 
-        departure = getArguments() != null ? getArguments().getString("departure") : "N/A";
-        arrival = getArguments() != null ? getArguments().getString("arrival") : "N/A";
+        departure = getArguments() != null
+                ? getArguments().getString("departure")
+                : "N/A";
+
+        arrival = getArguments() != null
+                ? getArguments().getString("arrival")
+                : "N/A";
 
         RecyclerView rvRoutes = view.findViewById(R.id.rvRoutes);
         rvRoutes.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         RouteAdapter adapter = new RouteAdapter(getMockRoutes(), route -> {
-            Toast.makeText(getContext(), "Selected: " + route.getTrainNumber(), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getContext(), TicketDetailsActivity.class);
 
-            intent.putExtra("trainNumber", route.getTrainNumber());
-            intent.putExtra("arrivalTime", route.getArrivalTime());
-            intent.putExtra("price", route.getPrice());
-            intent.putExtra("duration", route.getDuration());
+            Toast.makeText(
+                    requireContext(),
+                    "Selected: " + route.getTrainNumber(),
+                    Toast.LENGTH_SHORT
+            ).show();
 
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString("trainNumber", route.getTrainNumber());
+            bundle.putString("arrivalTime", route.getArrivalTime());
+            bundle.putString("price", route.getPrice());
+            bundle.putString("duration", route.getDuration());
+
+            TicketDetailsFragment fragment = new TicketDetailsFragment();
+            fragment.setArguments(bundle);
+
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, fragment)
+                    .addToBackStack(null)
+                    .commit();
         });
+
         rvRoutes.setAdapter(adapter);
     }
 
     private List<Route> getMockRoutes() {
         List<Route> list = new ArrayList<>();
+
         list.add(new Route("IC 1620", "08:15", "10:30", "2h 15m", "49.00 PLN"));
         list.add(new Route("TLK 3512", "11:00", "14:20", "3h 20m", "35.50 PLN"));
         list.add(new Route("EIP 1004", "13:45", "15:30", "1h 45m", "120.00 PLN"));
         list.add(new Route("IC 4500", "16:20", "19:05", "2h 45m", "52.00 PLN"));
         list.add(new Route("TLK 2100", "20:00", "23:40", "3h 40m", "29.99 PLN"));
+
         return list;
     }
 }
