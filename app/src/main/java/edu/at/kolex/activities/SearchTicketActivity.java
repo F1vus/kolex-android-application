@@ -1,5 +1,6 @@
 package edu.at.kolex.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -7,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import java.time.LocalDateTime;
 
 import edu.at.kolex.R;
 import edu.at.kolex.fragment.RoutesFragment;
@@ -23,11 +26,31 @@ public class SearchTicketActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.outline_arrow_back_24);
-            getSupportActionBar().setTitle("Szukaj biletu");
         }
 
-        setCurrentFragment(new RoutesFragment());
+        RoutesFragment fragment = getRoutesFragment();
+
+        setCurrentFragment(fragment);
+    }
+
+    @NonNull
+    private RoutesFragment getRoutesFragment() {
+        Intent intent = getIntent();
+
+        String departure = intent.getStringExtra("departure");
+        String arrival = intent.getStringExtra("arrival");
+
+        LocalDateTime dateTime =
+                (LocalDateTime) intent.getSerializableExtra("date_and_time");
+
+        Bundle bundle = new Bundle();
+        bundle.putString("departure", departure);
+        bundle.putString("arrival", arrival);
+        bundle.putSerializable("date_and_time", dateTime);
+
+        RoutesFragment fragment = new RoutesFragment();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override

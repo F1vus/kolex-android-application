@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import edu.at.kolex.model.auth.AuthResponse;
 import edu.at.kolex.model.auth.AuthResult;
-import edu.at.kolex.model.auth.login.LoginRequest;
 import edu.at.kolex.repository.AuthRepository;
 import edu.at.kolex.utils.TokenManager;
 
@@ -29,17 +28,22 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public void login(String email, String password) {
-        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
-            @Override
-            public void onSuccess(AuthResponse response) {
-                TokenManager.saveToken(getApplication(), response.getToken());
-                loginResult.postValue(new AuthResult(true, "OK", response));
-            }
+        AuthResponse mockResponse = new AuthResponse("1","2","3","$");
+        AuthResult mockResult = new AuthResult(true, "OK", mockResponse);
 
-            @Override
-            public void onError(String message) {
-                loginResult.postValue(new AuthResult(false, message, null));
-            }
-        });
+        TokenManager.saveToken(getApplication(), mockResponse.getToken());
+        loginResult.postValue(mockResult);
+//        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
+//            @Override
+//            public void onSuccess(AuthResponse response) {
+//                TokenManager.saveToken(getApplication(), response.getToken());
+//                loginResult.postValue(new AuthResult(true, "OK", response));
+//            }
+//
+//            @Override
+//            public void onError(String message) {
+//                loginResult.postValue(new AuthResult(false, message, null));
+//            }
+//        });
     }
 }
