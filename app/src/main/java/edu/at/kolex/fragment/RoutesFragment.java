@@ -54,14 +54,19 @@ public class RoutesFragment extends Fragment {
 
             Toast.makeText(
                     requireContext(),
-                    "Selected: " + route.getTrainNumber(),
+                    route.getTrainNumber(),
                     Toast.LENGTH_SHORT
             ).show();
 
+            // 👉 PRZEJŚCIE DO FRAGMENTU SZCZEGÓŁÓW
+
             Bundle bundle = new Bundle();
             bundle.putString("trainNumber", route.getTrainNumber());
-            bundle.putString("arrivalTime", route.getArrivalTime());
+            bundle.putString("from", departure);
+            bundle.putString("to", arrival);
             bundle.putString("price", route.getPrice());
+            bundle.putString("departureTime", route.getDepartureTime());
+            bundle.putString("arrivalTime", route.getArrivalTime());
             bundle.putString("duration", route.getDuration());
 
             TicketDetailsFragment fragment = new TicketDetailsFragment();

@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import edu.at.kolex.R;
 
@@ -21,6 +22,13 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+
+        Toolbar toolbar = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar);
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
         tvTrain = findViewById(R.id.tvPaymentTrain);
         tvRoute = findViewById(R.id.tvPaymentRoute);
@@ -39,7 +47,11 @@ public class PaymentActivity extends AppCompatActivity {
         tvPrice.setText(price != null ? price : "-");
 
         btnPay.setOnClickListener(v -> {
-            Toast.makeText(PaymentActivity.this, "Płatność zakończona ✔", Toast.LENGTH_SHORT).show();
+            Toast.makeText(
+                    PaymentActivity.this,
+                    "Płatność zakończona ✔",
+                    Toast.LENGTH_SHORT
+            ).show();
         });
     }
 }
