@@ -53,7 +53,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
             tvTrainNumber = itemView.findViewById(R.id.tvTrainNumber);
             tvDepTime = itemView.findViewById(R.id.tvDepTime);
             tvArrTime = itemView.findViewById(R.id.tvArrTime);
-            tvDuration = itemView.findViewById(R.id.tvDuration);
+            tvDuration = itemView.findViewById(R.id.tvTrain);
             tvPrice = itemView.findViewById(R.id.tvPrice);
         }
     }
