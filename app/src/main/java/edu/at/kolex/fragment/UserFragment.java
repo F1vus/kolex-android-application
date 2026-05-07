@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import edu.at.kolex.activities.AuthActivity;
 import edu.at.kolex.activities.ProfilesActivity;
 import edu.at.kolex.databinding.FragmentUserBinding;
+import edu.at.kolex.model.User;
+import edu.at.kolex.repository.UserRepository;
 import edu.at.kolex.utils.TokenManager;
 
 public class UserFragment extends Fragment {
@@ -28,7 +30,7 @@ public class UserFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //loadUserData();
+        loadUserData();
 
         binding.btnChangePersonalData.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), ProfilesActivity.class);
@@ -43,27 +45,27 @@ public class UserFragment extends Fragment {
         });
     }
 
-//    private void loadUserData() {
-//        ProfileRepository.getInstance().getUserProfiles(new ProfileRepository.ProfileListCallback() {
-//            @Override
-//            public void onSuccess(List<ProfileDTO> profiles) {
-//                if (isAdded() && !profiles.isEmpty()) {
-//                    // Display the first profile's email as the main account
-//                    binding.tvUserEmail.setText(profiles.get(0).getEmail());
-//                }
-//            }
-//
-//            @Override
-//            public void onError(String message) {
-//                // Keep default layout text
-//            }
-//        });
-//    }
+    private void loadUserData() {
+        UserRepository.getInstance().getUser(new UserRepository.GetUserCallback() {
+            @Override
+            public void onSuccess(User user) {
+                if (isAdded() && user != null) {
+                    // Display the first profile's email as the main account
+                    binding.tvUserEmail.setText(user.getEmail());
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                // Keep default layout text
+            }
+        });
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-       // loadUserData();
+        loadUserData();
     }
 
     @Override

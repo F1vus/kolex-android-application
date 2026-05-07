@@ -8,18 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 import edu.at.kolex.R;
-import edu.at.kolex.model.ProfileDTO;
+import edu.at.kolex.model.Profile;
 
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileViewHolder> {
 
-    private final List<ProfileDTO> profiles;
+    private final List<Profile> profiles;
     private final OnProfileClickListener listener;
 
     public interface OnProfileClickListener {
-        void onProfileClick(ProfileDTO profile);
+        void onProfileClick(Profile profile);
     }
 
-    public ProfileAdapter(List<ProfileDTO> profiles, OnProfileClickListener listener) {
+    public ProfileAdapter(List<Profile> profiles, OnProfileClickListener listener) {
         this.profiles = profiles;
         this.listener = listener;
     }
@@ -33,7 +33,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
 
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
-        ProfileDTO profile = profiles.get(position);
+        Profile profile = profiles.get(position);
         holder.tvProfileName.setText(profile.getFirstName() + " " + profile.getLastName());
         holder.itemView.setOnClickListener(v -> listener.onProfileClick(profile));
     }
@@ -43,7 +43,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileV
         return profiles.size();
     }
 
-    public void updateProfiles(List<ProfileDTO> newProfiles) {
+    public void updateProfiles(List<Profile> newProfiles) {
         this.profiles.clear();
         this.profiles.addAll(newProfiles);
         notifyDataSetChanged();

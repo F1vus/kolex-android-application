@@ -17,6 +17,20 @@
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/outline_arrow_back_ios_24" />
 
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/editToolbar"
+        app:layout_constraintEnd_toEndOf="@id/editToolbar"
+        app:layout_constraintTop_toTopOf="@id/editToolbar"
+        app:tint="#FF4444" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,10 +40,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etFirstNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Imię"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Imię">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFirstName"
@@ -40,11 +54,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etLastNameLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Nazwisko"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Nazwisko">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLastName"
@@ -58,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="ZAPISZ ZMIANY"
+            android:text="ZAPISZ"
             android:textStyle="bold"
             app:backgroundTint="#749E35"
             app:cornerRadius="12dp" />

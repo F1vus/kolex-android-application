@@ -10,7 +10,7 @@ import edu.at.kolex.R;
 import edu.at.kolex.adapter.ProfileAdapter;
 import edu.at.kolex.databinding.ActivityProfilesBinding;
 import edu.at.kolex.fragment.EditProfileFragment;
-import edu.at.kolex.model.ProfileDTO;
+import edu.at.kolex.model.Profile;
 import edu.at.kolex.viewmodel.ProfilesViewModel;
 
 public class ProfilesActivity extends AppCompatActivity implements ProfileAdapter.OnProfileClickListener {
@@ -18,7 +18,6 @@ public class ProfilesActivity extends AppCompatActivity implements ProfileAdapte
     private ActivityProfilesBinding binding;
     private ProfileAdapter adapter;
     private ProfilesViewModel viewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,15 @@ public class ProfilesActivity extends AppCompatActivity implements ProfileAdapte
 
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
+        binding.fabAddProfile.setOnClickListener(v -> {
+            // Open EditProfileFragment in "create mode" (no profile passed)
+            EditProfileFragment fragment = EditProfileFragment.newInstance(null);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, fragment)
+                    .addToBackStack("create_profile")
+                    .commit();
+        });
+
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 viewModel.loadProfiles();
@@ -52,7 +60,7 @@ public class ProfilesActivity extends AppCompatActivity implements ProfileAdapte
     }
 
     @Override
-    public void onProfileClick(ProfileDTO profile) {
+    public void onProfileClick(Profile profile) {
         EditProfileFragment fragment = EditProfileFragment.newInstance(profile);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)

@@ -8,18 +8,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import edu.at.kolex.databinding.FragmentEditProfileBinding;
-import edu.at.kolex.model.ProfileDTO;
-import edu.at.kolex.repository.UserRepository;
+import edu.at.kolex.model.Profile;
+import edu.at.kolex.viewmodel.ProfilesViewModel;
 
 public class EditProfileFragment extends Fragment {
 
     private static final String ARG_PROFILE = "profile";
-    private FragmentEditProfileBinding binding;
-    private ProfileDTO profile;
-    private UserRepository repository;
 
-    public static EditProfileFragment newInstance(ProfileDTO profile) {
+    private FragmentEditProfileBinding binding;
+    private Profile profile;
+    private ProfilesViewModel viewModel;
+
+    public static EditProfileFragment newInstance(Profile profile) {
         EditProfileFragment fragment = new EditProfileFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PROFILE, profile);
@@ -30,15 +33,19 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            profile = (ProfileDTO) getArguments().getSerializable(ARG_PROFILE);
+            profile = (Profile) getArguments().getSerializable(ARG_PROFILE);
         }
-        repository = UserRepository.getInstance();
+
+        viewModel = new ViewModelProvider(this).get(ProfilesViewModel.class);
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentEditProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -46,15 +53,46 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
         if (profile != null) {
             binding.etFirstName.setText(profile.getFirstName());
             binding.etLastName.setText(profile.getLastName());
+            binding.btnDelete.setVisibility(View.VISIBLE);
+            binding.editToolbar.setTitle("Edytuj Profil");
+        } else {
+            binding.btnDelete.setVisibility(View.GONE);
+            binding.editToolbar.setTitle("Dodaj Profil");
         }
 
-        binding.editToolbar.setNavigationOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
+        binding.editToolbar.setNavigationOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().popBackStack()
+        );
 
         binding.btnSave.setOnClickListener(v -> saveChanges());
+        binding.btnDelete.setOnClickListener(v -> deleteProfile());
+
+        observeViewModel();
+    }
+
+    private void observeViewModel() {
+        viewModel.getLoading().observe(getViewLifecycleOwner(), isLoading -> {
+            binding.editProgressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+            binding.btnSave.setEnabled(!isLoading);
+            binding.btnDelete.setEnabled(!isLoading);
+        });
+
+        viewModel.getError().observe(getViewLifecycleOwner(), message -> {
+            if (message != null) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        viewModel.getSuccessMessage().observe(getViewLifecycleOwner(), message -> {
+            if (message != null) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
     }
 
     private void saveChanges() {
@@ -62,35 +100,16 @@ public class EditProfileFragment extends Fragment {
         String lastName = binding.etLastName.getText().toString().trim();
 
         if (firstName.isEmpty() || lastName.isEmpty()) {
-            Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Pola nie mogą być puste", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        profile.setFirstName(firstName);
-        profile.setLastName(lastName);
+        viewModel.saveProfile(profile, firstName, lastName);
+    }
 
-        binding.editProgressBar.setVisibility(View.VISIBLE);
-        binding.btnSave.setEnabled(false);
-
-        repository.updateProfile(profile, new UserRepository.ProfileUpdateCallback() {
-            @Override
-            public void onSuccess(ProfileDTO updatedProfile) {
-                if (isAdded()) {
-                    binding.editProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                }
-            }
-
-            @Override
-            public void onError(String message) {
-                if (isAdded()) {
-                    binding.editProgressBar.setVisibility(View.GONE);
-                    binding.btnSave.setEnabled(true);
-                    Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    private void deleteProfile() {
+        if (profile == null || profile.getId() == null) return;
+        viewModel.deleteProfile(profile.getId());
     }
 
     @Override

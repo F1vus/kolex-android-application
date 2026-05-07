@@ -1,15 +1,19 @@
 package edu.at.kolex.model;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
-public class Route {
-    private final String trainNumber;
-    private final String departureTime;
-    private final String arrivalTime;
-    private final String duration;
-    private final String price;
+@ToString
+public class Route implements Serializable {
+    private Long travelId;
+    private String trainName;
+    private String fromStationName;
+    private String toStationName;
+    private String actualDeparture;
+    private Double price;
 }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfileDTO implements Serializable {
+public class Profile implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
