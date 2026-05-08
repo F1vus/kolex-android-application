@@ -17,7 +17,7 @@ import java.util.Optional;
 
 import edu.at.kolex.R;
 import edu.at.kolex.fragment.UserFragment;
-import edu.at.kolex.fragment.TicketSearchFragment;
+import edu.at.kolex.fragment.TravelSearchFragment;
 import edu.at.kolex.fragment.TicketsFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Only set initial fragment if this is a fresh launch
         if (savedInstanceState == null) {
-            setCurrentFragment(new TicketSearchFragment());
+            setCurrentFragment(new TravelSearchFragment());
             bottomNavigationView.setSelectedItemId(R.id.search);
         }
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
 
             if (itemId == R.id.search) {
-                selectedFragment = new TicketSearchFragment();
+                selectedFragment = new TravelSearchFragment();
             } else if (itemId == R.id.profile) {
                 selectedFragment = new UserFragment();
             } else if (itemId == R.id.tickets) {

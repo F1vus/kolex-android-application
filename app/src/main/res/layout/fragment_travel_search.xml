@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E8ECEF"
-    tools:context=".fragment.TicketSearchFragment">
+    tools:context=".fragment.TravelSearchFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/halfGuideline"
@@ -82,12 +82,14 @@
             app:startIconDrawable="@drawable/departure"
             app:startIconTintMode="multiply">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/etDeparture"
                 android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:paddingStart="45dp"
-                android:inputType="text" />
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:completionThreshold="1"
+                android:dropDownHeight="wrap_content"
+                android:paddingStart="45dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -103,12 +105,14 @@
             app:startIconDrawable="@drawable/arrive"
             app:startIconTintMode="multiply">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/etArrival"
                 android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:paddingStart="45dp"
-                android:inputType="text" />
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:completionThreshold="1"
+                android:dropDownHeight="wrap_content"
+                android:paddingStart="45dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

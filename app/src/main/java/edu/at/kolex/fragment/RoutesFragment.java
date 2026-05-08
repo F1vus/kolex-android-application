@@ -34,7 +34,7 @@ public class RoutesFragment extends Fragment {
     private TextView tvStatusTitle, tvStatusSubtitle;
     private Button btnRetry;
     private RouteAdapter adapter;
-    private String fromId, toId;
+    private Long fromId, toId;
     private LocalDateTime dateAndTimeSearchTrain;
 
     @Override
@@ -46,8 +46,8 @@ public class RoutesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fromId = getArguments() != null ? getArguments().getString("departure", "") : "";
-        toId = getArguments() != null ? getArguments().getString("arrival", "") : "";
+        fromId = getArguments() != null ? getArguments().getLong("departure_id", 0L) : 0L;
+        toId = getArguments() != null ? getArguments().getLong("arrival_id", 0L) : 0L;
 
         if (getArguments() != null) {
             dateAndTimeSearchTrain = (LocalDateTime) getArguments().getSerializable("date_and_time");
@@ -82,9 +82,7 @@ public class RoutesFragment extends Fragment {
 
     private void searchRoutes() {
         setUiState(true, false, false);
-
-        Long fromId = Long.parseLong(this.fromId);
-        Long toId = Long.parseLong(this.toId);
+        
         Log.v("RoutesFragment", "FromId: "+fromId+" toId: "+toId);
 
         TravelRepository.getInstance().searchTrains(fromId, toId, dateAndTimeSearchTrain, new TravelRepository.TravelCallback() {
