@@ -41,12 +41,11 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
         Route route = routes.get(position);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        holder.tvTrainNumber.setText(route.getTrainName() != null ? route.getTrainName() : "-");
-        holder.tvFromStation.setText(route.getFromStationName() != null ? route.getFromStationName() : "-");
-        holder.tvToStation.setText(route.getToStationName() != null ? route.getToStationName() : "-");
-        holder.tvDepTime.setText(formatDeparture(route.getActualDeparture()));
-
+       // holder.tvTrainNumber.setText(route.getTrainName() != null ? route.getTrainName() : "-");
+        holder.tvDepTime.setText(LocalDateTime.parse(route.getActualDeparture()).format(formatter));
+        holder.tvArrTime.setText(LocalDateTime.parse(route.getActualArrival()).format(formatter));
         holder.tvPrice.setText(
                 route.getPrice() != null
                         ? String.format(Locale.getDefault(), "%.2f PLN", route.getPrice())
@@ -81,15 +80,14 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
     }
 
     static class RouteViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTrainNumber, tvDepTime, tvFromStation, tvToStation, tvPrice;
+        TextView tvTrainNumber, tvDepTime, tvArrTime,tvPrice;
 
         public RouteViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTrainNumber = itemView.findViewById(R.id.tvTrainNumber);
+           // tvTrainNumber = itemView.findViewById(R.id.tvTrainNumber);
             tvDepTime = itemView.findViewById(R.id.tvDepTime);
-            tvFromStation = itemView.findViewById(R.id.tvFromStation);
-            tvToStation = itemView.findViewById(R.id.tvToStation);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvPrice = itemView.findViewById(R.id.tvPriceBox);
+            tvArrTime = itemView.findViewById(R.id.tvArrTime);
         }
     }
 }

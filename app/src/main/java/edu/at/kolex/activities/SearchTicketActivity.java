@@ -37,15 +37,15 @@ public class SearchTicketActivity extends AppCompatActivity {
     private RoutesFragment getRoutesFragment() {
         Intent intent = getIntent();
 
-        String departure = intent.getStringExtra("departure");
-        String arrival = intent.getStringExtra("arrival");
+        long departure = intent.getLongExtra("departure_id", 0L);
+        long arrival = intent.getLongExtra("arrival_id", 0L);
 
         LocalDateTime dateTime =
                 (LocalDateTime) intent.getSerializableExtra("date_and_time");
 
         Bundle bundle = new Bundle();
-        bundle.putString("departure", departure);
-        bundle.putString("arrival", arrival);
+        bundle.putLong("departure_id", departure);
+        bundle.putLong("arrival_id", arrival);
         bundle.putSerializable("date_and_time", dateTime);
 
         RoutesFragment fragment = new RoutesFragment();

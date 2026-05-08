@@ -10,10 +10,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Route implements Serializable {
-    private Long travelId;
-    private String trainName;
-    private String fromStationName;
-    private String toStationName;
-    private String actualDeparture;
-    private Double price;
+    private final Long travelId;
+    private final String trainName;
+    private final String fromStationName;
+    private final String toStationName;
+    private final String actualDeparture;
+    private final String  actualArrival;
+    private final String duration;
+    private final Double price;
 }

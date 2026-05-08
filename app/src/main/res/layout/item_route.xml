@@ -2,130 +2,125 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="8dp"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="4dp"
-    app:strokeColor="#E3E7EB"
-    app:strokeWidth="1dp"
-    app:cardUseCompatPadding="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:layout_height="110dp"
+    android:layout_marginHorizontal="18dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="4dp"
+    app:cardBackgroundColor="#F8F8F8"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvTrainNumber"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="IC 1620"
-            android:textColor="#1F2937"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintStart_toStartOf="parent"
+
+        <View
+            android:id="@+id/statusBar"
+            android:layout_width="16dp"
+            android:layout_height="0dp"
+            android:background="#8BC34A"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tvPrice"
-            app:layout_constraintHorizontal_bias="0" />
-
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="45.00 PLN"
-            android:textColor="#749E35"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/tvDepartureLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:text="Departure"
-            android:textColor="#6C7278"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTrainNumber" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
             android:id="@+id/tvDepTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="08:30"
-            android:textColor="#111827"
-            android:textSize="22sp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:text="12:00"
+            android:textColor="#3A3A3A"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDepartureLabel" />
+            app:layout_constraintStart_toEndOf="@id/statusBar"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:id="@+id/tvFromLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="From"
-            android:textColor="#6C7278"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/tvDepartureLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="44dp"/>
-
-        <TextView
-            android:id="@+id/tvFromStation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Warszawa Centralna"
-            android:textColor="#111827"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/tvFromLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <!-- LINIA -->
 
         <View
-            android:id="@+id/routeLine"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="#D1D5DB"
-            app:layout_constraintTop_toBottomOf="@id/tvFromStation"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:id="@+id/line"
+            android:layout_width="42dp"
+            android:layout_height="2dp"
+            android:background="#92AF57"
+            app:layout_constraintStart_toEndOf="@id/tvDepTime"
+            app:layout_constraintEnd_toStartOf="@id/tvArrTime"
+            app:layout_constraintTop_toTopOf="@id/tvDepTime"
+            app:layout_constraintBottom_toBottomOf="@id/tvDepTime"/>
+
+        <!-- GODZINA KONIEC -->
 
         <TextView
-            android:id="@+id/tvToLabel"
+            android:id="@+id/tvArrTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="To"
-            android:textColor="#6C7278"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/routeLine"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginEnd="22dp"
+            android:text="13:30"
+            android:textColor="#3A3A3A"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/tvPriceBox"
+            app:layout_constraintTop_toTopOf="@id/tvDepTime"/>
+
+        <!-- DATA LEWA -->
 
         <TextView
-            android:id="@+id/tvToStation"
-            android:layout_width="0dp"
+            android:id="@+id/tvDateLeft"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kraków Główny"
-            android:textColor="#111827"
-            android:textSize="15sp"
+            android:layout_marginTop="6dp"
+            android:text="Marzec,\n13 piątek"
+            android:textColor="#9A9A9A"
+            android:textSize="11sp"
+            android:lineSpacingExtra="1dp"
+            app:layout_constraintStart_toStartOf="@id/tvDepTime"
+            app:layout_constraintTop_toBottomOf="@id/tvDepTime"/>
+
+        <!-- DATA PRAWA -->
+
+        <TextView
+            android:id="@+id/tvDateRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marzec,\n13 piątek"
+            android:textAlignment="textEnd"
+            android:textColor="#9A9A9A"
+            android:textSize="11sp"
+            android:lineSpacingExtra="1dp"
+            app:layout_constraintEnd_toEndOf="@id/tvArrTime"
+            app:layout_constraintTop_toTopOf="@id/tvDateLeft"/>
+
+        <!-- KUP BILET -->
+
+        <TextView
+            android:id="@+id/tvBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Kup bilet"
+            android:textColor="#444444"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintTop_toBottomOf="@id/tvToLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvDepTime"/>
+
+        <TextView
+            android:id="@+id/tvPriceBox"
+            android:layout_width="52dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="12dp"
+            android:background="#8BC34A"
+            android:gravity="center"
+            android:text="16,99"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvBuy"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

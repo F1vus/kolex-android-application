@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="edu.at.kolex.fragment.TicketSearchFragment"
+        android:name="edu.at.kolex.fragment.TravelSearchFragment"
         android:label="Search Trains">
 
         <action
