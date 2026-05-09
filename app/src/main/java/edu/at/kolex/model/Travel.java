@@ -15,7 +15,9 @@ public class Travel implements Serializable {
     private final String fromStationName;
     private final String toStationName;
     private final String actualDeparture;
-    private final String  actualArrival;
+    private final String actualArrival;
     private final String duration;
     private final Double price;
+    private final Integer travelStopNumberFrom;
+    private final Integer travelStopNumberTo;
 }
