@@ -58,10 +58,8 @@ public class EditProfileFragment extends Fragment {
             binding.etFirstName.setText(profile.getFirstName());
             binding.etLastName.setText(profile.getLastName());
             binding.btnDelete.setVisibility(View.VISIBLE);
-            binding.editToolbar.setTitle("Edytuj Profil");
         } else {
             binding.btnDelete.setVisibility(View.GONE);
-            binding.editToolbar.setTitle("Dodaj Profil");
         }
 
         binding.editToolbar.setNavigationOnClickListener(v ->
