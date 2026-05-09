@@ -24,15 +24,15 @@ import java.util.Locale;
 
 import edu.at.kolex.R;
 import edu.at.kolex.adapter.StopSegmentAdapter;
-import edu.at.kolex.model.Route;
+import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.TravelStop;
 import edu.at.kolex.repository.TravelRepository;
 
 public class ConnectionDetailsFragment extends Fragment {
 
-    private static final String ARG_ROUTE = "route";
+    private static final String ARG_TRAVEL = "travel";
 
-    private Route route;
+    private Travel travel;
 
     private RecyclerView rvSegments;
     private ProgressBar progressBar;
@@ -41,9 +41,9 @@ public class ConnectionDetailsFragment extends Fragment {
     private Button btnRetry, btnContinue;
     private StopSegmentAdapter adapter;
 
-    public static ConnectionDetailsFragment newInstance(Route route) {
+    public static ConnectionDetailsFragment newInstance(Travel travel) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_ROUTE, route);
+        args.putSerializable(ARG_TRAVEL, travel);
         ConnectionDetailsFragment f = new ConnectionDetailsFragment();
         f.setArguments(args);
         return f;
@@ -53,7 +53,7 @@ public class ConnectionDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            route = (Route) getArguments().getSerializable(ARG_ROUTE);
+            travel = (Travel) getArguments().getSerializable(ARG_TRAVEL);
         }
     }
 
@@ -78,14 +78,14 @@ public class ConnectionDetailsFragment extends Fragment {
         btnRetry = view.findViewById(R.id.btnRetryDetails);
         btnContinue = view.findViewById(R.id.btnContinue);
 
-        if (route != null && route.getPrice() != null) {
+        if (travel != null && travel.getPrice() != null) {
             Locale pl = new Locale("pl", "PL");
             tvTotalPrice.setText(String.format(pl,
-                    "Cena biletu: %.2f zł", route.getPrice()));
+                    "Cena biletu: %.2f zł", travel.getPrice()));
         }
 
-        if (route != null) {
-            LocalDateTime dep = LocalDateTime.parse(route.getActualDeparture());
+        if (travel != null) {
+            LocalDateTime dep = LocalDateTime.parse(travel.getActualDeparture());
             tvTripDate.setText(dep.format(
                     DateTimeFormatter.ofPattern("EEEE, d MMMM",
                             new Locale("pl", "PL"))));
@@ -104,11 +104,11 @@ public class ConnectionDetailsFragment extends Fragment {
     }
 
     private void loadStops() {
-        if (route == null) return;
+        if (travel == null) return;
         setUiState(true, false, false);
 
         TravelRepository.getInstance().getStopsByTravelId(
-                route.getTravelId(),
+                travel.getTravelId(),
                 new TravelRepository.StopsCallback() {
 
                     @Override
@@ -142,42 +142,36 @@ public class ConnectionDetailsFragment extends Fragment {
                 });
     }
 
-    /**
-     * Zamienia listę przystanków na segmenty (pary sąsiednich przystanków)
-     * wyłącznie między travelStopNumberFrom a travelStopNumberTo.
-     */
     private List<StopSegmentAdapter.Segment> buildSegments(
             List<TravelStop> allStops) {
 
         List<StopSegmentAdapter.Segment> result = new ArrayList<>();
-        if (allStops == null || allStops.isEmpty() || route == null) return result;
+        if (allStops == null || allStops.isEmpty() || travel == null) return result;
 
         TravelStop fromStop = null;
         for (TravelStop s : allStops) {
-            if (s.getStopNumber() == route.getTravelStopNumberFrom()) {
+            if (s.getStopNumber() == travel.getTravelStopNumberFrom()) {
                 fromStop = s;
                 break;
             }
         }
         if (fromStop == null) return result;
 
-        LocalDateTime actualDep = LocalDateTime.parse(route.getActualDeparture());
+        LocalDateTime actualDep = LocalDateTime.parse(travel.getActualDeparture());
         Duration fromOffset = Duration.parse(fromStop.getDepartureOffset());
         LocalDateTime baseDeparture = actualDep.minus(fromOffset);
 
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
 
-        // Filtruj tylko przystanki na naszym odcinku i posortuj
         List<TravelStop> relevant = new ArrayList<>();
         for (TravelStop s : allStops) {
-            if (s.getStopNumber() >= route.getTravelStopNumberFrom()
-                    && s.getStopNumber() <= route.getTravelStopNumberTo()) {
+            if (s.getStopNumber() >= travel.getTravelStopNumberFrom()
+                    && s.getStopNumber() <= travel.getTravelStopNumberTo()) {
                 relevant.add(s);
             }
         }
         relevant.sort((a, b) -> Integer.compare(a.getStopNumber(), b.getStopNumber()));
 
-        // Buduj segmenty z par sąsiednich przystanków
         for (int i = 0; i < relevant.size() - 1; i++) {
             TravelStop dep = relevant.get(i);
             TravelStop arr = relevant.get(i + 1);
@@ -194,7 +188,7 @@ public class ConnectionDetailsFragment extends Fragment {
                     arrTime.format(fmt),
                     dep.getStationName(),
                     arr.getStationName(),
-                    route.getTrainName() != null ? route.getTrainName() : "–",
+                    travel.getTrainName() != null ? travel.getTrainName() : "–",
                     distDiff
             ));
         }
