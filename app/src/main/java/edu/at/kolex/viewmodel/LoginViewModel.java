@@ -32,6 +32,7 @@ public class LoginViewModel extends AndroidViewModel {
         AuthResult mockResult = new AuthResult(true, "OK", mockResponse);
 
         TokenManager.saveToken(getApplication(), mockResponse.getToken());
+        TokenManager.saveEmail(getApplication(), email);
         loginResult.postValue(mockResult);
 //        authRepository.login(new LoginRequest(email, password), new AuthRepository.AuthCallback() {
 //            @Override

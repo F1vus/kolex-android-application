@@ -46,19 +46,22 @@ public class UserFragment extends Fragment {
     }
 
     private void loadUserData() {
+        String cachedEmail = TokenManager.getEmail(requireContext());
+        if (cachedEmail != null) {
+            binding.tvUserEmail.setText(cachedEmail);
+        }
+
         UserRepository.getInstance().getUser(new UserRepository.GetUserCallback() {
             @Override
             public void onSuccess(User user) {
                 if (isAdded() && user != null) {
-                    // Display the first profile's email as the main account
                     binding.tvUserEmail.setText(user.getEmail());
+                    TokenManager.saveEmail(requireContext(), user.getEmail());
                 }
             }
 
             @Override
-            public void onError(String message) {
-                // Keep default layout text
-            }
+            public void onError(String message) {}
         });
     }
 
