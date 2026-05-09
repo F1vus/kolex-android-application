@@ -21,11 +21,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import edu.at.kolex.R;
-import edu.at.kolex.adapter.RouteAdapter;
-import edu.at.kolex.model.Route;
+import edu.at.kolex.adapter.TravelAdapter;
+import edu.at.kolex.model.Travel;
 import edu.at.kolex.repository.TravelRepository;
 
-public class RoutesFragment extends Fragment {
+public class TravelsFragment extends Fragment {
 
     private RecyclerView rvRoutes;
     private ProgressBar progressBar;
@@ -33,13 +33,13 @@ public class RoutesFragment extends Fragment {
     private ImageView ivStatusIcon;
     private TextView tvStatusTitle, tvStatusSubtitle;
     private Button btnRetry;
-    private RouteAdapter adapter;
+    private TravelAdapter adapter;
     private Long fromId, toId;
     private LocalDateTime dateAndTimeSearchTrain;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_routes, container, false);
+        return inflater.inflate(R.layout.fragment_travels, container, false);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class RoutesFragment extends Fragment {
 
         initViews(view);
         setupRecyclerView();
-        searchRoutes();
+        searchTravels();
     }
 
     private void initViews(View view) {
@@ -72,9 +72,9 @@ public class RoutesFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        adapter = new RouteAdapter(route -> {
+        adapter = new TravelAdapter(travel -> {
             ConnectionDetailsFragment detailsFragment =
-                    ConnectionDetailsFragment.newInstance(route);
+                    ConnectionDetailsFragment.newInstance(travel);
 
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
@@ -86,22 +86,22 @@ public class RoutesFragment extends Fragment {
         rvRoutes.setAdapter(adapter);
     }
 
-    private void searchRoutes() {
+    private void searchTravels() {
         setUiState(true, false, false);
         
         Log.v("RoutesFragment", "FromId: "+fromId+" toId: "+toId);
 
-        TravelRepository.getInstance().searchTrains(fromId, toId, dateAndTimeSearchTrain, new TravelRepository.TravelCallback() {
+        TravelRepository.getInstance().searchTravel(fromId, toId, dateAndTimeSearchTrain, new TravelRepository.TravelCallback() {
             @Override
-            public void onSuccess(List<Route> routes) {
+            public void onSuccess(List<Travel> travels) {
                 if (!isAdded()) return;
-                if (routes == null || routes.isEmpty()) {
+                if (travels == null || travels.isEmpty()) {
                     setUiState(false, false, true);
                     showStatus("No connections found", "Try searching for another date or station.", android.R.drawable.ic_dialog_info);
                 } else {
                     setUiState(false, true, false);
-                    adapter.updateRoutes(routes);
-                    Log.v("RoutesFragment: ", "GET entity: "+routes.get(0).toString());
+                    adapter.updateRoutes(travels);
+                    Log.v("RoutesFragment: ", "GET entity: "+ travels.get(0).toString());
                 }
             }
 
@@ -111,7 +111,7 @@ public class RoutesFragment extends Fragment {
                 setUiState(false, false, true);
                 showStatus("Something went wrong", message, android.R.drawable.stat_notify_error);
                 btnRetry.setVisibility(View.VISIBLE);
-                btnRetry.setOnClickListener(v -> searchRoutes());
+                btnRetry.setOnClickListener(v -> searchTravels());
             }
 
             @Override
@@ -120,7 +120,7 @@ public class RoutesFragment extends Fragment {
                 setUiState(false, false, true);
                 showStatus("No Internet", "Please check your network connection and try again.", android.R.drawable.ic_dialog_alert);
                 btnRetry.setVisibility(View.VISIBLE);
-                btnRetry.setOnClickListener(v -> searchRoutes());
+                btnRetry.setOnClickListener(v -> searchTravels());
             }
         });
     }

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
-import edu.at.kolex.activities.SearchTicketActivity;
+import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.databinding.FragmentTravelSearchBinding;
 import edu.at.kolex.model.Station;
 import edu.at.kolex.viewmodel.TravelViewModel;
@@ -81,7 +81,7 @@ public class TravelSearchFragment extends Fragment {
             String arrival = binding.etArrival.getText().toString().trim();
 
             if (validate(departure, arrival, dateAndTimeSearchTrain, selectedDepartureStation, selectedArrivalStation)) {
-                Intent intent = new Intent(requireContext(), SearchTicketActivity.class);
+                Intent intent = new Intent(requireContext(), SearchTravelActivity.class);
                 intent.putExtra("departure_id", selectedDepartureStation.getId());
                 intent.putExtra("arrival_id", selectedArrivalStation.getId());
 

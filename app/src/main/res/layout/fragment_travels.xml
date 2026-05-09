@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E8ECEF"
-    tools:context=".fragment.RoutesFragment">
+    tools:context=".fragment.TravelsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRoutes"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="No routes found"
+            android:text="No travels found"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />

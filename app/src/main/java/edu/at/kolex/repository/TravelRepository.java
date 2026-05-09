@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.TravelApiService;
-import edu.at.kolex.model.Route;
+import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.Station;
 import edu.at.kolex.model.TravelStop;
 import retrofit2.Call;
@@ -27,7 +27,7 @@ public class TravelRepository {
     }
 
     public interface TravelCallback {
-        void onSuccess(List<Route> routes);
+        void onSuccess(List<Travel> travels);
         void onError(String message);
         void onNoInternet();
     }
@@ -43,10 +43,10 @@ public class TravelRepository {
         void onNoInternet();
     }
 
-    public void searchTrains(Long fromId, Long toId, LocalDateTime dateAndTimeSearchTrain, TravelCallback callback) {
-        travelApiService.searchTrains(fromId, toId, dateAndTimeSearchTrain).enqueue(new Callback<List<Route>>() {
+    public void searchTravel(Long fromId, Long toId, LocalDateTime dateAndTimeSearchTrain, TravelCallback callback) {
+        travelApiService.searchTravel(fromId, toId, dateAndTimeSearchTrain).enqueue(new Callback<List<Travel>>() {
             @Override
-            public void onResponse(@NonNull Call<List<Route>> call, @NonNull Response<List<Route>> response) {
+            public void onResponse(@NonNull Call<List<Travel>> call, @NonNull Response<List<Travel>> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
                 } else {
@@ -55,7 +55,7 @@ public class TravelRepository {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Route>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<Travel>> call, @NonNull Throwable t) {
                 Log.e("TravelRepository", "Error: " + t.getMessage(), t);
                 if (t instanceof java.io.IOException) {
                     callback.onNoInternet();
