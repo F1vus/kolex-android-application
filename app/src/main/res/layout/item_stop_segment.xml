@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="4dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="2dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvSegDepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:00"
+            android:textColor="#1A1A1A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSegArrTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13:30"
+            android:textColor="#1A1A1A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/segLine"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@color/green"
+            app:layout_constraintBottom_toBottomOf="@id/tvSegDepTime"
+            app:layout_constraintEnd_toStartOf="@id/tvSegArrTime"
+            app:layout_constraintStart_toEndOf="@id/tvSegDepTime"
+            app:layout_constraintTop_toTopOf="@id/tvSegDepTime" />
+
+        <TextView
+            android:id="@+id/tvSegDepStation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
+            android:maxLines="2"
+            android:text="Kraków Główny"
+            android:textColor="#6C7278"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/segLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSegDepTime" />
+
+        <TextView
+            android:id="@+id/tvSegArrStation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:maxLines="2"
+            android:text="Kraków Płaszów"
+            android:textColor="#6C7278"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/segLine"
+            app:layout_constraintTop_toBottomOf="@id/tvSegArrTime" />
+
+        <View
+            android:id="@+id/segDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#EFEFEF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSegDepStation" />
+
+        <TextView
+            android:id="@+id/tvSegTrainName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/green"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="PKP Intercity"
+            android:textColor="@android:color/white"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/segDivider" />
+
+        <TextView
+            android:id="@+id/tvSegDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="300 km"
+            android:textColor="#3A3A3A"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvSegTrainName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvSegTrainName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
