@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @ToString
-public class Route implements Serializable {
+public class Travel implements Serializable {
     private final Long travelId;
     private final String trainName;
     private final String fromStationName;

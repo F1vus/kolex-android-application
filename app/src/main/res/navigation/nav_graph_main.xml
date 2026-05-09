@@ -15,7 +15,7 @@
 
     <fragment
         android:id="@+id/routesFragment"
-        android:name="edu.at.kolex.fragment.RoutesFragment"
+        android:name="edu.at.kolex.fragment.TravelsFragment"
         android:label="Available Routes">
 
         <argument

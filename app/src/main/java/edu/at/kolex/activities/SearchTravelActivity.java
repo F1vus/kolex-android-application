@@ -12,14 +12,14 @@ import androidx.fragment.app.Fragment;
 import java.time.LocalDateTime;
 
 import edu.at.kolex.R;
-import edu.at.kolex.fragment.RoutesFragment;
+import edu.at.kolex.fragment.TravelsFragment;
 
-public class SearchTicketActivity extends AppCompatActivity {
+public class SearchTravelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_ticket);
+        setContentView(R.layout.activity_search_travel);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,13 +28,13 @@ public class SearchTicketActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        RoutesFragment fragment = getRoutesFragment();
+        TravelsFragment fragment = getRoutesFragment();
 
         setCurrentFragment(fragment);
     }
 
     @NonNull
-    private RoutesFragment getRoutesFragment() {
+    private TravelsFragment getRoutesFragment() {
         Intent intent = getIntent();
 
         long departure = intent.getLongExtra("departure_id", 0L);
@@ -48,7 +48,7 @@ public class SearchTicketActivity extends AppCompatActivity {
         bundle.putLong("arrival_id", arrival);
         bundle.putSerializable("date_and_time", dateTime);
 
-        RoutesFragment fragment = new RoutesFragment();
+        TravelsFragment fragment = new TravelsFragment();
         fragment.setArguments(bundle);
         return fragment;
     }

@@ -15,18 +15,18 @@ import java.util.List;
 import java.util.Locale;
 
 import edu.at.kolex.R;
-import edu.at.kolex.model.Route;
+import edu.at.kolex.model.Travel;
 
-public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHolder> {
+public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.RouteViewHolder> {
 
-    private final List<Route> routes = new ArrayList<>();
+    private final List<Travel> travels = new ArrayList<>();
     private final OnRouteClickListener listener;
 
     public interface OnRouteClickListener {
-        void onRouteClick(Route route);
+        void onRouteClick(Travel travel);
     }
 
-    public RouteAdapter(OnRouteClickListener listener) {
+    public TravelAdapter(OnRouteClickListener listener) {
         this.listener = listener;
     }
 
@@ -40,30 +40,30 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteViewHol
 
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
-        Route route = routes.get(position);
+        Travel travel = travels.get(position);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
        // holder.tvTrainNumber.setText(route.getTrainName() != null ? route.getTrainName() : "-");
-        holder.tvDepTime.setText(LocalDateTime.parse(route.getActualDeparture()).format(formatter));
-        holder.tvArrTime.setText(LocalDateTime.parse(route.getActualArrival()).format(formatter));
+        holder.tvDepTime.setText(LocalDateTime.parse(travel.getActualDeparture()).format(formatter));
+        holder.tvArrTime.setText(LocalDateTime.parse(travel.getActualArrival()).format(formatter));
         holder.tvPrice.setText(
-                route.getPrice() != null
-                        ? String.format(Locale.getDefault(), "%.2f PLN", route.getPrice())
+                travel.getPrice() != null
+                        ? String.format(Locale.getDefault(), "%.2f PLN", travel.getPrice())
                         : "- PLN"
         );
 
-        holder.itemView.setOnClickListener(v -> listener.onRouteClick(route));
+        holder.itemView.setOnClickListener(v -> listener.onRouteClick(travel));
     }
 
     @Override
     public int getItemCount() {
-        return routes.size();
+        return travels.size();
     }
 
-    public void updateRoutes(List<Route> newRoutes) {
-        routes.clear();
-        if (newRoutes != null) {
-            routes.addAll(newRoutes);
+    public void updateRoutes(List<Travel> newTravels) {
+        travels.clear();
+        if (newTravels != null) {
+            travels.addAll(newTravels);
         }
         notifyDataSetChanged();
     }
