@@ -3,6 +3,7 @@ package edu.at.kolex.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import edu.at.kolex.R;
 import edu.at.kolex.fragment.RoutesFragment;
@@ -26,27 +28,28 @@ public class SearchTicketActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        RoutesFragment fragment = getRoutesFragment();
+        String departureName = Objects.requireNonNull(getIntent().getStringExtra("departure_name")).split("-")[1].trim();
+        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra("arrival_name")).split("-")[1].trim();
 
-        setCurrentFragment(fragment);
+        TextView tvDep = toolbar.findViewById(R.id.tvToolbarDeparture);
+        TextView tvArr = toolbar.findViewById(R.id.tvToolbarArrival);
+        tvDep.setText(departureName);
+        tvArr.setText(arrivalName);
+
+        setCurrentFragment(getRoutesFragment());
     }
 
     @NonNull
     private RoutesFragment getRoutesFragment() {
         Intent intent = getIntent();
-
-        long departure = intent.getLongExtra("departure_id", 0L);
-        long arrival = intent.getLongExtra("arrival_id", 0L);
-
-        LocalDateTime dateTime =
-                (LocalDateTime) intent.getSerializableExtra("date_and_time");
-
         Bundle bundle = new Bundle();
-        bundle.putLong("departure_id", departure);
-        bundle.putLong("arrival_id", arrival);
-        bundle.putSerializable("date_and_time", dateTime);
+        bundle.putLong("departure_id", intent.getLongExtra("departure_id", 0L));
+        bundle.putLong("arrival_id",   intent.getLongExtra("arrival_id",   0L));
+        bundle.putSerializable("date_and_time",
+                (LocalDateTime) intent.getSerializableExtra("date_and_time"));
 
         RoutesFragment fragment = new RoutesFragment();
         fragment.setArguments(bundle);
@@ -55,16 +58,12 @@ public class SearchTicketActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
+        if (item.getItemId() == android.R.id.home) { finish(); return true; }
         return super.onOptionsItemSelected(item);
     }
 
     private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.nav_host_fragment, fragment)
                 .commit();
     }

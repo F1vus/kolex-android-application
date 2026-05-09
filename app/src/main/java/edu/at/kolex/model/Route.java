@@ -18,4 +18,6 @@ public class Route implements Serializable {
     private final String  actualArrival;
     private final String duration;
     private final Double price;
+    private final Integer travelStopNumberFrom;
+    private final Integer travelStopNumberTo;
 }
