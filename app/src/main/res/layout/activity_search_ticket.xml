@@ -23,32 +23,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteY="35dp">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvToolbarDeparture"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Station from"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:gravity="center|right"
+                android:orientation="vertical"
+                android:paddingEnd="25dp">
 
-            <TextView
-                android:id="@+id/tvToolbarArrival"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Station to"
-                android:textColor="@android:color/white"
-                android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tvToolbarDeparture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Station from"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvToolbarArrival"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Station to"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </androidx.appcompat.widget.Toolbar>
 

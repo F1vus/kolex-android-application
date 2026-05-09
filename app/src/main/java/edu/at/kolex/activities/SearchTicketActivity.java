@@ -58,12 +58,20 @@ public class SearchTicketActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { finish(); return true; }
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                finish();
+            }
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void setCurrentFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.nav_host_fragment, fragment)
                 .commit();
     }

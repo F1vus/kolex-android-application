@@ -73,8 +73,14 @@ public class RoutesFragment extends Fragment {
 
     private void setupRecyclerView() {
         adapter = new RouteAdapter(route -> {
-            // Handle route selection
-            Toast.makeText(getContext(), "Selected: " + route.getTrainName(), Toast.LENGTH_SHORT).show();
+            ConnectionDetailsFragment detailsFragment =
+                    ConnectionDetailsFragment.newInstance(route);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
         rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRoutes.setAdapter(adapter);

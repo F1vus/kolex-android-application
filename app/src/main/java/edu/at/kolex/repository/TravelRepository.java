@@ -10,6 +10,7 @@ import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.TravelApiService;
 import edu.at.kolex.model.Route;
 import edu.at.kolex.model.Station;
+import edu.at.kolex.model.TravelStop;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +37,11 @@ public class TravelRepository {
         void onError(String message);
     }
 
+    public interface StopsCallback {
+        void onSuccess(List<TravelStop> stops);
+        void onError(String message);
+        void onNoInternet();
+    }
 
     public void searchTrains(Long fromId, Long toId, LocalDateTime dateAndTimeSearchTrain, TravelCallback callback) {
         travelApiService.searchTrains(fromId, toId, dateAndTimeSearchTrain).enqueue(new Callback<List<Route>>() {
@@ -77,5 +83,25 @@ public class TravelRepository {
                 callback.onError(t.getMessage());
             }
         });
+    }
+
+    public void getStopsByTravelId(Long travelId, StopsCallback callback) {
+        travelApiService.getStopsByTravelId(travelId)
+                .enqueue(new Callback<List<TravelStop>>() {
+                    @Override
+                    public void onResponse(@NonNull Call<List<TravelStop>> call,
+                                           @NonNull Response<List<TravelStop>> response) {
+                        if (response.isSuccessful() && response.body() != null)
+                            callback.onSuccess(response.body());
+                        else callback.onError("Error: " + response.code());
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull Call<List<TravelStop>> call,
+                                          @NonNull Throwable t) {
+                        if (t instanceof java.io.IOException) callback.onNoInternet();
+                        else callback.onError(t.getMessage());
+                    }
+                });
     }
 }
