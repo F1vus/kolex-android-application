@@ -20,7 +20,7 @@
             android:id="@+id/tvTopInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mon, 15.06.2026"
+            android:text="@string/mon_15_06_2026"
             android:textColor="#050505"
             android:textSize="12sp"
             android:textStyle="bold"/>
@@ -43,7 +43,7 @@
             android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Jan Kowalski"
+            android:text="@string/jan_kowalski_"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -54,7 +54,7 @@
             android:id="@+id/tvTrainNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="IC 1620"
+            android:text="@string/ic_1620"
             android:textColor="#749E35"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -110,7 +110,7 @@
                 android:id="@+id/tvStartStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Warszawa"
+                android:text="@string/warsaw"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -126,7 +126,7 @@
                 android:id="@+id/tvEndStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kraków"
+                android:text="@string/krak_w"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -143,7 +143,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Numer miejsca:"
+                android:text="@string/number_places"
                 android:textColor="#000000"
                 android:textSize="14sp" />
 

@@ -63,7 +63,7 @@
                     android:id="@+id/tvUserEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="jankowalski123@gmail.com"
+                    android:text="@string/jankowalski123_gmail_com"
                     android:textAlignment="center"
                     android:textColor="#433C3C"
                     android:textSize="14sp" />
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Profile"
+                    android:text="@string/profile"
                     android:textColor="#000000"
                     android:textSize="18sp"
                     android:clickable="false"
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
                         android:layout_weight="1"
-                        android:text="Stan konta KOLEX"
+                        android:text="@string/account_balance_kolex"
                         android:textSize="16sp"
                         android:textColor="#000000"
                         android:textStyle="bold"/>
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text='Konto KOLEX to Twoje indywidualne "konto przedpłacone" dzięki któremu możesz w każdej chwili szybko, bezpiecznie i wygodnie dokonać zakupu biletu. To najszybsza i najwygodniejsza metoda płatności za bilety kolejowe!'
+                    android:text='@string/konto_kolex_is_your_individual_prepaid_account_through_which_you_can_at_any_moment_quickly_safely_and_conveniently_purchase_a_ticket_this_is_the_fastest_and_most_convenient_method_of_payment_for_train_tickets'
                     android:textSize="14sp"
                     android:textColor="#6C7278"
                     android:lineSpacingExtra="2dp"/>
@@ -164,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
-                    android:text="DOŁADUJ KONTO"
+                    android:text="@string/TOP_UP_ACCOUNT"
                     android:textAllCaps="true"
                     android:textColor="#000000"
                     android:textStyle="bold"
@@ -178,7 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="WYLOGUJ"
+                android:text="@string/Exit"
                 android:textColor="@color/black"
                 app:backgroundTint="#BFD200"
                 app:cornerRadius="12dp" />
@@ -188,7 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="USUŃ SWOJE KONTO"
+                android:text="@string/delete_your_account"
                 android:textColor="@color/white"
                 app:backgroundTint="#B92B18"
                 app:cornerRadius="12dp" />

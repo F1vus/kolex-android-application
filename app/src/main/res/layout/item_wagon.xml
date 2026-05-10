@@ -19,7 +19,7 @@
             android:id="@+id/tvWagonTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wagon 1"
+            android:text="@string/wagon_1"
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="18sp" />
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Przesuń w lewo / prawo, aby zmienić wagon"
+            android:text="@string/Swipe_left_right_to_change_the_car"
             android:textColor="#6C7278"
             android:textSize="12sp" />
 

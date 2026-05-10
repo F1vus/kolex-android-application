@@ -155,5 +155,30 @@
     <string name="no_travels_found">No travels found</string>
     <string name="try_searching_for_a_different_connection">Try searching for a different connection.</string>
     <string name="retry">Retry</string>
+    <string name="jankowalski123_gmail_com">jankowalski123@gmail.com</string>
+    <string name="profile">Profile</string>
+    <string name="account_balance_kolex">Account balance</string>
+    <string name="konto_kolex_is_your_individual_prepaid_account_through_which_you_can_at_any_moment_quickly_safely_and_conveniently_purchase_a_ticket_this_is_the_fastest_and_most_convenient_method_of_payment_for_train_tickets">The KOLEX account is your individual prepaid account thanks to which you can quickly, safely, and conveniently purchase a ticket at any time. It is the fastest and most convenient method of paying for train tickets!</string>
+    <string name="TOP_UP_ACCOUNT">TOP UP ACCOUNT</string>
+    <string name="Exit">Exit</string>
+    <string name="delete_your_account">Delete your account</string>
+    <string name="jan_kowalski">Jan Kowalski</string>
+    <string name="march_13_fri_day">March ,\n13 Friday</string>
+    <string name="mar_13_fri_day">March 13,\nFriday</string>
+    <string name="buy_the_ticket">Buy the ticket</string>
+    <string name="main_kraków">Main kraków</string>
+    <string name="krak_w_p_asz_w">Kraków Płaszów</string>
+    <string name="pkp_intercity">PKP Intercity</string>
+    <string name="mon_15_06_2026">Mon, 15.06.2026</string>
+    <string name="jan_kowalski_">Jan Kowalski</string>
+    <string name="ic_1620">IC 1620</string>
+    <string name="warsaw">Warsaw</string>
+    <string name="krak_w">Kraków</string>
+    <string name="number_places">Number places</string>
+    <string name="wagon_1">Wagon 1</string>
+    <string name="Swipe_left_right_to_change_the_car">Swipe left / right to change the car</string>
+    <string name="search">Search</string>
+    <string name="tickets">Tickets</string>
+    <string name="_profile">Profile</string>
 
 </resources>
