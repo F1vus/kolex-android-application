@@ -33,13 +33,13 @@
             android:id="@+id/btnRandom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Losowo" />
+            android:text="@string/Randomly" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGraphical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Graficznie" />
+            android:text="@string/Graphically" />
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:text="Nie wybrano miejsca"
+        android:text="@string/not_choose_the_place"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/toggleGroup"
@@ -72,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Potwierdź miejsce"
+        android:text="@string/confirm_the_place"
         android:enabled="false"
         android:textColor="@color/black"
         app:backgroundTint="#BFD200"

@@ -72,7 +72,7 @@
             android:background="@drawable/rounded_edittext"
             android:backgroundTint="@color/white"
             android:textColor="@color/black"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:padding="8dp" />
 
@@ -84,7 +84,7 @@
             android:background="@drawable/rounded_edittext"
             android:backgroundTint="@color/white"
             android:textColor="@color/black"
-            android:hint="Hasło"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:padding="8dp" />
 
@@ -97,7 +97,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:text="Nie pamiętasz hasła?"
+            android:text="@string/Not_remember_password"
             android:textColor="#1E88E5"
             android:textStyle="bold" />
 
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:drawableLeft="@drawable/google"
-            android:text="Continue with Google"
+            android:text="@string/continue_with_google"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
 
@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:drawableLeft="@drawable/facebook"
-            android:text="Continue with Facebook"
+            android:text="@string/continue_with_facebook"
             android:textColor="@color/black"
             app:backgroundTint="@color/white"
             app:cornerRadius="12dp" />

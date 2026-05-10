@@ -44,7 +44,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Płatność za bilet"
+                        android:text="@string/payment_for_the_ticket"
                         android:textColor="#000000"
                         android:textSize="22sp"
                         android:textStyle="bold" />
@@ -53,7 +53,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="Jedyna dostępna metoda płatności: saldo konta."
+                        android:text="@string/The_only_available_payment_method_account_balance"
                         android:textColor="#6C7278"
                         android:textSize="14sp" />
 
@@ -81,7 +81,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
-                            android:text="Saldo konta"
+                            android:text="@string/account_balance"
                             android:textColor="#000000"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -105,7 +105,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kwota do zapłaty"
+                            android:text="@string/Amount_to_be_paid"
                             android:textColor="#6C7278"
                             android:textSize="13sp" />
 
@@ -125,7 +125,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:layout_marginTop="20dp"
-                        android:text="Zapłać z salda"
+                        android:text="@string/pay_from_the_balance"
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textStyle="bold"
@@ -166,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Bilet kupiony"
+                        android:text="@string/Ticket_purchased"
                         android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -177,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:text="Twoja płatność została zakończona pomyślnie."
+                        android:text="@string/Your_payment_has_been_successfully_completed"
                         android:textColor="#6C7278"
                         android:textSize="14sp" />
 
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Ojej! Wystąpił błąd"
+                        android:text="@string/Oh_no_An_error_occurred"
                         android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:gravity="center"
-                        android:text="Twoja płatność została zakończona pomyślnie."
+                        android:text="@string/Your_payment_has_been_successfully_completed_"
                         android:textColor="#6C7278"
                         android:textSize="14sp" />
 
@@ -240,7 +240,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="40dp"
                 android:visibility="gone"
-                android:text="Wróć na ekran główny"
+                android:text="@string/back_on_the_main_display"
                 android:textAllCaps="false"
                 android:textColor="#000000"
                 android:textStyle="bold"

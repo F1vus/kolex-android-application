@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="Edytuj dane osobowe"
+                android:text="@string/Edit_personal_data"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -63,7 +63,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Imię">
+            android:hint="@string/name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFirstName"
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Nazwisko">
+            android:hint="@string/Lastname">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etLastName"
@@ -95,7 +95,7 @@
         android:layout_height="52dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:text="ZAPISZ"
+        android:text="@string/Save"
         android:textStyle="bold"
         app:backgroundTint="@color/green"
         app:cornerRadius="12dp"
@@ -110,7 +110,7 @@
         android:layout_height="9dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="12dp"
-        android:text="USUŃ PROFIL"
+        android:text="@string/delete_profile"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:visibility="gone"
