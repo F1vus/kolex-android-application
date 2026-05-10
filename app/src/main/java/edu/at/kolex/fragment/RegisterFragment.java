@@ -65,13 +65,13 @@ public class RegisterFragment extends Fragment {
             }
 
             if (TextUtils.isEmpty(passwordConfirm)) {
-                binding.etPasswordConfirmLayout.setError("Confirm your password");
+                binding.etPasswordConfirmLayout.setError(getString(R.string.confirm_your_password));
                 return;
             }
 
             if(!ValidationUtils.isMatchPassword(password, passwordConfirm)){
-                binding.etPasswordLayout.setError("Passwords do not match");
-                binding.etPasswordConfirmLayout.setError("Passwords do not match");
+                binding.etPasswordLayout.setError(getString(R.string.passwords_do_not_match));
+                binding.etPasswordConfirmLayout.setError(getString(R.string.passwords_do_not_match_));
                 return;
             }
 

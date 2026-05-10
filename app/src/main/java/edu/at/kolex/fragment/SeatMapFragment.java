@@ -75,7 +75,7 @@ public class SeatMapFragment extends Fragment {
 
             if (checkedId == R.id.btnGraphical) {
                 if (selectedSeat == null) {
-                    Toast.makeText(requireContext(), "Wybierz miejsce", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), R.string.choose_place, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -130,7 +130,7 @@ public class SeatMapFragment extends Fragment {
     private void setupPager() {
         pagerAdapter = new WagonsPagerAdapter(new ArrayList<>(), seat -> {
             selectedSeat = seat;
-            binding.tvSelectedSeat.setText("Wybrane miejsce: " + seat.getSeatNumber());
+            binding.tvSelectedSeat.setText(getString(R.string.selected_place) + seat.getSeatNumber());
             binding.btnConfirm.setEnabled(true);
             pagerAdapter.setSelectedSeat(seat.getSeatNumber());
         });
@@ -164,7 +164,7 @@ public class SeatMapFragment extends Fragment {
             SearchTravelActivity activity = (SearchTravelActivity) requireActivity();
             activity.onReservationSuccess(id, profileId);
 
-            Toast.makeText(requireContext(), "Miejsce zarezerwowane", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.reserved_place, Toast.LENGTH_SHORT).show();
 
             PaymentFragment fragment = PaymentFragment.newInstance(
                     id,
@@ -183,13 +183,13 @@ public class SeatMapFragment extends Fragment {
     private void showRandomMode() {
         selectedSeat = null;
         binding.vpWagons.setVisibility(View.GONE);
-        binding.tvSelectedSeat.setText("Tryb losowy aktywny");
+        binding.tvSelectedSeat.setText(R.string.random_mode_active);
         binding.btnConfirm.setEnabled(true);
     }
 
     private void showGraphicalMode(long travelId, int startStop, int endStop) {
         binding.vpWagons.setVisibility(View.VISIBLE);
-        binding.tvSelectedSeat.setText("Wybierz miejsce na mapie");
+        binding.tvSelectedSeat.setText(R.string.choose_a_place_on_the_map);
         binding.btnConfirm.setEnabled(false);
 
         if (!seatsLoaded) {

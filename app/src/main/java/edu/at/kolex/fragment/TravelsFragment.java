@@ -47,11 +47,11 @@ public class TravelsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        fromId = getArguments() != null ? getArguments().getLong("departure_id", 0L) : 0L;
-        toId = getArguments() != null ? getArguments().getLong("arrival_id", 0L) : 0L;
+        fromId = getArguments() != null ? getArguments().getLong(getString(R.string.departure_id___), 0L) : 0L;
+        toId = getArguments() != null ? getArguments().getLong(getString(R.string.arrival_id___), 0L) : 0L;
 
         if (getArguments() != null) {
-            dateAndTimeSearchTrain = (LocalDateTime) getArguments().getSerializable("date_and_time");
+            dateAndTimeSearchTrain = (LocalDateTime) getArguments().getSerializable(getString(R.string.date_and_time__));
         } else {
             dateAndTimeSearchTrain = LocalDateTime.now();
         }
@@ -74,7 +74,7 @@ public class TravelsFragment extends Fragment {
 
     private void setupRecyclerView() {
         adapter = new TravelAdapter(travel -> {
-            Toast.makeText(getContext(), "Selected: " + travel.getTrainName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.selected) + travel.getTrainName(), Toast.LENGTH_SHORT).show();
             ConnectionDetailsFragment detailsFragment =
                     ConnectionDetailsFragment.newInstance(travel);
 
@@ -89,7 +89,7 @@ public class TravelsFragment extends Fragment {
     private void searchTravels() {
         setUiState(true, false, false);
         
-        Log.v("RoutesFragment", "FromId: "+fromId+" toId: "+toId);
+        Log.v(getString(R.string.routesfragment), getString(R.string.fromid)+fromId+getString(R.string.toid)+toId);
 
         TravelRepository.getInstance().searchTravel(fromId, toId, dateAndTimeSearchTrain, new TravelRepository.TravelCallback() {
             @Override
@@ -97,11 +97,11 @@ public class TravelsFragment extends Fragment {
                 if (!isAdded()) return;
                 if (travels == null || travels.isEmpty()) {
                     setUiState(false, false, true);
-                    showStatus("No connections found", "Try searching for another date or station.", android.R.drawable.ic_dialog_info);
+                    showStatus(getString(R.string.no_connections_found), getString(R.string.try_searching_for_another_date_or_station), android.R.drawable.ic_dialog_info);
                 } else {
                     setUiState(false, true, false);
                     adapter.updateRoutes(travels);
-                    Log.v("RoutesFragment: ", "GET entity: "+ travels.get(0).toString());
+                    Log.v(getString(R.string.routesfragment_), getString(R.string.get_entity)+ travels.get(0).toString());
                 }
             }
 
@@ -109,7 +109,7 @@ public class TravelsFragment extends Fragment {
             public void onError(String message) {
                 if (!isAdded()) return;
                 setUiState(false, false, true);
-                showStatus("Something went wrong", message, android.R.drawable.stat_notify_error);
+                showStatus(getString(R.string.something_went_wrong), message, android.R.drawable.stat_notify_error);
                 btnRetry.setVisibility(View.VISIBLE);
                 btnRetry.setOnClickListener(v -> searchTravels());
             }
@@ -118,7 +118,7 @@ public class TravelsFragment extends Fragment {
             public void onNoInternet() {
                 if (!isAdded()) return;
                 setUiState(false, false, true);
-                showStatus("No Internet", "Please check your network connection and try again.", android.R.drawable.ic_dialog_alert);
+                showStatus(getString(R.string.no_internet), getString(R.string.please_check_your_network_connection_and_try_again), android.R.drawable.ic_dialog_alert);
                 btnRetry.setVisibility(View.VISIBLE);
                 btnRetry.setOnClickListener(v -> searchTravels());
             }

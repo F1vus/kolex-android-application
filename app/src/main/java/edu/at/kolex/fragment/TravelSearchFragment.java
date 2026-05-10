@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
+import edu.at.kolex.R;
 import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.databinding.FragmentTravelSearchBinding;
 import edu.at.kolex.model.Station;
@@ -82,13 +83,13 @@ public class TravelSearchFragment extends Fragment {
 
             if (validate(departure, arrival, dateAndTimeSearchTrain, selectedDepartureStation, selectedArrivalStation)) {
                 Intent intent = new Intent(requireContext(), SearchTravelActivity.class);
-                intent.putExtra("departure_id", selectedDepartureStation.getId());
-                intent.putExtra("arrival_id", selectedArrivalStation.getId());
+                intent.putExtra(getString(R.string.departure_id__), selectedDepartureStation.getId());
+                intent.putExtra(getString(R.string.arrival_id__), selectedArrivalStation.getId());
 
-                intent.putExtra("date_and_time", dateAndTimeSearchTrain);
+                intent.putExtra(getString(R.string.date_and_time_), dateAndTimeSearchTrain);
 
-                intent.putExtra("departure_name", selectedDepartureStation.toString());
-                intent.putExtra("arrival_name",   selectedArrivalStation.toString());
+                intent.putExtra(getString(R.string.departure_name_), selectedDepartureStation.toString());
+                intent.putExtra(getString(R.string.arrival_name_),   selectedArrivalStation.toString());
 
                 startActivity(intent);
             }
@@ -120,21 +121,21 @@ public class TravelSearchFragment extends Fragment {
         boolean isValid = true;
 
         if (dep.isEmpty() || departureStation == null) {
-            binding.etDepartureLayout.setError("Wybierz stację z listy");
+            binding.etDepartureLayout.setError(getString(R.string.choose_station_from_list));
             isValid = false;
         } else {
             binding.etDepartureLayout.setError(null);
         }
 
         if (arr.isEmpty() || arrivalStation == null) {
-            binding.etArrivalLayout.setError("Wybierz stację z listy");
+            binding.etArrivalLayout.setError(getString(R.string.choose_station_from_list_));
             isValid = false;
         } else {
             binding.etArrivalLayout.setError(null);
         }
 
         if (date == null) {
-            binding.etDateLayout.setError("Enter date and time of departure");
+            binding.etDateLayout.setError(getString(R.string.enter_date_and_time_of_departure));
             isValid = false;
         } else {
             binding.etDateLayout.setError(null);
@@ -142,7 +143,7 @@ public class TravelSearchFragment extends Fragment {
 
         if (departureStation != null && arrivalStation != null
                 && departureStation.getId().equals(arrivalStation.getId())) {
-            binding.etArrivalLayout.setError("Stacje nie mogą być takie same");
+            binding.etArrivalLayout.setError(getString(R.string.stations_could_not_be_the_same));
             isValid = false;
         }
 
@@ -187,7 +188,7 @@ public class TravelSearchFragment extends Fragment {
                     if (selectedDateTime.isBefore(currentDateTime)) {
                         Toast.makeText(
                                 requireContext(),
-                                "Nie można wybrać przeszłej godziny",
+                                R.string.Cannot_select_a_past_time,
                                 Toast.LENGTH_SHORT
                         ).show();
 
