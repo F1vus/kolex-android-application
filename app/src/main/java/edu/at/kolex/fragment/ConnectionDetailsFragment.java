@@ -7,10 +7,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,10 +25,14 @@ import java.util.List;
 import java.util.Locale;
 
 import edu.at.kolex.R;
+import edu.at.kolex.activities.SearchTravelActivity;
+import edu.at.kolex.adapter.ProfileSelectAdapter;
 import edu.at.kolex.adapter.StopSegmentAdapter;
+import edu.at.kolex.model.Profile;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.TravelStop;
 import edu.at.kolex.repository.TravelRepository;
+import edu.at.kolex.viewmodel.ProfilesViewModel;
 
 public class ConnectionDetailsFragment extends Fragment {
 
@@ -40,6 +46,11 @@ public class ConnectionDetailsFragment extends Fragment {
     private TextView tvErrorMsg, tvTotalPrice, tvTripDate;
     private Button btnRetry, btnContinue;
     private StopSegmentAdapter adapter;
+
+    private RecyclerView rvProfiles;
+    private ProfileSelectAdapter profileAdapter;
+    private Long selectedProfileId;
+    private ProfilesViewModel profilesViewModel;
 
     public static ConnectionDetailsFragment newInstance(Travel travel) {
         Bundle args = new Bundle();
@@ -77,31 +88,63 @@ public class ConnectionDetailsFragment extends Fragment {
         tvTripDate = view.findViewById(R.id.tvTripDate);
         btnRetry = view.findViewById(R.id.btnRetryDetails);
         btnContinue = view.findViewById(R.id.btnContinue);
+        rvProfiles = view.findViewById(R.id.rvProfiles);
+
+        rvSegments.setNestedScrollingEnabled(false);
+        rvProfiles.setNestedScrollingEnabled(false);
+
+        profilesViewModel = new ViewModelProvider(this).get(ProfilesViewModel.class);
+
+        profileAdapter = new ProfileSelectAdapter(profile -> selectedProfileId = profile.getId());
+
+        rvProfiles.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvProfiles.setAdapter(profileAdapter);
+
+        profilesViewModel.getProfiles().observe(getViewLifecycleOwner(), profiles -> {
+            profileAdapter.setProfiles(profiles);
+            Profile selected = profileAdapter.getSelectedProfile();
+            if (selected != null) {
+                selectedProfileId = selected.getId();
+            }
+        });
+
+        profilesViewModel.getError().observe(getViewLifecycleOwner(), message -> {
+            if (message != null) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        profilesViewModel.loadProfiles();
 
         if (travel != null && travel.getPrice() != null) {
             Locale pl = new Locale("pl", "PL");
-            tvTotalPrice.setText(String.format(pl,
-                    "Cena biletu: %.2f zł", travel.getPrice()));
+            tvTotalPrice.setText(String.format(pl, "Cena biletu: %.2f zł", travel.getPrice()));
         }
 
         if (travel != null) {
             LocalDateTime dep = LocalDateTime.parse(travel.getActualDeparture());
             tvTripDate.setText(dep.format(
-                    DateTimeFormatter.ofPattern("EEEE, d MMMM",
-                            new Locale("pl", "PL"))));
+                    DateTimeFormatter.ofPattern("EEEE, d MMMM", new Locale("pl", "PL"))
+            ));
         }
 
         adapter = new StopSegmentAdapter();
         rvSegments.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSegments.setAdapter(adapter);
 
-        btnContinue.setOnClickListener(v ->{
-//                SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
-//
-//                if (requireActivity() instanceof SearchTravelActivity) {
-//                    ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
-//                }
-                });
+        btnContinue.setOnClickListener(v -> {
+            if (selectedProfileId == null) {
+                Toast.makeText(requireContext(), "Wybierz profil", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            SeatMapFragment nextFrag = SeatMapFragment.newInstance(travel, selectedProfileId);
+
+            if (requireActivity() instanceof SearchTravelActivity) {
+                ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+            }
+        });
+
         loadStops();
     }
 

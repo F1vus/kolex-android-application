@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment;
 import edu.at.kolex.activities.AuthActivity;
 import edu.at.kolex.activities.ProfilesActivity;
 import edu.at.kolex.databinding.FragmentUserBinding;
-import edu.at.kolex.model.User;
-import edu.at.kolex.repository.UserRepository;
 import edu.at.kolex.utils.TokenManager;
 
 public class UserFragment extends Fragment {
@@ -46,23 +44,10 @@ public class UserFragment extends Fragment {
     }
 
     private void loadUserData() {
-        String cachedEmail = TokenManager.getEmail(requireContext());
+        String cachedEmail = TokenManager.getEmail(getActivity().getApplicationContext());
         if (cachedEmail != null) {
             binding.tvUserEmail.setText(cachedEmail);
         }
-
-        UserRepository.getInstance().getUser(new UserRepository.GetUserCallback() {
-            @Override
-            public void onSuccess(User user) {
-                if (isAdded() && user != null) {
-                    binding.tvUserEmail.setText(user.getEmail());
-                    TokenManager.saveEmail(requireContext(), user.getEmail());
-                }
-            }
-
-            @Override
-            public void onError(String message) {}
-        });
     }
 
     @Override
