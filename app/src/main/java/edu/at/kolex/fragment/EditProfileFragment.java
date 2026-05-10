@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import edu.at.kolex.R;
 import edu.at.kolex.databinding.FragmentEditProfileBinding;
 import edu.at.kolex.model.Profile;
 import edu.at.kolex.viewmodel.ProfilesViewModel;
@@ -98,7 +99,7 @@ public class EditProfileFragment extends Fragment {
         String lastName = binding.etLastName.getText().toString().trim();
 
         if (firstName.isEmpty() || lastName.isEmpty()) {
-            Toast.makeText(requireContext(), "Pola nie mogą być puste", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.Fields_cannot_be_empty, Toast.LENGTH_SHORT).show();
             return;
         }
 

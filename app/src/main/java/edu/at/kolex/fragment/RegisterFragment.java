@@ -55,12 +55,12 @@ public class RegisterFragment extends Fragment {
             String passwordConfirm =Objects.requireNonNullElse(binding.etPasswordConfirm.getText(), "").toString().trim();
 
             if (!ValidationUtils.isValidEmail(email)) {
-                binding.etEmail.setError("Enter your email address");
+                binding.etEmail.setError(getString(R.string.enter_your_email_address));
                 return;
             }
 
             if (TextUtils.isEmpty(password)) {
-                binding.etPasswordLayout.setError("Enter your password");
+                binding.etPasswordLayout.setError(getString(R.string.enter_your_password_));
                 return;
             }
 

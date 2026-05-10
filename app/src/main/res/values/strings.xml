@@ -28,6 +28,18 @@
     <string name="date_and_times">date_and_times</string>
     <string name="departure_id_">departure_id_</string>
     <string name="arrival_id_">arrival_id</string>
-    <string name="Stop">"Stop "</string>
+    <string name="Stop" translatable="false">"Stop "</string>
+    <string name="stop">"Stop "</string>
+    <string name="Ticket">Bilet #</string>
+    <string name="wagon">"Wagon "</string>
+    <string name="travel">travel</string>
+    <string name="price_of_ticket_2f_z">price_of_ticket %.2f zł</string>
+    <string name="no_data_on_stops">no_data_on_stops</string>
+    <string name="no_internet_connection">no_internet_connection</string>
+    <string name="Fields_cannot_be_empty">Fields cannot be empty</string>
+    <string name="incorrect_email_address">Incorrect email address</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="enter_your_password_">Enter your password</string>
 
 </resources>

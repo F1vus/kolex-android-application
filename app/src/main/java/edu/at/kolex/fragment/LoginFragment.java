@@ -53,12 +53,12 @@ public class LoginFragment extends Fragment {
             String password = binding.etPassword.getText().toString().trim();
 
             if (!ValidationUtils.isValidEmail(email)) {
-                binding.etEmail.setError("Incorrect email address");
+                binding.etEmail.setError(getString(R.string.incorrect_email_address));
                 return;
             }
 
             if (TextUtils.isEmpty(password)) {
-                binding.etPassword.setError("Enter your password");
+                binding.etPassword.setError(getString(R.string.enter_your_password));
                 return;
             }
 

@@ -31,7 +31,7 @@ import edu.at.kolex.repository.TravelRepository;
 
 public class ConnectionDetailsFragment extends Fragment {
 
-    private static final String ARG_TRAVEL = "travel";
+    private static final String ARG_TRAVEL = String.valueOf(R.string.travel);
 
     private Travel travel;
 
@@ -82,7 +82,7 @@ public class ConnectionDetailsFragment extends Fragment {
         if (travel != null && travel.getPrice() != null) {
             Locale pl = new Locale("pl", "PL");
             tvTotalPrice.setText(String.format(pl,
-                    "Cena biletu: %.2f zł", travel.getPrice()));
+                    getString(R.string.price_of_ticket_2f_z), travel.getPrice()));
         }
 
         if (travel != null) {
@@ -120,7 +120,7 @@ public class ConnectionDetailsFragment extends Fragment {
                         List<StopSegmentAdapter.Segment> segments =
                                 buildSegments(stops);
                         if (segments.isEmpty()) {
-                            showError("Brak danych o przystankach");
+                            showError(getString(R.string.no_data_on_stops));
                         } else {
                             adapter.setSegments(segments);
                             setUiState(false, true, false);
@@ -138,7 +138,7 @@ public class ConnectionDetailsFragment extends Fragment {
                     @Override
                     public void onNoInternet() {
                         if (!isAdded()) return;
-                        showError("Brak połączenia z internetem");
+                        showError(getString(R.string.no_internet_connection));
                         btnRetry.setVisibility(View.VISIBLE);
                         btnRetry.setOnClickListener(v -> loadStops());
                     }

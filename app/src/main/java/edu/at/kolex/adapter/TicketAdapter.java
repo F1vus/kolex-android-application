@@ -1,5 +1,7 @@
 package edu.at.kolex.adapter;
 
+import static android.provider.Settings.System.getString;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,14 +59,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         }
         
         // Station information
-        holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : .getString(R.string.stop) + ticket.getStartStopNumber());
-        holder.tvEndStation.setText(ticket.getEndStation() != null ? ticket.getEndStation() : "Stop " + ticket.getEndStopNumber());
+        holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : R.string.stop + ticket.getStartStopNumber());
+        holder.tvEndStation.setText(ticket.getEndStation() != null ? ticket.getEndStation() : R.string.stop + ticket.getEndStopNumber());
         
     // Price
     holder.tvSeatId.setText(ticket.getTicketPrice() != null ? String.format("%s PLN", ticket.getTicketPrice()) : "- PLN");
         
     // Ticket ID (reference) - guard against null id
-    holder.tvTicketId.setText("Ticket #" + (ticket.getTicketId() != null ? ticket.getTicketId() : ""));
+    holder.tvTicketId.setText + R.string.Ticket + (ticket.getTicketId() != null ? ticket.getTicketId() : "");
         
         // Train number if available
         if (ticket.getTrainNumber() != null) {

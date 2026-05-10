@@ -79,7 +79,7 @@ public class WagonsPagerAdapter extends RecyclerView.Adapter<WagonsPagerAdapter.
                   int selectedSeatNumber,
                   OnSeatClickListener listener) {
 
-            tvWagonTitle.setText("Wagon " + (wagonIndex + 1));
+            tvWagonTitle.setText( + (wagonIndex + 1));
             rowContainer.removeAllViews();
 
             Context context = itemView.getContext();
