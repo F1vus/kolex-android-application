@@ -32,12 +32,11 @@ public class PaymentViewModel extends ViewModel {
         return error;
     }
 
-    public void buyTicket(Long reservationId, Long userId) {
+    public void buyTicket(Long reservationId) {
         loading.setValue(true);
 
         BuyTicketRequest request = new BuyTicketRequest();
         request.setReservationId(reservationId);
-        request.setUserId(userId);
 
         repository.buyTicket(request, new PaymentRepository.PaymentCallback() {
             @Override
@@ -54,12 +53,11 @@ public class PaymentViewModel extends ViewModel {
             }
         });
     }
-    public void purchaseRandom(Long travelId, Long userId, Long profileId, int startStop, int endStop) {
+    public void purchaseRandom(Long travelId, Long profileId, int startStop, int endStop) {
         loading.setValue(true);
 
         BuyRandomTicketRequest request = new BuyRandomTicketRequest();
         request.setTravelId(travelId);
-        request.setUserId(userId);
         request.setProfileId(profileId);
         request.setStartStop(startStop);
         request.setEndStop(endStop);

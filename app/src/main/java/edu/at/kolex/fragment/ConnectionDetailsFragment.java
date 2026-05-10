@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 
 import edu.at.kolex.R;
-import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.adapter.StopSegmentAdapter;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.TravelStop;
@@ -97,11 +96,11 @@ public class ConnectionDetailsFragment extends Fragment {
         rvSegments.setAdapter(adapter);
 
         btnContinue.setOnClickListener(v ->{
-                SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
-
-                if (requireActivity() instanceof SearchTravelActivity) {
-                    ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
-                }
+//                SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
+//
+//                if (requireActivity() instanceof SearchTravelActivity) {
+//                    ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+//                }
                 });
         loadStops();
     }

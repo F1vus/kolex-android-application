@@ -20,10 +20,4 @@ public interface TicketApiService {
      */
     @GET("api/tickets/{ticketId}")
     Call<Ticket> getTicketById(@Path("ticketId") Long ticketId);
-    
-    /**
-     * Get tickets for a specific user profile
-     */
-    @GET("api/tickets/profile/{profileId}")
-    Call<List<Ticket>> getTicketsByProfile(@Path("profileId") Long profileId);
 }

@@ -81,25 +81,4 @@ public class TicketRepository {
         });
     }
 
-    /**
-     * Fetch tickets for a specific user profile
-     */
-    public void getTicketsByProfile(Long profileId, TicketListCallback callback) {
-        ticketApiService.getTicketsByProfile(profileId).enqueue(new Callback<List<Ticket>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Ticket>> call, @NonNull Response<List<Ticket>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    callback.onSuccess(response.body());
-                } else {
-                    callback.onError("Błąd pobierania biletów profilu: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<Ticket>> call, @NonNull Throwable t) {
-                Log.e(TAG, "Error fetching profile tickets: " + t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
-            }
-        });
-    }
 }
