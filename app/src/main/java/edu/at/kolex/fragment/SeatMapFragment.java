@@ -34,7 +34,7 @@ public class SeatMapFragment extends Fragment {
 
     private SeatStatus selectedSeat;
     private boolean seatsLoaded = false;
-    private Long profileId, userId;
+    private Long profileId;
     private Travel travel;
 
     public static SeatMapFragment newInstance(Travel travel, Long profileId) {
@@ -60,7 +60,6 @@ public class SeatMapFragment extends Fragment {
         if(travel == null) return;
 
         profileId = requireArguments().getLong(ARG_PROFILE_ID);
-        userId = 2L;
 
         viewModel = new ViewModelProvider(this).get(SeatMapViewModel.class);
 
@@ -97,7 +96,6 @@ public class SeatMapFragment extends Fragment {
     private void navigateToPaymentRandom() {
         BuyRandomTicketRequest buyRandomTicketRequest = new BuyRandomTicketRequest();
         buyRandomTicketRequest.setProfileId(profileId);
-        buyRandomTicketRequest.setUserId(userId);
         buyRandomTicketRequest.setStartStop(travel.getTravelStopNumberFrom());
         buyRandomTicketRequest.setEndStop(travel.getTravelStopNumberTo());
         buyRandomTicketRequest.setTravelId(travel.getTravelId());
@@ -168,7 +166,6 @@ public class SeatMapFragment extends Fragment {
 
             PaymentFragment fragment = PaymentFragment.newInstance(
                     id,
-                    userId,
                     "24,78 zł",
                     travel.getPrice().toString()
             );

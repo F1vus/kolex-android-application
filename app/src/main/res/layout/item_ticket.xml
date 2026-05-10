@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/top_bar_bg"
         android:gravity="center"
-        android:paddingHorizontal="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp">
 
         <TextView
             android:id="@+id/tvTopInfo"
@@ -23,62 +23,22 @@
             android:text="Mon, 15.06.2026"
             android:textColor="#050505"
             android:textSize="12sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
-    <!-- Ticket Header with ID and Train Number -->
-
-    <!-- Divider -->
-
-    <LinearLayout
-        android:id="@+id/headerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/topBar"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            android:id="@+id/tvTicketId"
-            android:layout_width="198dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Jan Kowalski"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/outline_contacts_product_24"
-            android:drawableTint="@color/black"/>
-
-        <TextView
-            android:id="@+id/tvTrainNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="IC 1620"
-            android:textColor="#749E35"
-            android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/dividerTop"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_below="@id/headerLayout"
-        android:layout_marginHorizontal="16dp"
-        android:background="#000000" />
-
-    <!-- Main Content Container -->
+    <!-- ROUTE INFO -->
     <LinearLayout
-        android:id="@+id/contentLayout"
+        android:id="@+id/routeInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dividerTop"
+        android:layout_below="@id/topBar"
+        android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp">
 
-        <!-- Left Section: Departure Time and Date -->
+        <!-- LEFT: departure -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,47 +52,43 @@
                 android:layout_height="wrap_content"
                 android:text="08:30"
                 android:textColor="#000000"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
-
-        </LinearLayout>
-
-        <!-- Middle Section: Stations with connecting line -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingHorizontal="8dp">
 
             <TextView
                 android:id="@+id/tvStartStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Warszawa"
-                android:textColor="#000000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <!-- Connection Line -->
-            <View
-                android:layout_width="30dp"
-                android:layout_height="2dp"
-                android:layout_marginVertical="6dp"
-                android:background="#6C7278" />
-
-            <TextView
-                android:id="@+id/tvEndStation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kraków"
-                android:textColor="#000000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textColor="#666666"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- Right Section: Price -->
+        <!-- CENTER -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="48dp"
+                android:layout_height="2dp"
+                android:background="#80B918" />
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="2h 15m"
+                android:textColor="#888888"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- RIGHT: arrival -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,11 +97,107 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvArrivalTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Numer miejsca:"
+                android:text="10:45"
                 android:textColor="#000000"
-                android:textSize="14sp" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEndStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Kraków"
+                android:textColor="#666666"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/dividerBottom"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/routeInfoLayout"
+        android:layout_marginTop="14dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="#494949" />
+
+    <!-- BOTTOM SECTION -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dividerBottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Passenger"
+                android:textColor="#777777"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvPassengerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Jan Kowalski"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/outline_account_circle_24" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Train"
+                android:textColor="#777777"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTrainName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="EIP 4515"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seat"
+                android:textColor="#777777"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvSeatId"
@@ -157,6 +209,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
 </RelativeLayout>

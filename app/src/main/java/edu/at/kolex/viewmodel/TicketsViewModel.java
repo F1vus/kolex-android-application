@@ -21,7 +21,7 @@ public class TicketsViewModel extends ViewModel {
     private final TicketRepository ticketRepository = TicketRepository.getInstance();
     
     // Flag to use mock data for development/testing
-    private static final boolean USE_MOCK_DATA = true;
+    private static final boolean USE_MOCK_DATA = false;
 
     /**
      * Get the live data for tickets
@@ -64,6 +64,7 @@ public class TicketsViewModel extends ViewModel {
         ticketRepository.getUserTickets(new TicketRepository.TicketListCallback() {
             @Override
             public void onSuccess(List<Ticket> tickets) {
+                Log.v("TicketsViewModel", "Tickets loaded: " + tickets);
                 ticketsLiveData.setValue(tickets);
                 isLoadingLiveData.setValue(false);
                 errorLiveData.setValue(null);
@@ -97,60 +98,6 @@ public class TicketsViewModel extends ViewModel {
             isLoadingLiveData.setValue(false);
         }, 1000); // Simulate 1 second network delay
     }
-
-    /**
-     * Load tickets for a specific profile
-     * Uses mock data if USE_MOCK_DATA is true, otherwise calls API
-     */
-    public void loadProfileTickets(Long profileId) {
-        if (USE_MOCK_DATA) {
-            loadMockProfileTickets(profileId);
-        } else {
-            loadProfileTicketsFromAPI(profileId);
-        }
-    }
-
-    /**
-     * Load profile tickets from API (real data)
-     */
-    private void loadProfileTicketsFromAPI(Long profileId) {
-        isLoadingLiveData.setValue(true);
-        ticketRepository.getTicketsByProfile(profileId, new TicketRepository.TicketListCallback() {
-            @Override
-            public void onSuccess(List<Ticket> tickets) {
-                ticketsLiveData.setValue(tickets);
-                isLoadingLiveData.setValue(false);
-                errorLiveData.setValue(null);
-            }
-
-            @Override
-            public void onError(String message) {
-                ticketsLiveData.setValue(new ArrayList<>());
-                isLoadingLiveData.setValue(false);
-                errorLiveData.setValue(message);
-            }
-        });
-    }
-
-    /**
-     * Load mock profile tickets (development/testing)
-     */
-    private void loadMockProfileTickets(Long profileId) {
-        isLoadingLiveData.setValue(true);
-        // Simulate network delay
-        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-            try {
-                List<Ticket> mockTickets = TicketMockData.getMockTicketsByProfile(profileId);
-                ticketsLiveData.setValue(mockTickets);
-                errorLiveData.setValue(null);
-            } catch (Exception e) {
-                ticketsLiveData.setValue(new ArrayList<>());
-                errorLiveData.setValue("Error loading mock data: " + e.getMessage());
-            }
-            isLoadingLiveData.setValue(false);
-        }, 1000); // Simulate 1 second network delay
-    }
-
     /**
      * Clear error message
      */

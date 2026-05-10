@@ -45,8 +45,6 @@ public class UserRepository {
         void onError(String message);
     }
 
-    public interface ProfileUpdateCallback extends ProfileCallback {}
-
     public void getUserProfiles(ProfileListCallback callback) {
         userApiService.getUserProfiles().enqueue(new Callback<List<Profile>>() {
             @Override

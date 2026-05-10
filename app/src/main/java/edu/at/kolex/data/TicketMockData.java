@@ -1,5 +1,6 @@
 package edu.at.kolex.data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,255 +13,143 @@ import edu.at.kolex.model.Ticket;
  */
 public class TicketMockData {
 
-    /**
-     * Generate mock tickets for testing
-     * @return List of mock ticket objects
-     */
     public static List<Ticket> getMockTickets() {
+
         List<Ticket> tickets = new ArrayList<>();
 
-        // Ticket 1: Warszawa to Kraków
         tickets.add(createTicket(
                 1L,
-                LocalDateTime.of(2024, 6, 15, 8, 30),
-                "89.99",
-                101L,
-                1L,
-                1,
-                5,
-                LocalDateTime.of(2024, 6, 14, 15, 45),
+                "IC 1620",
+                "Jan Kowalski",
                 "Warszawa Centralna",
                 "Kraków Główny",
-                "IC 1620"
+                45,
+                LocalDateTime.of(2026, 6, 15, 8, 30),
+                LocalDateTime.of(2026, 6, 15, 11, 10),
+                new BigDecimal("89.99"),
+                1,
+                5
         ));
 
-        // Ticket 2: Warszawa to Wrocław
         tickets.add(createTicket(
                 2L,
-                LocalDateTime.of(2024, 6, 20, 12, 15),
-                "67.50",
-                102L,
-                1L,
-                2,
-                4,
-                LocalDateTime.of(2024, 6, 19, 14, 20),
+                "TLK 2300",
+                "Anna Nowak",
                 "Warszawa Wschodnia",
                 "Wrocław Główny",
-                "TLK 2300"
+                18,
+                LocalDateTime.of(2026, 6, 20, 12, 15),
+                LocalDateTime.of(2026, 6, 20, 16, 40),
+                new BigDecimal("67.50"),
+                2,
+                4
         ));
 
-        // Ticket 3: Gdańsk to Poznań
         tickets.add(createTicket(
                 3L,
-                LocalDateTime.of(2024, 7, 1, 16, 45),
-                "125.00",
-                103L,
-                1L,
-                1,
-                6,
-                LocalDateTime.of(2024, 6, 25, 10, 30),
+                "EIC 103",
+                "Piotr Wiśniewski",
                 "Gdańsk Główny",
                 "Poznań Główny",
-                "EIC 103"
+                7,
+                LocalDateTime.of(2026, 7, 1, 16, 45),
+                LocalDateTime.of(2026, 7, 1, 20, 15),
+                new BigDecimal("125.00"),
+                1,
+                6
         ));
 
-        // Ticket 4: Łódź to Warsaw
         tickets.add(createTicket(
                 4L,
-                LocalDateTime.of(2024, 7, 5, 9, 0),
-                "45.00",
-                104L,
-                1L,
-                3,
-                2,
-                LocalDateTime.of(2024, 7, 1, 11, 15),
+                "TLK 2500",
+                "Maria Zielińska",
                 "Łódź Fabryczna",
                 "Warszawa Centralna",
-                "TLK 2500"
+                22,
+                LocalDateTime.of(2026, 7, 5, 9, 0),
+                LocalDateTime.of(2026, 7, 5, 10, 45),
+                new BigDecimal("45.00"),
+                3,
+                2
         ));
 
-        // Ticket 5: Kraków to Katowice
         tickets.add(createTicket(
                 5L,
-                LocalDateTime.of(2024, 7, 10, 14, 20),
-                "52.50",
-                105L,
-                1L,
-                2,
-                3,
-                LocalDateTime.of(2024, 7, 8, 16, 45),
+                "EIP 4515",
+                "Adam Kowalczyk",
                 "Kraków Główny",
                 "Katowice",
-                "IC 2000"
-        ));
-
-        // Ticket 6: Wrocław to Berlin (International)
-        tickets.add(createTicket(
-                6L,
-                LocalDateTime.of(2024, 7, 15, 6, 30),
-                "199.99",
-                106L,
-                1L,
-                1,
-                8,
-                LocalDateTime.of(2024, 7, 10, 13, 30),
-                "Wrocław Główny",
-                "Berlin Hbf",
-                "EIC 44"
-        ));
-
-        // Ticket 7: Szczecin to Poznań
-        tickets.add(createTicket(
-                7L,
-                LocalDateTime.of(2024, 7, 20, 11, 0),
-                "78.00",
-                107L,
-                1L,
-                4,
-                2,
-                LocalDateTime.of(2024, 7, 18, 9, 20),
-                "Szczecin Główny",
-                "Poznań Główny",
-                "TLK 2600"
-        ));
-
-        // Ticket 8: Warsaw to Gdańsk (Fast train)
-        tickets.add(createTicket(
-                8L,
-                LocalDateTime.of(2024, 7, 25, 13, 30),
-                "95.50",
-                108L,
-                1L,
-                1,
-                7,
-                LocalDateTime.of(2024, 7, 23, 10, 0),
-                "Warszawa Centralna",
-                "Gdańsk Główny",
-                "PKP IC"
-        ));
-
-        // Ticket 9: Krakow to Lviv (Near future)
-        tickets.add(createTicket(
-                9L,
-                LocalDateTime.of(2024, 8, 5, 15, 45),
-                "135.00",
-                109L,
-                1L,
                 3,
-                5,
-                LocalDateTime.of(2024, 7, 30, 12, 30),
-                "Kraków Główny",
-                "Lviv",
-                "EIC 11"
-        ));
-
-        // Ticket 10: Poznań to Warsaw
-        tickets.add(createTicket(
-                10L,
-                LocalDateTime.of(2024, 8, 10, 10, 15),
-                "72.00",
-                110L,
-                1L,
+                LocalDateTime.of(2026, 7, 10, 14, 20),
+                LocalDateTime.of(2026, 7, 10, 15, 35),
+                new BigDecimal("52.50"),
                 2,
-                2,
-                LocalDateTime.of(2024, 8, 8, 14, 45),
-                "Poznań Główny",
-                "Warszawa Centralna",
-                "TLK 2800"
+                3
         ));
 
         return tickets;
     }
 
-    /**
-     * Get a single mock ticket by ID
-     * @param ticketId The ticket ID to find
-     * @return Ticket if found, null otherwise
-     */
     public static Ticket getMockTicketById(Long ticketId) {
-        List<Ticket> allTickets = getMockTickets();
-        for (Ticket ticket : allTickets) {
-            if (ticket.getTicketId().equals(ticketId)) {
+        for (Ticket ticket : getMockTickets()) {
+            if (ticket.getId().equals(ticketId)) {
                 return ticket;
             }
         }
         return null;
     }
 
-    /**
-     * Get mock tickets filtered by profile ID
-     * @param profileId The profile ID
-     * @return List of tickets for that profile
-     */
-    public static List<Ticket> getMockTicketsByProfile(Long profileId) {
-        List<Ticket> allTickets = getMockTickets();
-        List<Ticket> profileTickets = new ArrayList<>();
-        for (Ticket ticket : allTickets) {
-            if (ticket.getProfileId().equals(profileId)) {
-                profileTickets.add(ticket);
-            }
-        }
-        return profileTickets;
-    }
-
-    /**
-     * Helper method to create a ticket with all fields
-     */
     private static Ticket createTicket(
-            Long ticketId,
-            LocalDateTime departureDate,
-            String price,
-            Long travelId,
-            Long profileId,
-            Integer startStop,
-            Integer endStop,
-            LocalDateTime createdAt,
-            String startStation,
-            String endStation,
-            String trainNumber
+            Long id,
+            String trainName,
+            String profileName,
+            String fromStationName,
+            String toStationName,
+            Integer seatNumber,
+            LocalDateTime actualDeparture,
+            LocalDateTime actualArrival,
+            BigDecimal price,
+            Integer travelStopNumberFrom,
+            Integer travelStopNumberTo
     ) {
-        Ticket ticket = new Ticket(
-                ticketId,
-                departureDate,
+
+        return new Ticket(
+                id,
+                trainName,
+                profileName,
+                fromStationName,
+                toStationName,
+                seatNumber,
+                actualDeparture,
+                actualArrival,
                 price,
-                travelId,
-                startStop,
-                endStop,
-                createdAt
+                travelStopNumberFrom,
+                travelStopNumberTo
         );
-        ticket.setStartStation(startStation);
-        ticket.setEndStation(endStation);
-        ticket.setTrainNumber(trainNumber);
-        ticket.setProfileId(profileId);
-        return ticket;
     }
 
-    /**
-     * Get a limited set of mock tickets for quick testing
-     * @param count Number of tickets to return
-     * @return List of mock tickets (limited)
-     */
     public static List<Ticket> getMockTicketsLimited(int count) {
         List<Ticket> allTickets = getMockTickets();
         return allTickets.subList(0, Math.min(count, allTickets.size()));
     }
 
-    /**
-     * Get mock tickets filtered by date range
-     * @param startDate Start date
-     * @param endDate End date
-     * @return List of tickets within the date range
-     */
-    public static List<Ticket> getMockTicketsByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
-        List<Ticket> allTickets = getMockTickets();
-        List<Ticket> filteredTickets = new ArrayList<>();
-        for (Ticket ticket : allTickets) {
-            if (ticket.getDepartureDate() != null &&
-                    ticket.getDepartureDate().isAfter(startDate) &&
-                    ticket.getDepartureDate().isBefore(endDate)) {
-                filteredTickets.add(ticket);
+    public static List<Ticket> getMockTicketsByDateRange(
+            LocalDateTime startDate,
+            LocalDateTime endDate
+    ) {
+
+        List<Ticket> filtered = new ArrayList<>();
+
+        for (Ticket ticket : getMockTickets()) {
+
+            if (ticket.getActualDeparture() != null
+                    && !ticket.getActualDeparture().isBefore(startDate)
+                    && !ticket.getActualDeparture().isAfter(endDate)) {
+
+                filtered.add(ticket);
             }
         }
-        return filteredTickets;
+
+        return filtered;
     }
 }

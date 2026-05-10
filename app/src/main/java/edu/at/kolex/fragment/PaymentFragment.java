@@ -20,22 +20,18 @@ import edu.at.kolex.viewmodel.PaymentViewModel;
 public class PaymentFragment extends Fragment {
 
     private static final String ARG_RESERVATION_ID = "reservation_id";
-    private static final String ARG_USER_ID = "user_id";
     private static final String ARG_BALANCE = "balance";
     private static final String ARG_TICKET_PRICE = "ticket_price";
 
     private FragmentPaymentBinding binding;
     private PaymentViewModel viewModel;
-
     private Long reservationId;
-    private Long userId;
     private boolean randomMode = false;
 
-    public static PaymentFragment newInstance(Long reservationId, Long userId, String balance, String ticketPrice) {
+    public static PaymentFragment newInstance(Long reservationId, String balance, String ticketPrice) {
         PaymentFragment fragment = new PaymentFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_RESERVATION_ID, reservationId);
-        args.putLong(ARG_USER_ID, userId);
         args.putString(ARG_BALANCE, balance);
         args.putString(ARG_TICKET_PRICE, ticketPrice);
         fragment.setArguments(args);
@@ -51,7 +47,6 @@ public class PaymentFragment extends Fragment {
         args.putLong("profile_id", ticket.getProfileId());
         args.putInt("start_stop", ticket.getStartStop());
         args.putInt("end_stop", ticket.getEndStop());
-        args.putLong(ARG_USER_ID, ticket.getUserId());
         args.putString(ARG_TICKET_PRICE, ticketPrice);
         args.putString(ARG_BALANCE, balance);
 
@@ -68,7 +63,6 @@ public class PaymentFragment extends Fragment {
 
         if (!randomMode) {
             reservationId = args.getLong(ARG_RESERVATION_ID);
-            userId = args.getLong(ARG_USER_ID);
         }
     }
 
@@ -94,7 +88,6 @@ public class PaymentFragment extends Fragment {
 
             binding.btnPay.setOnClickListener(v -> viewModel.purchaseRandom(
                     args.getLong("travel_id"),
-                    args.getLong("user_id"),
                     args.getLong("profile_id"),
                     args.getInt("start_stop"),
                     args.getInt("end_stop")
@@ -108,7 +101,7 @@ public class PaymentFragment extends Fragment {
 
         binding.tvTicketPrice.setText(args.getString(ARG_TICKET_PRICE, "0,00 zł"));
 
-        binding.btnPay.setOnClickListener(v -> viewModel.buyTicket(reservationId, userId));
+        binding.btnPay.setOnClickListener(v -> viewModel.buyTicket(reservationId));
         binding.btnGoHome.setOnClickListener(v -> goHome());
 
         observeViewModel();

@@ -4,12 +4,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.time.LocalDateTime;
+
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
+
 import edu.at.kolex.R;
 import edu.at.kolex.model.Ticket;
 
@@ -17,9 +20,11 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
 
     private final List<Ticket> tickets;
     private final OnTicketClickListener listener;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", Locale.getDefault());
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault());
-    private static final DateTimeFormatter DATE_ONLY_FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy", Locale.getDefault());
+
+    private static final DateTimeFormatter TOP_DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("EEE, dd.MM.yyyy", Locale.getDefault());
+    private static final DateTimeFormatter TIME_FORMATTER =
+            DateTimeFormatter.ofPattern("HH:mm", Locale.getDefault());
 
     public interface OnTicketClickListener {
         void onTicketClick(Ticket ticket);
@@ -33,47 +38,71 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     @NonNull
     @Override
     public TicketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ticket, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_ticket, parent, false);
         return new TicketViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         Ticket ticket = tickets.get(position);
-        
-        // Format departure date (LocalDateTime -> formatted strings)
-        LocalDateTime departure = ticket.getDepartureDate();
-        if (departure != null) {
-            try {
-                holder.tvDepartureDate.setText(departure.format(DATE_ONLY_FORMATTER));
-                holder.tvDepartureTime.setText(departure.format(TIME_FORMATTER));
-            } catch (Exception e) {
-                holder.tvDepartureDate.setText("");
-                holder.tvDepartureTime.setText("");
-            }
+
+        // top bar date
+        if (ticket.getActualDeparture() != null) {
+            holder.tvTopInfo.setText(ticket.getActualDeparture().format(TOP_DATE_FORMATTER));
+            holder.tvDepartureTime.setText(ticket.getActualDeparture().format(TIME_FORMATTER));
         } else {
-            holder.tvDepartureDate.setText("");
+            holder.tvTopInfo.setText("");
             holder.tvDepartureTime.setText("");
         }
-        
-        // Station information
-        holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : "Stop " + ticket.getStartStopNumber());
-        holder.tvEndStation.setText(ticket.getEndStation() != null ? ticket.getEndStation() : "Stop " + ticket.getEndStopNumber());
-        
-    // Price
-    holder.tvSeatId.setText(ticket.getTicketPrice() != null ? String.format("%s PLN", ticket.getTicketPrice()) : "- PLN");
-        
-    // Ticket ID (reference) - guard against null id
-    holder.tvTicketId.setText("Ticket #" + (ticket.getTicketId() != null ? ticket.getTicketId() : ""));
-        
-        // Train number if available
-        if (ticket.getTrainNumber() != null) {
-            holder.tvTrainNumber.setText(ticket.getTrainNumber());
-            holder.tvTrainNumber.setVisibility(View.VISIBLE);
+
+        // arrival time
+        if (ticket.getActualArrival() != null) {
+            holder.tvArrivalTime.setText(ticket.getActualArrival().format(TIME_FORMATTER));
         } else {
-            holder.tvTrainNumber.setVisibility(View.GONE);
+            holder.tvArrivalTime.setText("");
         }
-        
+
+        // duration
+        if (ticket.getActualDeparture() != null && ticket.getActualArrival() != null) {
+            Duration duration = Duration.between(ticket.getActualDeparture(), ticket.getActualArrival());
+
+            long hours = duration.toHours();
+            long minutes = duration.toMinutes() % 60;
+
+            holder.tvDuration.setText(hours + "h " + minutes + "m");
+        } else {
+            holder.tvDuration.setText("");
+        }
+
+        // stations
+        holder.tvStartStation.setText(
+                ticket.getFromStationName() != null
+                        ? ticket.getFromStationName()
+                        : ("Stop " + ticket.getTravelStopNumberFrom())
+        );
+
+        holder.tvEndStation.setText(
+                ticket.getToStationName() != null
+                        ? ticket.getToStationName()
+                        : ("Stop " + ticket.getTravelStopNumberTo())
+        );
+
+        // passenger
+        holder.tvPassengerName.setText(
+                ticket.getProfileName() != null ? ticket.getProfileName() : "-"
+        );
+
+        // train
+        holder.tvTrainName.setText(
+                ticket.getTrainName() != null ? ticket.getTrainName() : "-"
+        );
+
+        // seat
+        holder.tvSeatId.setText(
+                ticket.getSeatNumber() != null ? String.valueOf(ticket.getSeatNumber()) : "-"
+        );
+
         holder.itemView.setOnClickListener(v -> listener.onTicketClick(ticket));
     }
 
@@ -82,26 +111,17 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         return tickets.size();
     }
 
-    /**
-     * Update the ticket list and refresh the adapter
-     */
     public void updateTickets(List<Ticket> newTickets) {
         this.tickets.clear();
         this.tickets.addAll(newTickets);
         notifyDataSetChanged();
     }
 
-    /**
-     * Add a single ticket to the list
-     */
     public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
         notifyItemInserted(this.tickets.size() - 1);
     }
 
-    /**
-     * Remove a ticket from the list
-     */
     public void removeTicket(int position) {
         if (position >= 0 && position < this.tickets.size()) {
             this.tickets.remove(position);
@@ -110,18 +130,20 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     }
 
     static class TicketViewHolder extends RecyclerView.ViewHolder {
-        TextView tvDepartureDate, tvDepartureTime, tvStartStation, tvEndStation,
-                tvSeatId, tvTicketId, tvTrainNumber;
+        TextView tvTopInfo, tvDepartureTime, tvArrivalTime, tvDuration,
+                tvStartStation, tvEndStation, tvPassengerName, tvTrainName, tvSeatId;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvDepartureDate = itemView.findViewById(R.id.tvTopInfo);
+            tvTopInfo = itemView.findViewById(R.id.tvTopInfo);
             tvDepartureTime = itemView.findViewById(R.id.tvDepartureTime);
+            tvArrivalTime = itemView.findViewById(R.id.tvArrivalTime);
+            tvDuration = itemView.findViewById(R.id.tvDuration);
             tvStartStation = itemView.findViewById(R.id.tvStartStation);
             tvEndStation = itemView.findViewById(R.id.tvEndStation);
+            tvPassengerName = itemView.findViewById(R.id.tvPassengerName);
+            tvTrainName = itemView.findViewById(R.id.tvTrainName);
             tvSeatId = itemView.findViewById(R.id.tvSeatId);
-            tvTicketId = itemView.findViewById(R.id.tvTicketId);
-            tvTrainNumber = itemView.findViewById(R.id.tvTrainNumber);
         }
     }
 }
