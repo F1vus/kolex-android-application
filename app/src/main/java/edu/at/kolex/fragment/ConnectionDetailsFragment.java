@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +18,12 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 import edu.at.kolex.R;
+import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.adapter.StopSegmentAdapter;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.TravelStop;
@@ -95,11 +96,13 @@ public class ConnectionDetailsFragment extends Fragment {
         rvSegments.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSegments.setAdapter(adapter);
 
-        btnContinue.setOnClickListener(v ->
-                Toast.makeText(getContext(),
-                        "Przejście do wyboru miejsca — TODO",
-                        Toast.LENGTH_SHORT).show());
+        btnContinue.setOnClickListener(v ->{
+                SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
 
+                if (requireActivity() instanceof SearchTravelActivity) {
+                    ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+                }
+                });
         loadStops();
     }
 
@@ -170,7 +173,7 @@ public class ConnectionDetailsFragment extends Fragment {
                 relevant.add(s);
             }
         }
-        relevant.sort((a, b) -> Integer.compare(a.getStopNumber(), b.getStopNumber()));
+        relevant.sort(Comparator.comparingInt(TravelStop::getStopNumber));
 
         for (int i = 0; i < relevant.size() - 1; i++) {
             TravelStop dep = relevant.get(i);

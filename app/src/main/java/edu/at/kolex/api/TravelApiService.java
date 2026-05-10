@@ -26,9 +26,8 @@ public interface TravelApiService {
     Call<List<SeatStatus>> getSeats(
             @Query("travelId") Long travelId,
             @Query("startStop") int startStop,
-            @Query("endStop") int endStop
+            @Query("endStop") int endStop);
+
     @GET("api/search/stations")
-    Call<List<TravelStop>> getStopsByTravelId(
-            @Query("travelId") Long travelId
-    );
+    Call<List<TravelStop>> getStopsByTravelId(@Query("travelId") Long travelId);
 }

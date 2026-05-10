@@ -109,6 +109,8 @@ public class TravelRepository {
                 callback.onError(t.getMessage());
             }
         });
+    }
+
     public void getStopsByTravelId(Long travelId, StopsCallback callback) {
         travelApiService.getStopsByTravelId(travelId)
                 .enqueue(new Callback<List<TravelStop>>() {

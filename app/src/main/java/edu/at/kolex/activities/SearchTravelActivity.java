@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.Objects;
@@ -40,6 +39,8 @@ public class SearchTravelActivity extends AppCompatActivity {
     private Long reservationId = null;
     private Long profileId = null;
 
+    private Toolbar toolbar = null;
+
     private boolean protectedScreen = false;
 
     @Override
@@ -47,7 +48,7 @@ public class SearchTravelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_travel);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         tvReservationTimer = findViewById(R.id.tvReservationTimer);
 
         setSupportActionBar(toolbar);
@@ -221,17 +222,6 @@ public class SearchTravelActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            handleNavigationBack();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onDestroy() {
 
         if (countDownTimer != null) {
@@ -252,16 +242,6 @@ public class SearchTravelActivity extends AppCompatActivity {
         }
 
         transaction.commit();
-        String departureName = Objects.requireNonNull(getIntent().getStringExtra("departure_name")).split("-")[1].trim();
-        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra("arrival_name")).split("-")[1].trim();
-        TravelsFragment fragment = getRoutesFragment();
-
-        TextView tvDep = toolbar.findViewById(R.id.tvToolbarDeparture);
-        TextView tvArr = toolbar.findViewById(R.id.tvToolbarArrival);
-        tvDep.setText(departureName);
-        tvArr.setText(arrivalName);
-
-        setCurrentFragment(getRoutesFragment());
     }
 
     @NonNull
@@ -269,14 +249,29 @@ public class SearchTravelActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
-        bundle.putLong("departure_id", intent.getLongExtra("departure_id", 0L));
-        bundle.putLong("arrival_id",   intent.getLongExtra("arrival_id",   0L));
-        bundle.putSerializable("date_and_time",
-                (LocalDateTime) intent.getSerializableExtra("date_and_time"));
+
+        long departureId = getIntent().getLongExtra("departure_id", 0L);
+        long arrivalId   = getIntent().getLongExtra("arrival_id", 0L);
+
+        String departureName = Objects.requireNonNull(getIntent().getStringExtra("departure_name")).split("-")[1].trim();
+        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra("arrival_name")).split("-")[1].trim();
+
+        bundle.putSerializable("date_and_time", intent.getSerializableExtra("date_and_time"));
+        bundle.putLong("departure_id", departureId);
+        bundle.putLong("arrival_id", arrivalId);
 
         TravelsFragment fragment = new TravelsFragment();
 
+        TextView tvDep = toolbar.findViewById(R.id.tvToolbarDeparture);
+        TextView tvArr = toolbar.findViewById(R.id.tvToolbarArrival);
+        tvDep.setText(departureName);
+        tvArr.setText(arrivalName);
+
         fragment.setArguments(bundle);
+
+        return fragment;
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -288,8 +283,5 @@ public class SearchTravelActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-        return fragment;
     }
 }
