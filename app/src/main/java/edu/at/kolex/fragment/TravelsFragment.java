@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import edu.at.kolex.R;
+import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.adapter.TravelAdapter;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.repository.TravelRepository;
@@ -73,7 +74,12 @@ public class TravelsFragment extends Fragment {
 
     private void setupRecyclerView() {
         adapter = new TravelAdapter(travel -> {
-            // Handle route selection
+            SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
+
+            if (requireActivity() instanceof SearchTravelActivity) {
+                ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+            }
+
             Toast.makeText(getContext(), "Selected: " + travel.getTrainName(), Toast.LENGTH_SHORT).show();
         });
         rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));

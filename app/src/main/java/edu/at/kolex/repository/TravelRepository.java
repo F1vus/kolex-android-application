@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.TravelApiService;
+import edu.at.kolex.model.SeatStatus;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.Station;
 import retrofit2.Call;
@@ -35,6 +36,12 @@ public class TravelRepository {
         void onSuccess(List<Station> stations);
         void onError(String message);
     }
+
+    public interface SeatsCallback {
+        void onSuccess(List<SeatStatus> seats);
+        void onError(String message);
+    }
+
 
 
     public void searchTravel(Long fromId, Long toId, LocalDateTime dateAndTimeSearchTrain, TravelCallback callback) {
@@ -74,6 +81,25 @@ public class TravelRepository {
 
             @Override
             public void onFailure(@NonNull Call<List<Station>> call, @NonNull Throwable t) {
+                callback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void getSeats(long travelId, int startStop, int endStop, SeatsCallback callback) {
+        travelApiService.getSeats(travelId, startStop, endStop).enqueue(new Callback<List<SeatStatus>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<SeatStatus>> call,
+                                   @NonNull Response<List<SeatStatus>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError("Error: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<SeatStatus>> call, @NonNull Throwable t) {
                 callback.onError(t.getMessage());
             }
         });

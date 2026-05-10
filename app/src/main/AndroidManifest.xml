@@ -28,7 +28,6 @@
         <activity
             android:name=".activities.SearchTravelActivity"
             android:exported="false"
-            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/Theme.KOLEX.SearchTicket">
         </activity>
         <activity

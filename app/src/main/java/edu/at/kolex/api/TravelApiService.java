@@ -2,6 +2,8 @@ package edu.at.kolex.api;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import edu.at.kolex.model.SeatStatus;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.Station;
 import retrofit2.Call;
@@ -18,4 +20,11 @@ public interface TravelApiService {
 
     @GET("api/metadata/stations")
     Call<List<Station>> getStations();
+
+    @GET("api/search/seats")
+    Call<List<SeatStatus>> getSeats(
+            @Query("travelId") Long travelId,
+            @Query("startStop") int startStop,
+            @Query("endStop") int endStop
+    );
 }
