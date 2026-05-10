@@ -1,6 +1,8 @@
 package edu.at.kolex.viewmodel;
 
 
+import static android.provider.Settings.System.getString;
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -8,6 +10,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import edu.at.kolex.R;
 import edu.at.kolex.model.auth.AuthResponse;
 import edu.at.kolex.model.auth.AuthResult;
 import edu.at.kolex.model.auth.register.RegisterRequest;
@@ -30,7 +33,11 @@ public class RegisterViewModel extends AndroidViewModel {
             @Override
             public void onSuccess(AuthResponse response) {
                 TokenManager.saveToken(getApplication(), response.getToken());
-                registerResult.postValue(new AuthResult(true, "OK", response));
+                registerResult.postValue(new AuthResult(true, getString(R.string.ok___), response));
+            }
+
+            private String getString(int ok___) {
+                return "";
             }
 
             @Override

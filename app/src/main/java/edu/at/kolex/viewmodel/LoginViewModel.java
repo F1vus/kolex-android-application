@@ -1,5 +1,7 @@
 package edu.at.kolex.viewmodel;
 
+import static android.provider.Settings.System.getString;
+
 import android.app.Application;
 
 import androidx.annotation.NonNull;
@@ -7,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import edu.at.kolex.R;
 import edu.at.kolex.model.auth.AuthResponse;
 import edu.at.kolex.model.auth.AuthResult;
 import edu.at.kolex.repository.AuthRepository;
@@ -29,7 +32,7 @@ public class LoginViewModel extends AndroidViewModel {
 
     public void login(String email, String password) {
         AuthResponse mockResponse = new AuthResponse("1","2","3","$");
-        AuthResult mockResult = new AuthResult(true, "OK", mockResponse);
+        AuthResult mockResult = new AuthResult(true, getString(R.string.ok), mockResponse);
 
         TokenManager.saveToken(getApplication(), mockResponse.getToken());
         TokenManager.saveEmail(getApplication(), email);
@@ -46,5 +49,9 @@ public class LoginViewModel extends AndroidViewModel {
 //                loginResult.postValue(new AuthResult(false, message, null));
 //            }
 //        });
+    }
+
+    private String getString(int ok) {
+        return "";
     }
 }

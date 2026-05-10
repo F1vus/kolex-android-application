@@ -1,11 +1,15 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.Secure.getString;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.TravelApiService;
 import edu.at.kolex.model.SeatStatus;
@@ -57,13 +61,17 @@ public class TravelRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string._error) + response.code());
                 }
+            }
+
+            private String getString(int error) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Travel>> call, @NonNull Throwable t) {
-                Log.e("TravelRepository", "Error: " + t.getMessage(), t);
+                Log.e(getString(R.string.travelrepository), getString(R.string._error_) + t.getMessage(), t);
                 if (t instanceof java.io.IOException) {
                     callback.onNoInternet();
                 } else {
@@ -81,8 +89,12 @@ public class TravelRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.__error_) + response.code());
                 }
+            }
+
+            private String getString(int error) {
+                return "";
             }
 
             @Override
@@ -100,8 +112,12 @@ public class TravelRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.__error__) + response.code());
                 }
+            }
+
+            private String getString(int error__) {
+                return "";
             }
 
             @Override
@@ -119,7 +135,11 @@ public class TravelRepository {
                                            @NonNull Response<List<TravelStop>> response) {
                         if (response.isSuccessful() && response.body() != null)
                             callback.onSuccess(response.body());
-                        else callback.onError("Error: " + response.code());
+                        else callback.onError(getString(R.string.error___) + response.code());
+                    }
+
+                    private String getString(int error___) {
+                        return "";
                     }
 
                     @Override

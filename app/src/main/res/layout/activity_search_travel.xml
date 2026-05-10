@@ -40,7 +40,7 @@
                     android:id="@+id/tvToolbarDeparture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Station from"
+                    android:text="@string/station_from"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -49,7 +49,7 @@
                     android:id="@+id/tvToolbarArrival"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Station to"
+                    android:text="@string/station_to"
                     android:textColor="@android:color/white"
                     android:textSize="13sp" />
 

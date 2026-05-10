@@ -1,9 +1,12 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.System.getString;
+
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.UserApiService;
 import edu.at.kolex.model.Profile;
@@ -55,7 +58,11 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null)
                     callback.onSuccess(response.body());
                 else
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.error____) + response.code());
+            }
+
+            private String getString(int error____) {
+                return "";
             }
 
             @Override
@@ -74,7 +81,11 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null)
                     callback.onSuccess(response.body());
                 else
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.error_____) + response.code());
+            }
+
+            private String getString(int error_____) {
+                return "";
             }
 
             @Override
@@ -94,7 +105,11 @@ public class UserRepository {
                         if (response.isSuccessful() && response.body() != null)
                             callback.onSuccess(response.body());
                         else
-                            callback.onError("Error: " + response.code());
+                            callback.onError(getString(R.string.error______) + response.code());
+                    }
+
+                    private String getString(int error______) {
+                        return "";
                     }
 
                     @Override
@@ -111,7 +126,10 @@ public class UserRepository {
             public void onResponse(@NonNull Call<Void> call,
                                    @NonNull Response<Void> response) {
                 if (response.isSuccessful()) callback.onSuccess();
-                else callback.onError("Error: " + response.code());
+                else callback.onError(getString(R.string.___error) + response.code());
+            }
+
+            private String getString(int error) {
             }
 
             @Override
@@ -130,7 +148,11 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null)
                     callback.onSuccess(response.body());
                 else
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.__error___) + response.code());
+            }
+
+            private String getString(int error___) {
+                return "";
             }
 
             @Override

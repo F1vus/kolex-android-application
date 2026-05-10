@@ -1,5 +1,7 @@
 package edu.at.kolex.viewmodel;
 
+import static android.provider.Settings.System.getString;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -7,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
+import edu.at.kolex.R;
 import edu.at.kolex.model.Profile;
 import edu.at.kolex.repository.UserRepository;
 
@@ -60,8 +63,12 @@ public class ProfilesViewModel extends ViewModel {
             @Override
             public void onSuccess() {
                 loading.setValue(false);
-                successMessage.setValue("Profil usunięty");
+                successMessage.setValue(getString(R.string.Profile_deleted));
                 loadProfiles();
+            }
+
+            private String getString(int profileDeleted) {
+                return "";
             }
 
             @Override
@@ -82,7 +89,11 @@ public class ProfilesViewModel extends ViewModel {
                 @Override
                 public void onSuccess(Profile profile) {
                     loading.setValue(false);
-                    successMessage.setValue("Profil dodany pomyślnie");
+                    successMessage.setValue(getString(R.string.Profile_added_successfully));
+                }
+
+                private String getString(int profileAddedSuccessfully) {
+                    return "";
                 }
 
                 @Override
@@ -102,7 +113,11 @@ public class ProfilesViewModel extends ViewModel {
                 @Override
                 public void onSuccess(Profile profile) {
                     loading.setValue(false);
-                    successMessage.setValue("Profil zaktualizowany pomyślnie");
+                    successMessage.setValue(getString(R.string.Profile_updated_successfully));
+                }
+
+                private String getString(int profileUpdatedSuccessfully) {
+                    return "";
                 }
 
                 @Override

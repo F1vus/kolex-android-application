@@ -1,5 +1,7 @@
 package edu.at.kolex.viewmodel;
 
+import static android.provider.Settings.System.getString;
+
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.at.kolex.R;
 import edu.at.kolex.data.TicketMockData;
 import edu.at.kolex.model.Ticket;
 import edu.at.kolex.repository.TicketRepository;
@@ -87,15 +90,19 @@ public class TicketsViewModel extends ViewModel {
         new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
             try {
                 List<Ticket> mockTickets = TicketMockData.getMockTickets();
-                Log.d("TicketsViewModel", "Mock tickets loaded: " + mockTickets.size());
+                Log.d(getString(R.string.ticketsviewmodel), getString(R.string.mock_tickets_loaded) + mockTickets.size());
                 ticketsLiveData.setValue(mockTickets);
                 errorLiveData.setValue(null);
             } catch (Exception e) {
                 ticketsLiveData.setValue(new ArrayList<>());
-                errorLiveData.setValue("Error loading mock data: " + e.getMessage());
+                errorLiveData.setValue(getString(R.string.error_loading_mock_data) + e.getMessage());
             }
             isLoadingLiveData.setValue(false);
         }, 1000); // Simulate 1 second network delay
+    }
+
+    private String getString(int ticketsviewmodel) {
+        return "";
     }
 
     /**
@@ -145,7 +152,7 @@ public class TicketsViewModel extends ViewModel {
                 errorLiveData.setValue(null);
             } catch (Exception e) {
                 ticketsLiveData.setValue(new ArrayList<>());
-                errorLiveData.setValue("Error loading mock data: " + e.getMessage());
+                errorLiveData.setValue(getString(R.string.error_loading_mock_data_) + e.getMessage());
             }
             isLoadingLiveData.setValue(false);
         }, 1000); // Simulate 1 second network delay
