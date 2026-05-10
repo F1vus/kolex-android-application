@@ -43,6 +43,7 @@ public class LoginViewModel extends AndroidViewModel {
                 @Override
                 public void onSuccess(AuthResponse response) {
                     TokenManager.saveToken(getApplication(), response.getToken());
+                    TokenManager.saveEmail(getApplication(), response.getEmail());
                     loginResult.postValue(new AuthResult(true, "OK", response));
                 }
 
