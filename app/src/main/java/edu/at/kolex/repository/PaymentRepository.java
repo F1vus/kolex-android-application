@@ -4,11 +4,15 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import java.math.BigDecimal;
+
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.PaymentApiService;
 import edu.at.kolex.model.BuyRandomTicketRequest;
 import edu.at.kolex.model.BuyTicketRequest;
 import edu.at.kolex.model.BuyTicketResponse;
+import edu.at.kolex.model.TopUpRequest;
+import edu.at.kolex.model.TopUpResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,6 +28,11 @@ public class PaymentRepository {
             instance = new PaymentRepository();
         }
         return instance;
+    }
+
+    public interface TopUpCallback {
+        void onSuccess(TopUpResponse response);
+        void onError(String message);
     }
 
     public interface PaymentCallback {
@@ -71,6 +80,25 @@ public class PaymentRepository {
             @Override
             public void onFailure(@NonNull Call<BuyTicketResponse> call, @NonNull Throwable t) {
                 callback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void topUp(BigDecimal amount, TopUpCallback callback) {
+        apiService.topUp(new TopUpRequest(amount)).enqueue(new Callback<TopUpResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<TopUpResponse> call,
+                                   @NonNull Response<TopUpResponse> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    callback.onSuccess(response.body());
+                else
+                    callback.onError("Błąd: " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<TopUpResponse> call,
+                                  @NonNull Throwable t) {
+                callback.onError("Brak połączenia z serwerem");
             }
         });
     }
