@@ -1,11 +1,14 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.System.getString;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import java.util.List;
 
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.TicketApiService;
 import edu.at.kolex.model.Ticket;
@@ -47,14 +50,18 @@ public class TicketRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Błąd pobierania biletów: " + response.code());
+                    callback.onError(getString(R.string.Ticket_retrieval_error) + response.code());
                 }
+            }
+
+            private String getString(int ticketRetrievalError) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Ticket>> call, @NonNull Throwable t) {
-                Log.e(TAG, "Error fetching user tickets: " + t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
+                Log.e(TAG, getString(R.string.error_fetching_user_tickets) + t.getLocalizedMessage(), t);
+                callback.onError(getString(R.string.No_connection_to_the_server_));
             }
         });
     }
@@ -69,14 +76,18 @@ public class TicketRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Błąd pobierania biletu: " + response.code());
+                    callback.onError(getString(R.string.Ticket_download_error) + response.code());
                 }
+            }
+
+            private String getString(int ticketDownloadError) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<Ticket> call, @NonNull Throwable t) {
-                Log.e(TAG, "Error fetching ticket: " + t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
+                Log.e(TAG, getString(R.string.error_fetching_ticket) + t.getLocalizedMessage(), t);
+                callback.onError(getString(R.string.No_connection_to_the_server__));
             }
         });
     }
@@ -91,14 +102,18 @@ public class TicketRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Błąd pobierania biletów profilu: " + response.code());
+                    callback.onError(getString(R.string.Error_downloading_profile_tickets) + response.code());
                 }
+            }
+
+            private String getString(int errorDownloadingProfileTickets) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Ticket>> call, @NonNull Throwable t) {
-                Log.e(TAG, "Error fetching profile tickets: " + t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
+                Log.e(TAG, getString(R.string.error_fetching_profile_tickets) + t.getLocalizedMessage(), t);
+                callback.onError(getString(R.string.No_connection_to_the_server___));
             }
         });
     }

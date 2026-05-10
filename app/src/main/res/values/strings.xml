@@ -73,5 +73,23 @@
     <string name="something_went_wrong">Something went wrong</string>
     <string name="no_internet">No Internet</string>
     <string name="please_check_your_network_connection_and_try_again">Please check your network connection and try again.</string>
+    <string name="Login_error">Login error</string>
+    <string name="No_connection_to_the_server">No connection to the server</string>
+    <string name="Registration_error">Registration error:</string>
+    <string name="no_connection_to_the_server">No connection to the server</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="paymentrepository">PaymentRepository</string>
+    <string name="payment_repository">PaymentRepository</string>
+    <string name="error">"Error: "</string>
+    <string name="error_">"Error: "</string>
+    <string name="Ticket_retrieval_error">Ticket retrieval error:</string>
+    <string name="error_fetching_user_tickets">"Error fetching user tickets: "</string>
+    <string name="No_connection_to_the_server_">No connection to the server</string>
+    <string name="Ticket_download_error">Ticket download error:</string>
+    <string name="error_fetching_ticket">"Error fetching ticket: "</string>
+    <string name="No_connection_to_the_server__">No connection to the server</string>
+    <string name="Error_downloading_profile_tickets">Error downloading profile tickets:</string>
+    <string name="error_fetching_profile_tickets">"Error fetching profile tickets: "</string>
+    <string name="No_connection_to_the_server___">No connection to the server</string>
 
 </resources>

@@ -1,7 +1,10 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.System.getString;
+
 import androidx.annotation.NonNull;
 
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.ReservationApiService;
 import edu.at.kolex.model.ReservationRequest;
@@ -41,8 +44,12 @@ public class ReservationRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body().getReservationId());
                 } else {
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.error) + response.code());
                 }
+            }
+
+            private String getString(int error) {
+                return "";
             }
 
             @Override
@@ -59,8 +66,12 @@ public class ReservationRepository {
                 if (response.isSuccessful()) {
                     callback.onSuccess();
                 } else {
-                    callback.onError("Error: " + response.code());
+                    callback.onError(getString(R.string.error_) + response.code());
                 }
+            }
+
+            private String getString(int error) {
+                return "";
             }
 
             @Override

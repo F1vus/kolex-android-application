@@ -1,8 +1,11 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.System.getString;
+
 import android.util.Log;
 import androidx.annotation.NonNull;
 
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.AuthApiService;
 import edu.at.kolex.model.auth.AuthResponse;
@@ -39,14 +42,18 @@ public class AuthRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Błąd logowania: " + response.code());
+                    callback.onError(getString(R.string.Login_error) + response.code());
                 }
+            }
+
+            private String getString(int loginError) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {
                 Log.v("AuthRepository", t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
+                callback.onError(getString(R.string.No_connection_to_the_server));
             }
         });
     }
@@ -58,14 +65,18 @@ public class AuthRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onError("Błąd rejestracji: " + response.code());
+                    callback.onError(getString(R.string.Registration_error) + response.code());
                 }
+            }
+
+            private String getString(int registrationError) {
+                return "";
             }
 
             @Override
             public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {
                 Log.v("AuthRepository", t.getLocalizedMessage(), t);
-                callback.onError("Brak połączenia z serwerem");
+                callback.onError(getString(R.string.no_connection_to_the_server));
             }
         });
     }

@@ -1,9 +1,12 @@
 package edu.at.kolex.repository;
 
+import static android.provider.Settings.System.getString;
+
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import edu.at.kolex.R;
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.PaymentApiService;
 import edu.at.kolex.model.BuyRandomTicketRequest;
@@ -76,17 +79,21 @@ public class PaymentRepository {
     }
 
     private String getErrorMessage(Response<BuyTicketResponse> response) {
-        String errorMessage = "Unknown error";
+        String errorMessage = getString(R.string.unknown_error);
 
         try {
             if (response.errorBody() != null) {
                 errorMessage = response.errorBody().string();
             }
         } catch (Exception e) {
-            Log.e("PaymentRepository", e.getMessage(), e);
+            Log.e(getString(R.string.paymentrepository), e.getMessage(), e);
         }
 
-        Log.e("PaymentRepository", errorMessage);
+        Log.e(getString(R.string.payment_repository), errorMessage);
         return errorMessage;
+    }
+
+    private String getString(int unknownError) {
+        return "";
     }
 }
