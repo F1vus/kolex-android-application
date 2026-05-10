@@ -11,9 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.math.BigDecimal;
+import java.util.Locale;
+
 import edu.at.kolex.activities.MainActivity;
 import edu.at.kolex.databinding.FragmentPaymentBinding;
 import edu.at.kolex.model.BuyRandomTicketRequest;
+import edu.at.kolex.repository.UserRepository;
 import edu.at.kolex.viewmodel.PaymentViewModel;
 
 
@@ -79,8 +83,8 @@ public class PaymentFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
 
+        loadBalance();
         Bundle args = requireArguments();
-        binding.tvBalance.setText(args.getString(ARG_BALANCE, "0,00 zł"));
 
         if (randomMode) {
 
@@ -122,6 +126,24 @@ public class PaymentFragment extends Fragment {
         viewModel.getSuccess().observe(getViewLifecycleOwner(), success -> {
             if (Boolean.TRUE.equals(success)) {
                 showSuccessState();
+            }
+        });
+    }
+
+    private void loadBalance() {
+        UserRepository.getInstance().getBalance(new UserRepository.BalanceCallback() {
+            @Override
+            public void onSuccess(BigDecimal balance) {
+                if (!isAdded()) return;
+                binding.tvBalance.setText(String.format(
+                        new Locale("pl", "PL"), "%.2f zł", balance));
+            }
+
+            @Override
+            public void onError(String message) {
+                if (!isAdded()) return;
+                Bundle args = requireArguments();
+                binding.tvBalance.setText(args.getString(ARG_BALANCE, "0,00 zł"));
             }
         });
     }

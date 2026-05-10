@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.at.kolex.api.ApiClient;
 import edu.at.kolex.api.UserApiService;
 import edu.at.kolex.model.Profile;
+import edu.at.kolex.model.UserBalanceResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +34,11 @@ public class UserRepository {
             instance = new UserRepository();
         }
         return instance;
+    }
+
+    public interface BalanceCallback {
+        void onSuccess(BigDecimal balance);
+        void onError(String message);
     }
 
     public LiveData<List<Profile>> getProfilesCache() {
@@ -85,6 +92,25 @@ public class UserRepository {
 
             @Override
             public void onFailure(@NonNull Call<Profile> call, @NonNull Throwable t) {
+                callback.onError("Brak połączenia z serwerem");
+            }
+        });
+    }
+
+    public void getBalance(BalanceCallback callback) {
+        apiService.getBalance().enqueue(new Callback<UserBalanceResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<UserBalanceResponse> call,
+                                   @NonNull Response<UserBalanceResponse> response) {
+                if (response.isSuccessful() && response.body() != null)
+                    callback.onSuccess(response.body().getBalance());
+                else
+                    callback.onError("Błąd: " + response.code());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<UserBalanceResponse> call,
+                                  @NonNull Throwable t) {
                 callback.onError("Brak połączenia z serwerem");
             }
         });
