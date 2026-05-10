@@ -84,7 +84,11 @@ public class TravelSearchFragment extends Fragment {
                 Intent intent = new Intent(requireContext(), SearchTravelActivity.class);
                 intent.putExtra("departure_id", selectedDepartureStation.getId());
                 intent.putExtra("arrival_id", selectedArrivalStation.getId());
+
                 intent.putExtra("date_and_time", dateAndTimeSearchTrain);
+
+                intent.putExtra("departure_name", selectedDepartureStation.toString());
+                intent.putExtra("arrival_name",   selectedArrivalStation.toString());
 
                 startActivity(intent);
             }

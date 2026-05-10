@@ -81,6 +81,14 @@ public class TravelsFragment extends Fragment {
             }
 
             Toast.makeText(getContext(), "Selected: " + travel.getTrainName(), Toast.LENGTH_SHORT).show();
+            ConnectionDetailsFragment detailsFragment =
+                    ConnectionDetailsFragment.newInstance(travel);
+
+            requireActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.nav_host_fragment, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
         rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRoutes.setAdapter(adapter);

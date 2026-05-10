@@ -72,31 +72,35 @@
             <LinearLayout
                 android:id="@+id/btnChangePersonalData"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:minHeight="72dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingHorizontal="12dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="16dp"
                 android:clickable="true"
-                android:background="@drawable/profile_blocks_information_bg"
-                android:focusable="true">
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:background="@drawable/profile_blocks_information_bg">
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/outline_confirmation_number_24"
+                    android:src="@drawable/file_dock"
                     app:tint="#000000" />
 
                 <TextView
                     android:id="@+id/tvChangePersonalData"
-                    android:clickable="true"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Zmień dane osobowe"
+                    android:text="Profile"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:clickable="false"
+                    android:focusable="false" />
 
                 <ImageView
                     android:layout_width="24dp"

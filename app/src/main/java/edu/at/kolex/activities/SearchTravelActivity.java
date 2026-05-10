@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.Objects;
 
 import edu.at.kolex.R;
 import edu.at.kolex.fragment.TravelsFragment;
@@ -53,6 +54,7 @@ public class SearchTravelActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         setupBackPressHandler();
@@ -250,28 +252,43 @@ public class SearchTravelActivity extends AppCompatActivity {
         }
 
         transaction.commit();
+        String departureName = Objects.requireNonNull(getIntent().getStringExtra("departure_name")).split("-")[1].trim();
+        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra("arrival_name")).split("-")[1].trim();
+        TravelsFragment fragment = getRoutesFragment();
+
+        TextView tvDep = toolbar.findViewById(R.id.tvToolbarDeparture);
+        TextView tvArr = toolbar.findViewById(R.id.tvToolbarArrival);
+        tvDep.setText(departureName);
+        tvArr.setText(arrivalName);
+
+        setCurrentFragment(getRoutesFragment());
     }
 
     @NonNull
     private TravelsFragment getRoutesFragment() {
 
         Intent intent = getIntent();
-
-        long departure = intent.getLongExtra("departure_id", 0L);
-        long arrival = intent.getLongExtra("arrival_id", 0L);
-
-        LocalDateTime dateTime =
-                (LocalDateTime) intent.getSerializableExtra("date_and_time");
-
         Bundle bundle = new Bundle();
-
-        bundle.putLong("departure_id", departure);
-        bundle.putLong("arrival_id", arrival);
-        bundle.putSerializable("date_and_time", dateTime);
+        bundle.putLong("departure_id", intent.getLongExtra("departure_id", 0L));
+        bundle.putLong("arrival_id",   intent.getLongExtra("arrival_id",   0L));
+        bundle.putSerializable("date_and_time",
+                (LocalDateTime) intent.getSerializableExtra("date_and_time"));
 
         TravelsFragment fragment = new TravelsFragment();
 
         fragment.setArguments(bundle);
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                getSupportFragmentManager().popBackStack();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
         return fragment;
     }

@@ -6,15 +6,26 @@ import android.content.SharedPreferences;
 public class TokenManager {
     private static final String PREF_NAME = "auth_prefs";
     private static final String KEY_TOKEN = "token";
+    private static final String KEY_EMAIL  = "email";
 
     public static void saveToken(Context context, String token) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(KEY_TOKEN, token).apply();
     }
 
+    public static void saveEmail(Context context, String email) {
+        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+                .edit().putString(KEY_EMAIL, email).apply();
+    }
+
     public static String getToken(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return prefs.getString(KEY_TOKEN, null);
+    }
+
+    public static String getEmail(Context context) {
+        return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+                .getString(KEY_EMAIL, null);
     }
 
     public static void clearToken(Context context) {
