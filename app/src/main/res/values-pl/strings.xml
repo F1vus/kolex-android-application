@@ -14,4 +14,19 @@
     <string name="enter_password">Hasło</string>
     <string name="enter_password_confirm">Potwierdź hasło</string>
     <string name="enter_email">Email</string>
+    <string name="hello_blank_fragment">Witaj pusty fragment</string>
+    <string name="your_profile">Twoje profile</string>
+    <string name="screen_exit">opuszczenie_ekranu</string>
+    <string name="do_you_wanna_null_rezervation_and_exit">Czy chcesz anulować rezerwacje i wyjść?</string>
+    <string name="cancel_reservations">Anuluj rezerwacje</string>
+    <string name="cont">kontynuuj</string>
+    <string name="departure_id">odjazd_id</string>
+    <string name="arrival_id">przyjazd_id</string>
+    <string name="departure_name">nazwa_odjazdu</string>
+    <string name="arrival_name">nazwa_przyjazdu</string>
+    <string name="date_and_time">data_i_czas</string>
+    <string name="date_and_times">data_i_czas</string>
+    <string name="departure_id_">odjazd_id</string>
+    <string name="arrival_id_">przyjazd_id</string>
+    <string name="Stop">"Stop "</string>
 </resources>

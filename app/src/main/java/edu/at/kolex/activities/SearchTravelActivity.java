@@ -150,14 +150,14 @@ public class SearchTravelActivity extends AppCompatActivity {
     private void showExitDialog() {
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Opuszczenie ekranu")
-                .setMessage("Czy chcesz anulować rezerwację i wyjść?")
+                .setTitle(R.string.screen_exit)
+                .setMessage(R.string.do_you_wanna_null_rezervation_and_exit)
                 .setNegativeButton(
-                        "Kontynuuj",
+                        R.string.cont,
                         (dialog, which) -> dialog.dismiss()
                 )
                 .setPositiveButton(
-                        "Anuluj rezerwację",
+                        R.string.cancel_reservations,
                         (dialog, which) -> cancelReservationAndGoHome()
                 )
                 .show();
@@ -250,15 +250,15 @@ public class SearchTravelActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = new Bundle();
 
-        long departureId = getIntent().getLongExtra("departure_id", 0L);
-        long arrivalId   = getIntent().getLongExtra("arrival_id", 0L);
+        long departureId = getIntent().getLongExtra(getString(R.string.departure_id), 0L);
+        long arrivalId   = getIntent().getLongExtra(getString(R.string.arrival_id), 0L);
 
-        String departureName = Objects.requireNonNull(getIntent().getStringExtra("departure_name")).split("-")[1].trim();
-        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra("arrival_name")).split("-")[1].trim();
+        String departureName = Objects.requireNonNull(getIntent().getStringExtra(getString(R.string.departure_name))).split("-")[1].trim();
+        String arrivalName   = Objects.requireNonNull(getIntent().getStringExtra(getString(R.string.arrival_name))).split("-")[1].trim();
 
-        bundle.putSerializable("date_and_time", intent.getSerializableExtra("date_and_time"));
-        bundle.putLong("departure_id", departureId);
-        bundle.putLong("arrival_id", arrivalId);
+        bundle.putSerializable(getString(R.string.date_and_times), intent.getSerializableExtra(getString(R.string.date_and_time)));
+        bundle.putLong(getString(R.string.departure_id_), departureId);
+        bundle.putLong(getString(R.string.arrival_id_), arrivalId);
 
         TravelsFragment fragment = new TravelsFragment();
 

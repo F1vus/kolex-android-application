@@ -57,7 +57,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         }
         
         // Station information
-        holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : "Stop " + ticket.getStartStopNumber());
+        holder.tvStartStation.setText(ticket.getStartStation() != null ? ticket.getStartStation() : .getString(R.string.stop) + ticket.getStartStopNumber());
         holder.tvEndStation.setText(ticket.getEndStation() != null ? ticket.getEndStation() : "Stop " + ticket.getEndStopNumber());
         
     // Price
