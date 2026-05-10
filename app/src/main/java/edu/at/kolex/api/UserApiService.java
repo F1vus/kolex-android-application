@@ -1,8 +1,8 @@
 package edu.at.kolex.api;
 
 import java.util.List;
+
 import edu.at.kolex.model.Profile;
-import edu.at.kolex.model.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -23,7 +23,4 @@ public interface UserApiService {
 
     @DELETE("api/profiles/{id}")
     Call<Void> deleteProfile(@Path("id") Long id);
-
-    @GET("api/users")
-    Call<User> getUser();
 }

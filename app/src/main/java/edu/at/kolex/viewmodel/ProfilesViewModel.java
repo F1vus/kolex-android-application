@@ -14,7 +14,7 @@ public class ProfilesViewModel extends ViewModel {
 
     private final UserRepository repository = UserRepository.getInstance();
 
-    private final MutableLiveData<List<Profile>> profiles = new MutableLiveData<>();
+    private final LiveData<List<Profile>> profiles = repository.getProfilesCache();
     private final MutableLiveData<Boolean> loading = new MutableLiveData<>(false);
     private final MutableLiveData<String> error = new MutableLiveData<>();
     private final MutableLiveData<String> successMessage = new MutableLiveData<>();
@@ -38,11 +38,10 @@ public class ProfilesViewModel extends ViewModel {
     public void loadProfiles() {
         loading.setValue(true);
 
-        repository.getUserProfiles(new UserRepository.ProfileListCallback() {
+        repository.loadProfilesIfNeeded(new UserRepository.ProfileListCallback() {
             @Override
             public void onSuccess(List<Profile> data) {
                 loading.setValue(false);
-                profiles.setValue(data);
             }
 
             @Override
@@ -61,7 +60,6 @@ public class ProfilesViewModel extends ViewModel {
             public void onSuccess() {
                 loading.setValue(false);
                 successMessage.setValue("Profil usunięty");
-                loadProfiles();
             }
 
             @Override
@@ -72,12 +70,12 @@ public class ProfilesViewModel extends ViewModel {
         });
     }
 
-
     public void saveProfile(@Nullable Profile existingProfile, String firstName, String lastName) {
         loading.setValue(true);
 
         if (existingProfile == null) {
             Profile newProfile = new Profile(null, firstName, lastName);
+
             repository.createProfile(newProfile, new UserRepository.ProfileCallback() {
                 @Override
                 public void onSuccess(Profile profile) {

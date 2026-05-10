@@ -75,17 +75,17 @@ public class TravelsFragment extends Fragment {
     private void setupRecyclerView() {
         adapter = new TravelAdapter(travel -> {
             Toast.makeText(getContext(), "Selected: " + travel.getTrainName(), Toast.LENGTH_SHORT).show();
-//            ConnectionDetailsFragment detailsFragment =
-//                    ConnectionDetailsFragment.newInstance(travel);
-//
-//            if (requireActivity() instanceof SearchTravelActivity) {
-//                ((SearchTravelActivity) requireActivity()).setCurrentFragment(detailsFragment, true);
-//            }
-            SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
+            ConnectionDetailsFragment detailsFragment =
+                    ConnectionDetailsFragment.newInstance(travel);
 
             if (requireActivity() instanceof SearchTravelActivity) {
-                ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+                ((SearchTravelActivity) requireActivity()).setCurrentFragment(detailsFragment, true);
             }
+//            SeatMapFragment nextFrag= SeatMapFragment.newInstance(travel, 1L);
+//
+//            if (requireActivity() instanceof SearchTravelActivity) {
+//                ((SearchTravelActivity) requireActivity()).setCurrentFragment(nextFrag, true);
+//            }
         });
         rvRoutes.setLayoutManager(new LinearLayoutManager(getContext()));
         rvRoutes.setAdapter(adapter);
