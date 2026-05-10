@@ -60,6 +60,7 @@
             <!-- PROFILE WRAPPER -->
 
             <LinearLayout
+                android:id="@+id/profileSelectionWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -84,6 +85,27 @@
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false" />
 
+            </LinearLayout>
+
+            <!-- REFUND WRAPPER -->
+            <LinearLayout
+                android:id="@+id/refundWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/btnRefund"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:backgroundTint="#FF5252"
+                    android:text="ZWRÓĆ BILET"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    app:cornerRadius="12dp" />
             </LinearLayout>
 
             <LinearLayout

@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.at.kolex.data.TicketMockData;
 import edu.at.kolex.model.Ticket;
 import edu.at.kolex.repository.TicketRepository;
 
@@ -50,7 +49,7 @@ public class TicketsViewModel extends ViewModel {
      */
     public void loadUserTickets() {
         if (USE_MOCK_DATA) {
-            loadMockUserTickets();
+           // loadMockUserTickets();
         } else {
             loadUserTicketsFromAPI();
         }
@@ -82,22 +81,22 @@ public class TicketsViewModel extends ViewModel {
     /**
      * Load mock user tickets (development/testing)
      */
-    private void loadMockUserTickets() {
-        isLoadingLiveData.setValue(true);
-        // Simulate network delay
-        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
-            try {
-                List<Ticket> mockTickets = TicketMockData.getMockTickets();
-                Log.d("TicketsViewModel", "Mock tickets loaded: " + mockTickets.size());
-                ticketsLiveData.setValue(mockTickets);
-                errorLiveData.setValue(null);
-            } catch (Exception e) {
-                ticketsLiveData.setValue(new ArrayList<>());
-                errorLiveData.setValue("Error loading mock data: " + e.getMessage());
-            }
-            isLoadingLiveData.setValue(false);
-        }, 1000); // Simulate 1 second network delay
-    }
+//    private void loadMockUserTickets() {
+//        isLoadingLiveData.setValue(true);
+//        // Simulate network delay
+//        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+//            try {
+//                List<Ticket> mockTickets = TicketMockData.getMockTickets();
+//                Log.d("TicketsViewModel", "Mock tickets loaded: " + mockTickets.size());
+//                ticketsLiveData.setValue(mockTickets);
+//                errorLiveData.setValue(null);
+//            } catch (Exception e) {
+//                ticketsLiveData.setValue(new ArrayList<>());
+//                errorLiveData.setValue("Error loading mock data: " + e.getMessage());
+//            }
+//            isLoadingLiveData.setValue(false);
+//        }, 1000); // Simulate 1 second network delay
+//    }
     /**
      * Clear error message
      */
