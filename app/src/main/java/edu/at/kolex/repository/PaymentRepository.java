@@ -11,6 +11,7 @@ import edu.at.kolex.api.PaymentApiService;
 import edu.at.kolex.model.BuyRandomTicketRequest;
 import edu.at.kolex.model.BuyTicketRequest;
 import edu.at.kolex.model.BuyTicketResponse;
+import edu.at.kolex.model.RefundResponseDto;
 import edu.at.kolex.model.TopUpRequest;
 import edu.at.kolex.model.TopUpResponse;
 import retrofit2.Call;
@@ -37,6 +38,11 @@ public class PaymentRepository {
 
     public interface PaymentCallback {
         void onSuccess();
+        void onError(String message);
+    }
+
+    public interface RefundCallback {
+        void onSuccess(RefundResponseDto response);
         void onError(String message);
     }
 
@@ -99,6 +105,24 @@ public class PaymentRepository {
             public void onFailure(@NonNull Call<TopUpResponse> call,
                                   @NonNull Throwable t) {
                 callback.onError("Brak połączenia z serwerem");
+            }
+        });
+    }
+
+    public void refundTicket(Long ticketId, RefundCallback callback) {
+        apiService.refundTicket(ticketId).enqueue(new Callback<RefundResponseDto>() {
+            @Override
+            public void onResponse(@NonNull Call<RefundResponseDto> call, @NonNull Response<RefundResponseDto> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    callback.onSuccess(response.body());
+                } else {
+                    callback.onError("Błąd zwrotu: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<RefundResponseDto> call, @NonNull Throwable t) {
+                callback.onError("Brak połączenia z serwerem: " + t.getMessage());
             }
         });
     }

@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -113,7 +111,6 @@ public class UserFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadUserData();
     }
 
     @Override
