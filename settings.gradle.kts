@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KOLEX"
+rootProject.name = "kolex-android-application"
 include(":app")
  
