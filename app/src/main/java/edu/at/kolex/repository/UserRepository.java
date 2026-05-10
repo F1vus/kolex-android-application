@@ -130,6 +130,7 @@ public class UserRepository {
             }
 
             private String getString(int error) {
+                return "";
             }
 
             @Override
