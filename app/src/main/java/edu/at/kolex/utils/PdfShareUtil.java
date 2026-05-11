@@ -1,7 +1,5 @@
 package edu.at.kolex.utils;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,10 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.ParcelFileDescriptor;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -24,7 +18,6 @@ import com.google.zxing.common.BitMatrix;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -34,111 +27,96 @@ import java.util.concurrent.Executors;
 import edu.at.kolex.adapter.StopSegmentAdapter;
 import edu.at.kolex.model.Ticket;
 
-public final class PdfUtil {
+import android.content.Intent;
 
-    private PdfUtil() {
-    }
+import androidx.core.content.FileProvider;
 
-    public interface PdfCreateCallback {
+import java.io.File;
+import java.util.concurrent.ExecutorService;
+
+public final class PdfShareUtil {
+
+    private PdfShareUtil() {}
+
+    public interface PdfShareCallback {
         void onSuccess(@NonNull Uri uri);
         void onError(@NonNull String message);
     }
 
-    public static void createAndSaveTicketPdf(
+    private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
+
+    public static void createTicketPdfForShare(
             @NonNull Context context,
             @NonNull Ticket ticket,
             @Nullable List<StopSegmentAdapter.Segment> segments,
-            @NonNull PdfCreateCallback callback
+            @NonNull PdfShareCallback callback
     ) {
-        Executors.newSingleThreadExecutor().execute(() -> {
+        Context appContext = context.getApplicationContext();
+
+        EXECUTOR.execute(() -> {
             try {
-                Uri uri = savePdfToDownloads(context, ticket, segments);
-                new Handler(Looper.getMainLooper()).post(() -> callback.onSuccess(uri));
-            } catch (Exception e) {
-                new Handler(Looper.getMainLooper()).post(
-                        () -> {
-                            callback.onError("Nie udało się utworzyć PDF");
-                            Log.e("PdfUtil", "The PDF could not be created", e);
-                        }
+                File pdfFile = new File(appContext.getCacheDir(), "ticket_" + ticket.getId() + ".pdf");
+
+                try (FileOutputStream out = new FileOutputStream(pdfFile)) {
+                    writePdf(appContext, ticket, segments, out);
+                }
+
+                Uri uri = FileProvider.getUriForFile(
+                        appContext,
+                        appContext.getPackageName() + ".fileprovider",
+                        pdfFile
                 );
+
+                callback.onSuccess(uri);
+
+            } catch (Exception e) {
+                callback.onError("Nie udało się utworzyć PDF");
+                Log.e("PdfShareUtil", "Could not create pdf file", e);
             }
         });
     }
 
-    private static Uri savePdfToDownloads(
-            Context context,
-            Ticket ticket,
-            @Nullable List<StopSegmentAdapter.Segment> segments
-    ) throws IOException {
-
-        String fileName = "ticket_" + ticket.getId() + ".pdf";
-
-        ContentValues values = new ContentValues();
-        values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-        values.put(MediaStore.Downloads.MIME_TYPE, "application/pdf");
-        values.put(MediaStore.Downloads.IS_PENDING, 1);
-
-
-        Uri collection = MediaStore.Files.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
-        ContentResolver resolver = context.getContentResolver();
-        Uri itemUri = resolver.insert(collection, values);
-
-        if (itemUri == null) {
-            throw new IOException("Nie można utworzyć pliku w Downloads");
-        }
-
-        try (ParcelFileDescriptor pfd = resolver.openFileDescriptor(itemUri, "w")) {
-            if (pfd == null) {
-                throw new IOException("Nie można otworzyć pliku do zapisu");
-            }
-
-            FileOutputStream out = new FileOutputStream(pfd.getFileDescriptor());
-            writePdf(context, ticket, segments, out);
-            out.flush();
-        }
-
-        values.clear();
-        values.put(MediaStore.Downloads.IS_PENDING, 0);
-        resolver.update(itemUri, values, null, null);
-
-        return itemUri;
+    public static Intent buildShareIntent(@NonNull Context context, @NonNull Uri pdfUri) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("application/pdf");
+        intent.putExtra(Intent.EXTRA_STREAM, pdfUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        return Intent.createChooser(intent, "Udostępnij bilet");
     }
 
     private static void writePdf(
             Context context,
             Ticket ticket,
             @Nullable List<StopSegmentAdapter.Segment> segments,
-            OutputStream outputStream
+            FileOutputStream outputStream
     ) throws IOException {
 
         PdfDocument document = new PdfDocument();
-        Paint paint = new Paint();
-        Paint titlePaint = new Paint();
-        Paint linePaint = new Paint();
-        Paint qrPaint = new Paint();
 
+        Paint titlePaint = new Paint();
         titlePaint.setTextSize(22f);
         titlePaint.setFakeBoldText(true);
         titlePaint.setColor(Color.BLACK);
         titlePaint.setAntiAlias(true);
 
+        Paint paint = new Paint();
         paint.setTextSize(14f);
         paint.setColor(Color.BLACK);
         paint.setAntiAlias(true);
 
+        Paint linePaint = new Paint();
         linePaint.setColor(Color.LTGRAY);
         linePaint.setStrokeWidth(2f);
 
-        qrPaint.setColor(Color.BLACK);
-        qrPaint.setAntiAlias(true);
-
-        int pageWidth = 595;   // A4 in px-ish for PDF canvas
+        int pageWidth = 595;
         int pageHeight = 842;
         int x = 40;
         int y = 50;
         int lineHeight = 22;
 
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+        PdfDocument.PageInfo pageInfo =
+                new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
+
         PdfDocument.Page page = document.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
 
@@ -164,16 +142,24 @@ public final class PdfUtil {
         drawLine(canvas, paint, x, y, "Dokąd:", safe(ticket.getToStationName()));
         y += lineHeight;
 
-        drawLine(canvas, paint, x, y, "Miejsce:", ticket.getSeatNumber() != null ? String.valueOf(ticket.getSeatNumber()) : "-");
+        drawLine(canvas, paint, x, y, "Miejsce:",
+                ticket.getSeatNumber() != null ? String.valueOf(ticket.getSeatNumber()) : "-");
         y += lineHeight;
 
-        drawLine(canvas, paint, x, y, "Cena:", ticket.getPrice() != null ? String.format(pl, "%.2f zł", ticket.getPrice()) : "-");
+        drawLine(canvas, paint, x, y, "Cena:",
+                ticket.getPrice() != null ? String.format(pl, "%.2f zł", ticket.getPrice()) : "-");
         y += lineHeight;
 
-        drawLine(canvas, paint, x, y, "Wyjazd:", ticket.getActualDeparture() != null ? ticket.getActualDeparture().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) : "-");
+        drawLine(canvas, paint, x, y, "Wyjazd:",
+                ticket.getActualDeparture() != null
+                        ? ticket.getActualDeparture().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+                        : "-");
         y += lineHeight;
 
-        drawLine(canvas, paint, x, y, "Przyjazd:", ticket.getActualArrival() != null ? ticket.getActualArrival().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")) : "-");
+        drawLine(canvas, paint, x, y, "Przyjazd:",
+                ticket.getActualArrival() != null
+                        ? ticket.getActualArrival().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))
+                        : "-");
         y += lineHeight;
 
         if (ticket.getActualDeparture() != null && ticket.getActualArrival() != null) {
@@ -209,12 +195,10 @@ public final class PdfUtil {
             int qrLeft = pageWidth - x - 220;
             int qrTop = pageHeight - 280;
             canvas.drawBitmap(qrBitmap, qrLeft, qrTop, null);
-
             canvas.drawText("QR ticket ID", qrLeft, qrTop - 12, paint);
         }
 
         document.finishPage(page);
-
         document.writeTo(outputStream);
         document.close();
     }

@@ -33,7 +33,7 @@ import edu.at.kolex.model.Ticket;
 import edu.at.kolex.model.TravelStop;
 import edu.at.kolex.repository.PaymentRepository;
 import edu.at.kolex.repository.TravelRepository;
-import edu.at.kolex.utils.PdfUtil;
+import edu.at.kolex.utils.PdfShareUtil;
 
 
 public class TicketDetailsFragment extends Fragment {
@@ -128,21 +128,25 @@ public class TicketDetailsFragment extends Fragment {
         btnDownloadPdf.setOnClickListener(v -> {
             btnDownloadPdf.setEnabled(false);
 
-            PdfUtil.createAndSaveTicketPdf(
+            PdfShareUtil.createTicketPdfForShare(
                     requireContext(),
                     ticket,
                     adapter != null ? adapter.getSegments() : null,
-                    new PdfUtil.PdfCreateCallback() {
+                    new PdfShareUtil.PdfShareCallback() {
                         @Override
                         public void onSuccess(@NonNull Uri uri) {
-                            btnDownloadPdf.setEnabled(true);
-                            Toast.makeText(requireContext(), "PDF zapisany", Toast.LENGTH_SHORT).show();
+                            requireActivity().runOnUiThread(() -> {
+                                btnDownloadPdf.setEnabled(true);
+                                startActivity(PdfShareUtil.buildShareIntent(requireContext(), uri));
+                            });
                         }
 
                         @Override
                         public void onError(@NonNull String message) {
-                            btnDownloadPdf.setEnabled(true);
-                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+                            requireActivity().runOnUiThread(() -> {
+                                btnDownloadPdf.setEnabled(true);
+                                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
+                            });
                         }
                     }
             );
