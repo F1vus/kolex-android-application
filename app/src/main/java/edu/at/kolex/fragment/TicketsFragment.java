@@ -83,7 +83,7 @@ public class TicketsFragment extends Fragment implements TicketAdapter.OnTicketC
 
     @Override
     public void onTicketClick(Ticket ticket) {
-        ConnectionDetailsFragment fragment = ConnectionDetailsFragment.newInstance(ticket);
+        TicketDetailsFragment fragment = TicketDetailsFragment.newInstance(ticket);
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.nav_host_fragment, fragment)

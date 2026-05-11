@@ -66,6 +66,10 @@ public class StopSegmentAdapter
         notifyDataSetChanged();
     }
 
+    public List<Segment> getSegments() {
+        return new ArrayList<>(segments);
+    }
+
     static class SegmentViewHolder extends RecyclerView.ViewHolder {
         TextView tvDepTime, tvArrTime, tvDepStation, tvArrStation, tvTrainName, tvDistance;
 
