@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,11 +29,9 @@ import edu.at.kolex.activities.SearchTravelActivity;
 import edu.at.kolex.adapter.ProfileSelectAdapter;
 import edu.at.kolex.adapter.StopSegmentAdapter;
 import edu.at.kolex.model.Profile;
-import edu.at.kolex.model.RefundResponseDto;
 import edu.at.kolex.model.Ticket;
 import edu.at.kolex.model.Travel;
 import edu.at.kolex.model.TravelStop;
-import edu.at.kolex.repository.PaymentRepository;
 import edu.at.kolex.repository.TravelRepository;
 import edu.at.kolex.viewmodel.ProfilesViewModel;
 
@@ -51,8 +48,8 @@ public class ConnectionDetailsFragment extends Fragment {
     private ProgressBar progressBar;
     private View errorLayout;
     private TextView tvErrorMsg, tvTotalPrice, tvTripDate;
-    private Button btnRetry, btnContinue, btnRefund;
-    private View profileWrapper, refundWrapper, bottomPanel;
+    private Button btnRetry, btnContinue;
+    private View profileWrapper, bottomPanel;
     private StopSegmentAdapter adapter;
 
     private RecyclerView rvProfiles;
@@ -106,10 +103,8 @@ public class ConnectionDetailsFragment extends Fragment {
         tvTripDate = view.findViewById(R.id.tvTripDate);
         btnRetry = view.findViewById(R.id.btnRetryDetails);
         btnContinue = view.findViewById(R.id.btnContinue);
-        btnRefund = view.findViewById(R.id.btnRefund);
         rvProfiles = view.findViewById(R.id.rvProfiles);
         profileWrapper = view.findViewById(R.id.profileSelectionWrapper);
-        refundWrapper = view.findViewById(R.id.refundWrapper);
         bottomPanel = view.findViewById(R.id.bottomPanel);
 
         rvSegments.setNestedScrollingEnabled(false);
@@ -118,8 +113,6 @@ public class ConnectionDetailsFragment extends Fragment {
         if (isViewMode) {
             profileWrapper.setVisibility(View.GONE);
             bottomPanel.setVisibility(View.GONE);
-            refundWrapper.setVisibility(View.VISIBLE);
-            btnRefund.setOnClickListener(v -> showRefundDialog());
             setupTicketUI();
         } else {
             setupBookingUI();
@@ -186,44 +179,6 @@ public class ConnectionDetailsFragment extends Fragment {
         }
     }
 
-    private void showRefundDialog() {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Zwrot biletu")
-                .setMessage("Czy na pewno chcesz zwrócić bilet? Otrzymasz zwrot w wysokości jedynie 15% ceny biletu.")
-                .setPositiveButton("Tak, zwróć", (dialog, which) -> performRefund())
-                .setNegativeButton("Anuluj", null)
-                .show();
-    }
-
-    private void performRefund() {
-        if (ticket == null || ticket.getId() == null) return;
-
-        progressBar.setVisibility(View.VISIBLE);
-        btnRefund.setEnabled(false);
-
-        PaymentRepository.getInstance().refundTicket(ticket.getId(), new PaymentRepository.RefundCallback() {
-            @Override
-            public void onSuccess(RefundResponseDto response) {
-                if (!isAdded()) return;
-                progressBar.setVisibility(View.GONE);
-                new AlertDialog.Builder(requireContext())
-                        .setTitle("Sukces")
-                        .setMessage(response.getMessage() + "\nZwrócona kwota: " + response.getRefundAmount() + " zł")
-                        .setPositiveButton("OK", (dialog, which) -> requireActivity().getSupportFragmentManager().popBackStack())
-                        .setCancelable(false)
-                        .show();
-            }
-
-            @Override
-            public void onError(String message) {
-                if (!isAdded()) return;
-                progressBar.setVisibility(View.GONE);
-                btnRefund.setEnabled(true);
-                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     private void loadStops() {
         Long travelId = null;
         Integer stopFrom = null;
@@ -242,7 +197,6 @@ public class ConnectionDetailsFragment extends Fragment {
         if (travelId == null) return;
         setUiState(true, false, false);
 
-        final Long finalTravelId = travelId;
         final Integer finalStopFrom = stopFrom;
         final Integer finalStopTo = stopTo;
 
