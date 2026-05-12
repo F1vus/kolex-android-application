@@ -67,7 +67,7 @@ The project follows **Clean Architecture** principles using the **MVVM (Model-Vi
 ### Prerequisites
 - Android Studio Jellyfish or newer.
 - Android SDK 26+ (Android 8.0).
-- Backend server running (default: `http://172.20.10.4:8080/`).
+- Backend server running (default: `http://10.0.2.2:8080/`).
 
 ### Setup
 1. **Initialize API**: 
@@ -78,16 +78,5 @@ The project follows **Clean Architecture** principles using the **MVVM (Model-Vi
    ```bash
    ./gradlew assembleDebug
    ```
-
----
-
-## 📖 Documentation Reference
-
-| Document | Description |
-|----------|-------------|
-| [Architecture Diagrams](ARCHITECTURE_DIAGRAMS.md) | Visual guides on data flow and state management. |
-| [Integration Guide](INTEGRATION_GUIDE.md) | Step-by-step instructions for backend developers. |
-| [Mock Data Guide](MOCK_DATA_GUIDE.md) | How to use and extend the offline testing system. |
-| [Tickets Implementation](TICKETS_IMPLEMENTATION_COMPLETE.md) | Deep dive into the ticket rendering system. |
 
 ---
