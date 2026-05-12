@@ -91,8 +91,3 @@ The project follows **Clean Architecture** principles using the **MVVM (Model-Vi
 | [Tickets Implementation](TICKETS_IMPLEMENTATION_COMPLETE.md) | Deep dive into the ticket rendering system. |
 
 ---
-
-## 🎓 Project Status
-Developed as part of the "Mobile Systems Project" at the University. 
-
-**Status**: ✅ Version 1.0 (Production Ready)
