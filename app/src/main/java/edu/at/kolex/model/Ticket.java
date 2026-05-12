@@ -13,15 +13,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ticket implements Serializable {
-    private  Long id;
-    private  String trainName;
-    private  String profileName;
-    private  String fromStationName;
-    private  String toStationName;
-    private  Integer seatNumber;
-    private  LocalDateTime actualDeparture;
-    private  LocalDateTime actualArrival;
-    private  BigDecimal price;
-    private  Integer travelStopNumberFrom;
-    private  Integer travelStopNumberTo;
+    private Long id;
+    private Long travelId;
+    private String trainName;
+    private String profileName;
+    private String fromStationName;
+    private String toStationName;
+    private Integer seatNumber;
+    private LocalDateTime actualDeparture;
+    private LocalDateTime actualArrival;
+    private BigDecimal price;
+    private Integer travelStopNumberFrom;
+    private Integer travelStopNumberTo;
 }

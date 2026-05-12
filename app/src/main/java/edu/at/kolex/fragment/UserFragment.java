@@ -10,8 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -47,14 +45,17 @@ public class UserFragment extends Fragment {
             startActivity(intent);
         });
 
-        binding.btnLogout.setOnClickListener(v ->{
-            TokenManager.clearToken(requireContext());
-            Intent intent = new Intent(requireContext(), AuthActivity.class);
-            startActivity(intent);
-            requireActivity().finish();
-        });
+        binding.btnLogout.setOnClickListener(v ->exitFromApplication());
+        binding.btnDeleteAccount.setOnClickListener(v -> deleteUser());
 
         binding.btnTopUp.setOnClickListener(v -> topUp());
+    }
+
+    private void exitFromApplication(){
+        TokenManager.clearToken(requireContext());
+        Intent intent = new Intent(requireContext(), AuthActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
     }
 
     private void topUp() {
@@ -110,10 +111,24 @@ public class UserFragment extends Fragment {
         });
     }
 
+    private void deleteUser(){
+        UserRepository.getInstance().deleteUser(new UserRepository.SimpleCallback() {
+            @Override
+            public void onSuccess() {
+               Toast.makeText(requireContext(), "Konto zostało usunięte!", Toast.LENGTH_LONG).show();
+                exitFromApplication();
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(requireContext(), "Wystąpił problem podczas usuwania twojego konta!", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        loadUserData();
     }
 
     @Override

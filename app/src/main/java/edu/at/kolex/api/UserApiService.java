@@ -27,4 +27,7 @@ public interface UserApiService {
 
     @GET("api/users/balance")
     Call<UserBalanceResponse> getBalance();
+
+    @POST("api/users/delete")
+    Call<Void> deleteUser();
 }

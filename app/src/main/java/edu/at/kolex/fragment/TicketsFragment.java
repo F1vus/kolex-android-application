@@ -10,11 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.at.kolex.R;
 import edu.at.kolex.adapter.TicketAdapter;
 import edu.at.kolex.databinding.FragmentTicketsBinding;
 import edu.at.kolex.model.Ticket;
@@ -57,9 +57,7 @@ public class TicketsFragment extends Fragment implements TicketAdapter.OnTicketC
             }
         });
 
-        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
-            binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        });
+        viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> binding.progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE));
 
         viewModel.getError().observe(getViewLifecycleOwner(), error -> {
             if (error != null && !error.isEmpty()) {
@@ -85,11 +83,17 @@ public class TicketsFragment extends Fragment implements TicketAdapter.OnTicketC
 
     @Override
     public void onTicketClick(Ticket ticket) {
-        // Action on ticket click
+        TicketDetailsFragment fragment = TicketDetailsFragment.newInstance(ticket);
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
-    public void refreshTickets() {
-        loadTickets();
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
