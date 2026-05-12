@@ -65,14 +65,6 @@ public class ConnectionDetailsFragment extends Fragment {
         return f;
     }
 
-    public static ConnectionDetailsFragment newInstance(Ticket ticket) {
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_TICKET, ticket);
-        ConnectionDetailsFragment f = new ConnectionDetailsFragment();
-        f.setArguments(args);
-        return f;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

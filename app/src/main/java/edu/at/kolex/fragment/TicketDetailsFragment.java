@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,6 +106,12 @@ public class TicketDetailsFragment extends Fragment {
         adapter = new StopSegmentAdapter();
         rvSegments.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvSegments.setAdapter(adapter);
+
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v ->
+                requireActivity().getSupportFragmentManager().popBackStack()
+        );
 
         setupTicketUI();
         setupRefundAction();
