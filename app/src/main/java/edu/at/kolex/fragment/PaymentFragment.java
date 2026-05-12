@@ -107,6 +107,7 @@ public class PaymentFragment extends Fragment {
 
         binding.btnPay.setOnClickListener(v -> viewModel.buyTicket(reservationId));
         binding.btnGoHome.setOnClickListener(v -> goHome());
+        binding.btnGoHomeWhenError.setOnClickListener(v -> goHome());
 
         observeViewModel();
     }
@@ -151,7 +152,7 @@ public class PaymentFragment extends Fragment {
     private void showErrorState(String errorMessage) {
         binding.cardPayment.setVisibility(View.GONE);
         binding.cardFailure.setVisibility(View.VISIBLE);
-        binding.btnGoHome.setVisibility(View.VISIBLE);
+        binding.btnGoHomeWhenError.setVisibility(View.VISIBLE);
         binding.errorMessage.setText(errorMessage);
     }
     private void showSuccessState() {

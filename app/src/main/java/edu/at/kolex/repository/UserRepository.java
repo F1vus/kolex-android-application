@@ -25,6 +25,10 @@ public class UserRepository {
     private final MutableLiveData<List<Profile>> profilesCache =
             new MutableLiveData<>(new ArrayList<>());
 
+    public LiveData<List<Profile>> getProfilesCache() {
+        return profilesCache;
+    }
+
     private UserRepository() {
         apiService = ApiClient.getClient().create(UserApiService.class);
     }
@@ -41,8 +45,19 @@ public class UserRepository {
         void onError(String message);
     }
 
-    public LiveData<List<Profile>> getProfilesCache() {
-        return profilesCache;
+    public interface ProfileListCallback {
+        void onSuccess(List<Profile> data);
+        void onError(String message);
+    }
+
+    public interface ProfileCallback {
+        void onSuccess(Profile profile);
+        void onError(String message);
+    }
+
+    public interface SimpleCallback {
+        void onSuccess();
+        void onError(String message);
     }
 
     public boolean hasCachedProfiles() {
@@ -167,23 +182,28 @@ public class UserRepository {
         });
     }
 
+    public void deleteUser(SimpleCallback callback) {
+        apiService.deleteUser().enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call,
+                                   @NonNull Response<Void> response) {
+                if (response.isSuccessful()) {
+                    profilesCache.postValue(new ArrayList<>());
+                    callback.onSuccess();
+                } else {
+                    callback.onError("Błąd usuwania twojego konta: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                callback.onError("Brak połączenia z serwerem");
+            }
+        });
+    }
+
     private List<Profile> getCurrentProfiles() {
         List<Profile> current = profilesCache.getValue();
         return current != null ? current : new ArrayList<>();
-    }
-
-    public interface ProfileListCallback {
-        void onSuccess(List<Profile> data);
-        void onError(String message);
-    }
-
-    public interface ProfileCallback {
-        void onSuccess(Profile profile);
-        void onError(String message);
-    }
-
-    public interface SimpleCallback {
-        void onSuccess();
-        void onError(String message);
     }
 }

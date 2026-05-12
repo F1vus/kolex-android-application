@@ -1,5 +1,6 @@
 package edu.at.kolex.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -144,7 +145,8 @@ public class TicketDetailsFragment extends Fragment {
                         public void onSuccess(@NonNull Uri uri) {
                             requireActivity().runOnUiThread(() -> {
                                 btnDownloadPdf.setEnabled(true);
-                                startActivity(PdfShareUtil.buildShareIntent(requireContext(), uri));
+                                Intent shareIntent = PdfShareUtil.buildShareIntent(requireContext(), uri);
+                                startActivity(Intent.createChooser(shareIntent, "Share PDF"));
                             });
                         }
 
